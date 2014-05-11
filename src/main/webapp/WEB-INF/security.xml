@@ -29,10 +29,13 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
     <!-- Authentication manager. -->
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
-            <user-service>
-                <user name="temporary" password="temporary" authorities="ROLE_ADMIN"/>
-                <user name="user" password="user" authorities="ROLE_USER"/>
-            </user-service>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="select username, password, 'true' as enabled
+                               from users where USERNAME = ?"
+                               authorities-by-username-query="select users.USERNAME , authorities.AUTHORITY as authorities
+                               from users,authorities
+                               where users.USERNAME = ? AND users.USERNAME=authorities.USERNAME "/>
+
         </authentication-provider>
     </authentication-manager>
     <global-method-security
