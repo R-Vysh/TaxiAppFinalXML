@@ -2,9 +2,13 @@ package ua.ros.taxiapp.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.repository.CustomerDAO;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
     
     @Autowired
@@ -37,7 +41,8 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer findCustomerById(Integer id) {
         return customerDAO.findByID(Customer.class, id);
     }
-    
+
+    @Secured(value = "ROLE_ADMIN")
     @Override
     public List<Customer> getAllCustomers() {
         return customerDAO.findAll(Customer.class);
