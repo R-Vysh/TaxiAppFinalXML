@@ -21,10 +21,12 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+    <import resource="security.xml"/>
     <context:annotation-config />
-    <mvc:annotation-driven/>
-
     <context:component-scan base-package="ua.ros.taxiapp.web" />
+    <mvc:annotation-driven/>
+    <tx:annotation-driven transaction-manager = "transactionManager"/>
+
     <bean id="jspViewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass"
@@ -57,7 +59,6 @@
         <property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
         </property>
-
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${jdbc.dialect}</prop>
@@ -72,7 +73,6 @@
     <bean id = "customerService" class = "ua.ros.taxiapp.services.CustomerServiceImpl"/>
     <bean id = "customerDAO" class = "ua.ros.taxiapp.repository.hibernate.CustomerHibernateDAO"/>
 
-
     <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
@@ -83,45 +83,9 @@
         </property>
     </bean>
 
-
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <tx:annotation-driven transaction-manager = "transactionManager"/>
-
-    <!-- Security configuration for REST services. -->
-    <sec:http pattern="/**"
-                   authentication-manager-ref="authenticationManager" entry-point-ref="restServicesEntryPoint"
-                   create-session="stateless">
-        <sec:custom-filter ref="restServicesFilter"
-                                before="PRE_AUTH_FILTER" />
-    </sec:http>
-    <!-- Entry point for REST service. -->
-    <bean id="restServicesEntryPoint"
-          class="ua.ros.taxiapp.web.secutiry.RestAuthenticationEntryPoint" />
-    <!-- Filter for REST services. -->
-    <bean id="restServicesFilter"
-          class="ua.ros.taxiapp.web.secutiry.RestUsernamePasswordAuthenticationFilter">
-        <property name="postOnly" value="false" />
-        <property name="authenticationManager" ref="authenticationManager" />
-        <property name="authenticationSuccessHandler" ref="restServicesSuccessHandler" />
-    </bean>
-    <!-- A handler for successful REST service authentication. -->
-    <bean id="restServicesSuccessHandler"
-          class="ua.ros.taxiapp.web.secutiry.RestAuthenticationSuccessHandler" />
-    <!-- Authentication manager. -->
-    <sec:authentication-manager alias="authenticationManager">
-        <sec:authentication-provider>
-            <sec:user-service>
-                <sec:user name="admin" password="pass" authorities="ROLE_ADMIN" />
-                <sec:user name="normal_user" password="password" authorities="ROLE_USER" />
-            </sec:user-service>
-        </sec:authentication-provider>
-    </sec:authentication-manager>
-    <sec:global-method-security
-            secured-annotations="enabled" jsr250-annotations="enabled"
-            pre-post-annotations="enabled">
-    </sec:global-method-security>
 </beans>

@@ -1,4 +1,4 @@
-package ua.ros.taxiapp.web.secutiry;
+package ua.ros.taxiapp.web.security;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
