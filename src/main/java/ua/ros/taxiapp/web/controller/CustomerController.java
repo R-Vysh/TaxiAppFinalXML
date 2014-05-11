@@ -1,0 +1,52 @@
+package ua.ros.taxiapp.web.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import ua.ros.taxiapp.domain.Customer;
+import ua.ros.taxiapp.domain.User;
+import ua.ros.taxiapp.services.CustomerService;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/customers")
+public class CustomerController {
+     // private static final Logger LOG = LoggerFactory.getLogger(SiteController.class);
+
+    @Autowired
+    CustomerService customerService;
+
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+        
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ResponseBody
+    public String printHello() {
+        return "Welcome.";
+    }
+    
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Customer> getAllCustomers() {
+        return customerService.getAllCustomers();
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public boolean saveCustomer(@RequestParam("mobile") String mobile, @RequestParam("password") String password) {
+        User user = new User();
+        user.setMobile(mobile);
+        user.setPassword(password);
+        Customer customer = new Customer();
+        customer.setUser(user);
+        return customerService.createCustomer(customer);
+    }
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Customer findCustomer(@PathVariable("id") Integer id) {
+        return customerService.findCustomerById(id);
+    }
+
+}

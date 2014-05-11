@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ua.ros.taxiapp.domain.Customer" table="customers">
+        <id name="customerId" type="int" column = "ID_CUSTOMER">
+            <generator class="native">
+            </generator>
+        </id>
+        <property name = "blames" column = "BLAMES" type = "int"/>
+        <many-to-one name="currentOrder" class="ua.ros.taxiapp.domain.Order" unique = "true">
+            <column name = "ID_ORDER" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="user" lazy="false" fetch="select" cascade="all" class="ua.ros.taxiapp.domain.User" unique = "true">
+            <column name = "ID_USER"/>
+        </many-to-one>
+        <bag name="favourites" table="fav_cust" 
+        	inverse="false" lazy="false" fetch="select" cascade="all" >
+            <key>
+                <column name="ID_CUSTOMER" not-null="true" />
+            </key>
+            <many-to-many entity-name="ua.ros.taxiapp.domain.Favourite">
+                <column name="ID_FAVOURITE" not-null="true" />
+            </many-to-many>
+            
+        </bag>
+    </class> 
+</hibernate-mapping>

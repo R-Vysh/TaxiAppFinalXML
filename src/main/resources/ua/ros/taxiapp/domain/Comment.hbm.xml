@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ua.ros.taxiapp.domain.Comment" table="comments">
+        <id name = "commentId" type="int" column = "ID_COMMENT">
+            <generator class = "native"/>
+        </id>
+        <many-to-one name="taxist" class="ua.ros.taxiapp.domain.Taxist">
+            <column name = "ID_TAXIST" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="customer" class="ua.ros.taxiapp.domain.Customer">
+            <column name = "ID_CUSTOMER" not-null="true"/>
+        </many-to-one>
+        <property name = "rating" column = "RATING" type = "integer"/>
+        <property name = "text" column = "COMMENT" type = "string"/>
+    </class> 
+</hibernate-mapping>

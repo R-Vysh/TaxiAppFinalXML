@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ua.ros.taxiapp.domain.User" table="users">
+        <id name = "userId" type="int" column = "ID_USER">
+            <generator class = "native"/>
+        </id>
+        <property name = "password" column = "PASSWORD" type = "string"/>
+        <property name = "mobile" column = "MOBILE" type = "string"/>
+        <property name = "taxist" column = "TAXIST" type = "boolean"/>
+        <property name = "createdTime" column = "CREATED" type = "timestamp"/>
+        
+    </class> 
+</hibernate-mapping>

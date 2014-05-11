@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ua.ros.taxiapp.domain.Order" table="orders">
+        <id name = "orderId" type="int" column = "ID_ORDER">
+            <generator class = "native"/>
+        </id>
+        <many-to-one name="taxist" class="ua.ros.taxiapp.domain.Taxist" unique = "true"> 
+            <column name = "ID_TAXIST" not-null="false"/>
+        </many-to-one>
+        <many-to-one name="customer" class="ua.ros.taxiapp.domain.Customer" unique = "true">
+            <column name = "ID_CUSTOMER" not-null="true"/>
+        </many-to-one>
+        <property name = "fromPlace" column = "FROM_ADDRESS" type = "string"/>
+        <property name = "toPlace" column = "TO_ADDRESS" type = "string"/>
+        <property name = "date" column = "CREATED" type = "timestamp"/>
+        <property name = "price" column = "TOTAL_PRICE" type = "double"/>
+        <property name = "status" column = "STATUS" type = "string"/>
+    </class> 
+</hibernate-mapping>

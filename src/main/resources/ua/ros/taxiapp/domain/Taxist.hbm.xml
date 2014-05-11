@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ua.ros.taxiapp.domain.Taxist" table="taxists">
+        <id name="taxistId" type="int" column = "ID_TAXIST">
+            <generator class="native" />
+        </id>
+        <many-to-one name="car" class="ua.ros.taxiapp.domain.Car" unique = "true">
+            <column name = "ID_CAR" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="currentOrder" class="ua.ros.taxiapp.domain.Order" unique = "true">
+            <column name = "ID_ORDER" not-null="false"/>
+        </many-to-one>
+        
+        <property name = "rating" column = "RATING" type = "double"/>
+        <property name = "free" column = "FREE" type = "boolean"/>
+        <property name = "online" column = "ONLINE" type = "boolean"/>
+        <bag name="comments" table="comments"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TAXIST_ID" not-null="true" />
+            </key>
+            <one-to-many class="ua.ros.taxiapp.domain.Comment" />
+        </bag>
+        <many-to-one name="user" lazy="false" fetch="select" cascade="all" class="ua.ros.taxiapp.domain.User" unique = "true">
+            <column name = "ID_USER"/>
+        </many-to-one>
+    </class> 
+</hibernate-mapping>
