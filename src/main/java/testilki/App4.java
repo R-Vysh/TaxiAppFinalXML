@@ -1,12 +1,13 @@
 package testilki;
 
-import java.util.List;
 import org.hibernate.Session;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Favourite;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.hibernate.FavouriteHibernateDAO;
 import util.HibernateUtil;
+
+import java.util.List;
 
 public class App4 {
 

@@ -10,12 +10,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+@Entity
+@Table(name = "comments")
 public class Comment implements Serializable {
 
+    @Id
+    @Column(name = "ID_COMMENT")
+    @GeneratedValue
     Integer commentId;
+    @ManyToOne
+    @JoinColumn(name = "ID_TAXIST", nullable = false)
     Taxist taxist;
+    @ManyToOne
+    @PrimaryKeyJoinColumn
     Customer customer;
+    @Column(name = "RATING")
     Integer rating;
+    @Column(name = "COMMENT")
     String text;
     
     public Comment() {
@@ -67,5 +78,4 @@ public class Comment implements Serializable {
     public void setText(String newText) {
         this.text = newText;
     }
-
 }

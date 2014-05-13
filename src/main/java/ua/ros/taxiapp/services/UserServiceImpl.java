@@ -1,10 +1,11 @@
 package ua.ros.taxiapp.services;
 
-import java.io.Serializable;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.UserDAO;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class UserServiceImpl implements UserService {
     

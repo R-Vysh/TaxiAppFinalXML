@@ -1,8 +1,9 @@
 package ua.ros.taxiapp.services;
 
+import ua.ros.taxiapp.domain.Order;
+
 import java.io.Serializable;
 import java.util.List;
-import ua.ros.taxiapp.domain.Order;
 
 public interface OrderService {
 

@@ -3,8 +3,8 @@
     "-//Hibernate/Hibernate Mapping DTD//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
-<hibernate-mapping>
-    <class name="ua.ros.taxiapp.domain.Favourite" table="favourites">
+<hibernate-mapping package="ua.ros.taxiapp.domain">
+    <class name="Favourite" table="favourites">
         <id name = "favouriteId" type="int" column = "ID_FAVOURITE">
             <generator class = "native"/>
         </id>

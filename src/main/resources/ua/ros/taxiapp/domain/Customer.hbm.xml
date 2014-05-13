@@ -3,17 +3,17 @@
     "-//Hibernate/Hibernate Mapping DTD//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
-<hibernate-mapping>
-    <class name="ua.ros.taxiapp.domain.Customer" table="customers">
+<hibernate-mapping package="ua.ros.taxiapp.domain">
+    <class name="Customer" table="customers">
         <id name="customerId" type="int" column = "ID_CUSTOMER">
             <generator class="native">
             </generator>
         </id>
         <property name = "blames" column = "BLAMES" type = "int"/>
-        <many-to-one name="currentOrder" class="ua.ros.taxiapp.domain.Order" unique = "true">
+        <many-to-one name="currentOrder" class="Order" unique = "true">
             <column name = "ID_ORDER" not-null="true"/>
         </many-to-one>
-        <many-to-one name="user" lazy="false" fetch="select" cascade="all" class="ua.ros.taxiapp.domain.User" unique = "true">
+        <many-to-one name="user" lazy="false" fetch="select" cascade="all" class="User" unique = "true">
             <column name = "ID_USER"/>
         </many-to-one>
         <bag name="favourites" table="fav_cust" 
@@ -24,7 +24,8 @@
             <many-to-many entity-name="ua.ros.taxiapp.domain.Favourite">
                 <column name="ID_FAVOURITE" not-null="true" />
             </many-to-many>
-            
         </bag>
-    </class> 
+    </class>
+
+    <query name = "customers.with.userID">from Customer c WHERE c.customerId = :userId</query>
 </hibernate-mapping>

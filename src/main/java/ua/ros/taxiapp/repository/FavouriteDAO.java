@@ -1,8 +1,9 @@
 package ua.ros.taxiapp.repository;
 
-import java.util.List;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Favourite;
+
+import java.util.List;
 
 public interface FavouriteDAO extends GenericDAO<Favourite, Integer> {
 

@@ -1,12 +1,10 @@
 package com.yummynoodlebar.rest.controller.fixture;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
 import ua.ros.taxiapp.domain.Customer;
-import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RestDataFixtures {
 

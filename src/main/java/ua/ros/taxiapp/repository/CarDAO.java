@@ -1,9 +1,10 @@
 package ua.ros.taxiapp.repository;
 
-import java.util.List;
 import ua.ros.taxiapp.domain.Brand;
 import ua.ros.taxiapp.domain.Car;
 import ua.ros.taxiapp.domain.Model;
+
+import java.util.List;
 
 public interface CarDAO extends GenericDAO<Car, Integer> {
 

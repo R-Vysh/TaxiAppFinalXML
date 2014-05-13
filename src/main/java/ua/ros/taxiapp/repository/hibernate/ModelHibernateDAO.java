@@ -1,10 +1,11 @@
 package ua.ros.taxiapp.repository.hibernate;
 
-import java.util.List;
 import org.hibernate.Query;
 import ua.ros.taxiapp.domain.Brand;
 import ua.ros.taxiapp.domain.Model;
 import ua.ros.taxiapp.repository.ModelDAO;
+
+import java.util.List;
 
 public class ModelHibernateDAO extends GenericDAOHibernate<Model, Integer> implements ModelDAO {
 

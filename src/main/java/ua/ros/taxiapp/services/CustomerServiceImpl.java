@@ -3,7 +3,6 @@ package ua.ros.taxiapp.services;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.repository.CustomerDAO;
@@ -17,12 +16,6 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerServiceImpl() {
         
     }
-    
-    @Override
-    public boolean createCustomer(Customer customer) {
-        customerDAO.save(customer);
-        return true;
-    }
 
     public void setCustomerDAO(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
@@ -33,8 +26,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findCustomerByMobile(String mobile) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean createCustomer(Customer customer) {
+        customerDAO.save(customer);
+        return true;
     }
 
     @Override
@@ -42,9 +36,14 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDAO.findByID(Customer.class, id);
     }
 
-    @Secured(value = "ROLE_ADMIN")
+    @Secured(value = "ROLE_USER")
     @Override
     public List<Customer> getAllCustomers() {
         return customerDAO.findAll(Customer.class);
+    }
+
+    @Override
+    public Customer findCustomerWithMobile(String mobile) {
+        return customerDAO.findByMobile(mobile);
     }
 }

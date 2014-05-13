@@ -10,10 +10,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@Entity
+@Table(name = "models")
 public class Model implements Serializable {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "ID_MODEL")
     Integer modelId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_BRAND", nullable = false)
     Brand brand;
+    @Column(name = "NAME")
     String modelsName;
     
     public Model() {     

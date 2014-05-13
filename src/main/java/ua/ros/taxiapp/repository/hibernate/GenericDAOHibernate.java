@@ -1,45 +1,47 @@
 package ua.ros.taxiapp.repository.hibernate;
 
-import java.io.Serializable;
-import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.repository.GenericDAO;
+
+import java.io.Serializable;
+import java.util.List;
 
 public abstract class GenericDAOHibernate<T, ID extends Serializable> implements GenericDAO<T, ID> {
     
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
  
     @Override
+    @Transactional
     public void save(T entity) {
         Session hibernateSession = this.getSession();
-        Transaction tx =  hibernateSession.beginTransaction();
         hibernateSession.saveOrUpdate(entity);
-        tx.commit();
     }
  
     @Override
+    @Transactional
     public void merge(T entity) {
         Session hibernateSession = this.getSession();
         hibernateSession.merge(entity);
     }
  
     @Override
+    @Transactional
     public void delete(T entity) {
         Session hibernateSession = this.getSession();
         hibernateSession.delete(entity);
     }
     
     @Override
+    @Transactional
     public T findOne(Query query) {
         T t;
         t = (T) query.uniqueResult();

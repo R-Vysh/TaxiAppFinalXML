@@ -33,14 +33,16 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public boolean saveCustomer(@RequestParam("mobile") String mobile, @RequestParam("password") String password) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public void saveCustomer(@RequestParam("mobile") String mobile, @RequestParam("password") String password,
+                                @RequestParam("username") String username) {
         User user = new User();
         user.setMobile(mobile);
         user.setPassword(password);
+        user.setUsername(username);
         Customer customer = new Customer();
         customer.setUser(user);
-        return customerService.createCustomer(customer);
+        customerService.createCustomer(customer);
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -49,4 +51,9 @@ public class CustomerController {
         return customerService.findCustomerById(id);
     }
 
+    @RequestMapping(value = "/withmobile", method = RequestMethod.GET)
+    @ResponseBody
+    public Customer findCustomerWithMobile(@RequestParam("mobile") String mobile) {
+        return customerService.findCustomerWithMobile(mobile);
+    }
 }

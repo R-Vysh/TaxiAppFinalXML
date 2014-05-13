@@ -1,12 +1,7 @@
 package testilki;
 
 import org.hibernate.Session;
-import ua.ros.taxiapp.domain.Brand;
-import ua.ros.taxiapp.domain.Car;
-import ua.ros.taxiapp.domain.Customer;
-import ua.ros.taxiapp.domain.Model;
-import ua.ros.taxiapp.domain.Taxist;
-import ua.ros.taxiapp.domain.User;
+import ua.ros.taxiapp.domain.*;
 import util.HibernateUtil;
 
 public class App3 {

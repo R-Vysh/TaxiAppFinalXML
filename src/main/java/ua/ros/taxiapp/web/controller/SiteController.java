@@ -8,13 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SiteController {
 
-
-    // private static final Logger LOG = LoggerFactory.getLogger(SiteController.class);
-        
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public String printHello() {
-        return "Welcome.";
+        return "Welcome. Authorization success";
     }
-    
 }

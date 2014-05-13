@@ -1,14 +1,34 @@
 package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "cars")
 public class Car implements Serializable {
 
+    @Id
+    @Column(name = "ID_CAR")
+    @GeneratedValue
     Integer carId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_BRAND", nullable = false)
     Brand brand;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_MODEL", nullable = false)
     Model model;
+    @Column(name = "YEAR")
     Integer year;
+    @Column(name = "REG_NUMBER")
     String regNumber;
+    @Column(name = "PRICE_PER_KM")
     Double pricePerKm;
     
     public Car() {    

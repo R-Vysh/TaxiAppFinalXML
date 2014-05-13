@@ -2,16 +2,40 @@ package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
+@Table(name = "orders")
 public class Order implements Serializable {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "ID_ORDER")
     Integer orderId;
+    @ManyToOne
+    @JoinColumn(name = "ID_TAXIST", nullable = true)
     Taxist taxist;
+    @ManyToOne
+    @JoinColumn(name = "ID_CUSTOMER", nullable = false)
     Customer customer;
+    @Column(name = "FROM_ADDRESS")
     String fromPlace;
+    @Column(name = "TO_ADDRESS")
     String toPlace;
+    @Column(name = "CREATED", columnDefinition = "DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     Date date;
+    @Column(name = "TOTAL_PRICE")
     Double price;
+    @Column(name = "STATUS")
     String status;
     
     public Order() {

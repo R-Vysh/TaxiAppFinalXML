@@ -9,7 +9,7 @@ public class BrandHibernateDAO extends GenericDAOHibernate<Brand, Integer> imple
     @Override
     public Brand findByName(String name) {
         Brand brand = null;
-        String hql = "FROM brands WHERE NAME = :name";
+        String hql = "FROM ua.ros.taxiapp.domain.Brand b WHERE brandsName = :name";
         Query query = this.getSession().createQuery(hql);
         query.setParameter("name", name);
         brand = findOne(query);

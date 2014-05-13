@@ -1,14 +1,28 @@
 package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "brands")
 public class Brand implements Serializable {
 
-    private Integer brandId;
-    private String brandsName;
-    List<Model> models = new ArrayList<>();
+    @Id
+    @GeneratedValue
+    @Column(name = "ID_BRAND")
+    Integer brandId;
+    @Column(name = "NAME", unique = true, nullable = false)
+    String brandsName;
+    @OneToMany(mappedBy="brand")
+    Set<Model> models = new HashSet<>();
     
     public Brand() {
     }
@@ -33,15 +47,11 @@ public class Brand implements Serializable {
         this.brandsName = newName;
     }
     
-    public List<Model> getModels() {
+    public Set<Model> getModels() {
         return models;
     }
     
-    public void setModels(List<Model> models) {
+    public void setModels(Set<Model> models) {
         this.models = models;
-    }
-    
-    public void addModel(Model model) {
-        models.add(model);
     }
 }

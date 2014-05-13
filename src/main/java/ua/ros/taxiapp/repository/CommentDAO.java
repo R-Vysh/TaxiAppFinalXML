@@ -1,9 +1,10 @@
 package ua.ros.taxiapp.repository;
 
-import java.util.List;
 import ua.ros.taxiapp.domain.Comment;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Taxist;
+
+import java.util.List;
 
 public interface CommentDAO extends GenericDAO<Comment, Integer> {
 

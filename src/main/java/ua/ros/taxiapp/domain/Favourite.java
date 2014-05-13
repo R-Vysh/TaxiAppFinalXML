@@ -1,14 +1,28 @@
 package ua.ros.taxiapp.domain;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-public class Favourite implements Serializable {
+@Entity
+@Table(name = "favourites")
+public class Favourite {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "ID_FAVOURITE")
     Integer favouriteId;
+    @Column(name = "ADDRESS")
     String address;
-    
+
     public Favourite() {
     }
     
@@ -31,5 +45,4 @@ public class Favourite implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-
 }

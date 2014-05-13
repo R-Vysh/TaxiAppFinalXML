@@ -3,15 +3,15 @@
     "-//Hibernate/Hibernate Mapping DTD//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
-<hibernate-mapping>
-    <class name="ua.ros.taxiapp.domain.Car" table="cars">
+<hibernate-mapping package="ua.ros.taxiapp.domain">
+    <class name="Car" table="cars">
         <id name = "carId" type="int" column = "ID_CAR">
             <generator class = "native"/>
         </id>
-        <many-to-one name="brand" class="ua.ros.taxiapp.domain.Brand">
+        <many-to-one name="brand" class="Brand">
             <column name = "ID_BRAND" not-null="true"/>
         </many-to-one>
-        <many-to-one name="model" class="ua.ros.taxiapp.domain.Model">
+        <many-to-one name="model" class="Model">
             <column name = "ID_MODEL" not-null="true"/>
         </many-to-one>
         <property name = "year" column = "YEAR" type = "integer"/>

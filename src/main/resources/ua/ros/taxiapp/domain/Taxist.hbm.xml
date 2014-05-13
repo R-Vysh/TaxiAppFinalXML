@@ -3,15 +3,15 @@
     "-//Hibernate/Hibernate Mapping DTD//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
-<hibernate-mapping>
-    <class name="ua.ros.taxiapp.domain.Taxist" table="taxists">
+<hibernate-mapping package="ua.ros.taxiapp.domain">
+    <class name="Taxist" table="taxists">
         <id name="taxistId" type="int" column = "ID_TAXIST">
             <generator class="native" />
         </id>
-        <many-to-one name="car" class="ua.ros.taxiapp.domain.Car" unique = "true">
+        <many-to-one name="car" class="Car" unique = "true">
             <column name = "ID_CAR" not-null="true"/>
         </many-to-one>
-        <many-to-one name="currentOrder" class="ua.ros.taxiapp.domain.Order" unique = "true">
+        <many-to-one name="currentOrder" class="Order" unique = "true">
             <column name = "ID_ORDER" not-null="false"/>
         </many-to-one>
         
@@ -23,9 +23,10 @@
             <key>
                 <column name="TAXIST_ID" not-null="true" />
             </key>
-            <one-to-many class="ua.ros.taxiapp.domain.Comment" />
+            <one-to-many class="Comment" />
         </bag>
-        <many-to-one name="user" lazy="false" fetch="select" cascade="all" class="ua.ros.taxiapp.domain.User" unique = "true">
+        <many-to-one name="user" lazy="false" fetch="select" cascade="all" class="User"
+                     unique = "true">
             <column name = "ID_USER"/>
         </many-to-one>
     </class> 

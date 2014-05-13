@@ -7,12 +7,36 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <!-- Security configuration for REST services. -->
+
+    <http pattern="/" security="none"/>
+    <http pattern="/customers/register" security="none"/>
+
     <http pattern="/**"
-              authentication-manager-ref="authenticationManager" entry-point-ref="restServicesEntryPoint"
-              create-session="stateless">
-        <custom-filter ref="restServicesFilter"
-                           before="PRE_AUTH_FILTER" />
+          authentication-manager-ref="authenticationManager" entry-point-ref="restServicesEntryPoint"
+          create-session="stateless">
+        <custom-filter ref="customFilters"
+                       before="PRE_AUTH_FILTER" />
     </http>
+
+    <beans:bean id="customFilters" class="org.springframework.web.filter.CompositeFilter">
+        <beans:property name="filters">
+            <beans:list>
+                <beans:ref bean="restServicesFilter"/>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="anonymousAuthFilter"
+          class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+        <beans:property name="key" value="foobar"/>
+        <beans:property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
+    </beans:bean>
+
+    <beans:bean id="anonymousAuthenticationProvider"
+          class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
+        <beans:property name="key" value="foobar"/>
+    </beans:bean>
+
     <!-- Entry point for REST service. -->
     <beans:bean id="restServicesEntryPoint"
           class="ua.ros.taxiapp.web.security.RestAuthenticationEntryPoint" />
@@ -35,7 +59,6 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
                                authorities-by-username-query="select users.USERNAME , authorities.AUTHORITY as authorities
                                from users,authorities
                                where users.USERNAME = ? AND users.USERNAME=authorities.USERNAME "/>
-
         </authentication-provider>
     </authentication-manager>
     <global-method-security

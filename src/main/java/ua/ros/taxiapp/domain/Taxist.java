@@ -1,19 +1,38 @@
 package ua.ros.taxiapp.domain;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
-public class Taxist implements Serializable {
+@Entity
+@Table(name = "taxists")
+public class Taxist {
 
-    private Integer taxistId;
-    private Car car;
-    private Order currentOrder;
-    private Double rating;
-    private Boolean free;
-    private Boolean online;
-    private List<Comment> comments = new ArrayList<>();
-    private User user;
+    @Id
+    @Column(name = "ID_TAXIST")
+    Integer taxistId;
+    @OneToOne
+    @JoinColumn(name = "ID_CAR")
+    Car car;
+    @OneToOne
+    @JoinColumn(name = "ID_ORDER")
+    Order currentOrder;
+    @Column(name = "RATING")
+    Double rating;
+    @Column(name = "FREE")
+    Boolean free;
+    @OneToMany(mappedBy = "taxist")
+    Set<Comment> comments = new HashSet<>();
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    User user;
     
     public Taxist() {
     }
@@ -67,27 +86,15 @@ public class Taxist implements Serializable {
         return free;
     }
 
-    public Boolean getFree() {
-        return free;
-    }
-
     public void setFree(Boolean free) {
         this.free = free;
     }
 
-    public List<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
-    }
-
-    public Boolean getOnline() {
-        return online;
-    }
-
-    public void setOnline(Boolean online) {
-        this.online = online;
     }
 }

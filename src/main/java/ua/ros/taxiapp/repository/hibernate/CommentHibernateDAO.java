@@ -1,11 +1,12 @@
 package ua.ros.taxiapp.repository.hibernate;
 
-import java.util.List;
 import org.hibernate.Query;
 import ua.ros.taxiapp.domain.Comment;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.repository.CommentDAO;
+
+import java.util.List;
 
 public class CommentHibernateDAO extends GenericDAOHibernate<Comment, Integer> implements CommentDAO {
 
