@@ -18,24 +18,24 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID_ORDER")
+    @Column(name = "order_id")
     Integer orderId;
     @ManyToOne
-    @JoinColumn(name = "ID_TAXIST", nullable = true)
+    @JoinColumn(name = "taxist_id", nullable = true)
     Taxist taxist;
     @ManyToOne
-    @JoinColumn(name = "ID_CUSTOMER", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     Customer customer;
-    @Column(name = "FROM_ADDRESS")
+    @Column(name = "address_from")
     String fromPlace;
-    @Column(name = "TO_ADDRESS")
+    @Column(name = "address_to")
     String toPlace;
-    @Column(name = "CREATED", columnDefinition = "DATETIME")
+    @Column(name = "created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     Date date;
-    @Column(name = "TOTAL_PRICE")
+    @Column(name = "total_price")
     Double price;
-    @Column(name = "STATUS")
+    @Column(name = "status")
     String status;
     
     public Order() {

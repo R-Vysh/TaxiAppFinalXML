@@ -16,18 +16,18 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID_USER")
+    @Column(name = "user_id")
     Integer userId;
-    @Column(name = "PASSWORD")
+    @Column(name = "password")
     String password;
-    @Column(name = "MOBILE")
+    @Column(name = "mobile")
     String mobile;
-    @Column(name = "TAXIST")
+    @Column(name = "is_taxist")
     Boolean taxist;
-    @Column(name = "CREATED", columnDefinition = "DATETIME")
+    @Column(name = "created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     Date createdTime;
-    @Column(name = "USERNAME")
+    @Column(name = "username")
     String username;
     
     public User() {
@@ -82,11 +82,9 @@ public class User implements Serializable {
         this.createdTime = time;
     }
     
-    public Boolean isTaxist() {
-        return taxist;
-    }
-    
     public void setTaxist(Boolean taxist) {
         this.taxist = taxist;
     }
+
+
 }

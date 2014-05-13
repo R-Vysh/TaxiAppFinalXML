@@ -14,22 +14,22 @@ public class Customer implements Serializable{
     
     @Id
     @GeneratedValue
-    @Column(name = "ID_CUSTOMER")
+    @Column(name = "customer_id", unique = true, nullable = false)
     Integer customerId;
-    @Column(name = "BLAMES")
+    @Column(name = "blames")
     Integer blames;
     @OneToOne
-    @JoinColumn(name = "ID_ORDER", nullable = false)
+    @JoinColumn(name = "order_id", nullable = true)
     Order currentOrder;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinTable(name = "FAV_CUST",
+    @JoinTable(name = "favourite_customer_maps",
             joinColumns = {
-                @JoinColumn(name = "ID_CUSTOMER")},
+                @JoinColumn(name = "customer_id")},
             inverseJoinColumns = {
-                @JoinColumn(name = "ID_FAVOURITE")})
+                @JoinColumn(name = "favourite_id")})
     private Set<Favourite> favourites;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ID_USER", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     User user;
     
     public Customer() {

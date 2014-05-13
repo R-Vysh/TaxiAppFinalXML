@@ -16,12 +16,12 @@ public class Model implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID_MODEL")
+    @Column(name = "model_id")
     Integer modelId;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_BRAND", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "brand_id", nullable = false)
     Brand brand;
-    @Column(name = "NAME")
+    @Column(name = "name")
     String modelsName;
     
     public Model() {     

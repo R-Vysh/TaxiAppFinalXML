@@ -15,27 +15,23 @@ import javax.persistence.Table;
 public class Car implements Serializable {
 
     @Id
-    @Column(name = "ID_CAR")
+    @Column(name = "car_id")
     @GeneratedValue
     Integer carId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_BRAND", nullable = false)
-    Brand brand;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_MODEL", nullable = false)
+    @JoinColumn(name = "model_id", nullable = false)
     Model model;
-    @Column(name = "YEAR")
+    @Column(name = "year")
     Integer year;
-    @Column(name = "REG_NUMBER")
+    @Column(name = "registrational_number")
     String regNumber;
-    @Column(name = "PRICE_PER_KM")
+    @Column(name = "price_per_kilometer")
     Double pricePerKm;
     
     public Car() {    
     }
     
-    public Car(Brand brand, Model model, Integer year, String regNumber, Double price) {
-        this.brand = brand;
+    public Car(Model model, Integer year, String regNumber, Double price) {
         this.model = model;
         this.year = year;
         this.regNumber = regNumber;
@@ -49,15 +45,7 @@ public class Car implements Serializable {
     public void setCarId(Integer newId) {
         carId = newId;
     }
-    
-    public Brand getBrand() {
-        return brand;
-    }
-    
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-    
+
     public Model getModel() {
         return model;
     }

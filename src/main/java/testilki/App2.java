@@ -24,7 +24,6 @@ public class App2 {
         session.save(model);
         
         Car car = new Car();
-        car.setBrand(brand);
         car.setModel(model);
         car.setPricePerKm(8.1);
         car.setRegNumber("AA7878HE");

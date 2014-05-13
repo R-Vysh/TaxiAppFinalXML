@@ -55,10 +55,10 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
         <authentication-provider>
             <jdbc-user-service data-source-ref="dataSource"
                                users-by-username-query="select username, password, 'true' as enabled
-                               from users where USERNAME = ?"
-                               authorities-by-username-query="select users.USERNAME , authorities.AUTHORITY as authorities
+                               from users where username = ?"
+                               authorities-by-username-query="select users.username , authorities.authority as authorities
                                from users,authorities
-                               where users.USERNAME = ? AND users.USERNAME=authorities.USERNAME "/>
+                               where users.username = ? AND users.username=authorities.username "/>
         </authentication-provider>
     </authentication-manager>
     <global-method-security

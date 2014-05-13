@@ -31,6 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
         return true;
     }
 
+    @Secured(value = "ROLE_USER")
     @Override
     public Customer findCustomerById(Integer id) {
         return customerDAO.findByID(Customer.class, id);

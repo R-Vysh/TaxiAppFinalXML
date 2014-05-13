@@ -2,36 +2,32 @@ package ua.ros.taxiapp.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "taxists")
 public class Taxist {
 
     @Id
-    @Column(name = "ID_TAXIST")
+    @GeneratedValue
+    @Column(name = "taxist_id")
     Integer taxistId;
     @OneToOne
-    @JoinColumn(name = "ID_CAR")
+    @JoinColumn(name = "car_id")
     Car car;
     @OneToOne
-    @JoinColumn(name = "ID_ORDER")
+    @JoinColumn(name = "order_id")
     Order currentOrder;
-    @Column(name = "RATING")
+    @Column(name = "rating")
     Double rating;
-    @Column(name = "FREE")
+    @Column(name = "is_free")
     Boolean free;
+    @Column(name = "is_online")
+    Boolean online;
     @OneToMany(mappedBy = "taxist")
     Set<Comment> comments = new HashSet<>();
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
     User user;
     
     public Taxist() {
@@ -96,5 +92,17 @@ public class Taxist {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Boolean getOnline() {
+        return online;
+    }
+
+    public void setOnline(Boolean online) {
+        this.online = online;
+    }
+
+    public Boolean getFree() {
+        return free;
     }
 }

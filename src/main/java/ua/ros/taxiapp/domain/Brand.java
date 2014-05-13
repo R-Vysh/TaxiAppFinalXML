@@ -17,9 +17,9 @@ public class Brand implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID_BRAND")
+    @Column(name = "brand_id")
     Integer brandId;
-    @Column(name = "NAME", unique = true, nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     String brandsName;
     @OneToMany(mappedBy="brand")
     Set<Model> models = new HashSet<>();

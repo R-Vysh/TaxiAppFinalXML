@@ -15,18 +15,18 @@ import javax.persistence.Table;
 public class Comment implements Serializable {
 
     @Id
-    @Column(name = "ID_COMMENT")
+    @Column(name = "comment_id")
     @GeneratedValue
     Integer commentId;
     @ManyToOne
-    @JoinColumn(name = "ID_TAXIST", nullable = false)
+    @JoinColumn(name = "taxist_id", nullable = false)
     Taxist taxist;
     @ManyToOne
     @PrimaryKeyJoinColumn
     Customer customer;
-    @Column(name = "RATING")
+    @Column(name = "rating")
     Integer rating;
-    @Column(name = "COMMENT")
+    @Column(name = "text")
     String text;
     
     public Comment() {

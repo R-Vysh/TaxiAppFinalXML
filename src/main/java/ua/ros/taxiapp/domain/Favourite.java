@@ -18,9 +18,9 @@ public class Favourite {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID_FAVOURITE")
+    @Column(name = "favourite_id")
     Integer favouriteId;
-    @Column(name = "ADDRESS")
+    @Column(name = "address")
     String address;
 
     public Favourite() {
