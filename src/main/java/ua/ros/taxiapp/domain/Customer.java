@@ -8,7 +8,8 @@ import java.util.Set;
 @Entity
 @Table(name = "customers")
 @NamedQueries({
-        @NamedQuery(name = "customer.with.mobile", query = "from Customer c where c.user.mobile = :mobile")
+        @NamedQuery(name = "customer.with.mobile", query = "from Customer c where c.user.mobile = :mobile"),
+        @NamedQuery(name = "customer.with.order", query = "from Customer c where c.currentOrder = :ord")
 })
 public class Customer implements Serializable{
     

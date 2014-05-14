@@ -14,9 +14,9 @@ public interface CarDAO extends GenericDAO<Car, Integer> {
 
     public List<Car> findByPricePerKmBetween(Double lower, Double higher);
 
-    public List<Car> findByBrand(Brand brand);
-
-    public List<Car> findByBrandAndModel(Brand brand, Model model);
-
-    public List<Car> findByYear(Integer year);
+//    public List<Car> findByBrand(Brand brand);
+//
+//    public List<Car> findByBrandAndModel(Brand brand, Model model);
+//
+//    public List<Car> findByYear(Integer year);
 }
