@@ -2,9 +2,9 @@
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-http://www.springframework.org/schema/security
-http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+             http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <!-- Security configuration for REST services. -->
 
@@ -14,32 +14,14 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
     <http pattern="/**"
           authentication-manager-ref="authenticationManager" entry-point-ref="restServicesEntryPoint"
           create-session="stateless">
-        <custom-filter ref="customFilters"
+        <custom-filter ref="restServicesFilter"
                        before="PRE_AUTH_FILTER" />
     </http>
-
-    <beans:bean id="customFilters" class="org.springframework.web.filter.CompositeFilter">
-        <beans:property name="filters">
-            <beans:list>
-                <beans:ref bean="restServicesFilter"/>
-            </beans:list>
-        </beans:property>
-    </beans:bean>
-
-    <beans:bean id="anonymousAuthFilter"
-          class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
-        <beans:property name="key" value="foobar"/>
-        <beans:property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
-    </beans:bean>
-
-    <beans:bean id="anonymousAuthenticationProvider"
-          class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
-        <beans:property name="key" value="foobar"/>
-    </beans:bean>
 
     <!-- Entry point for REST service. -->
     <beans:bean id="restServicesEntryPoint"
           class="ua.ros.taxiapp.web.security.RestAuthenticationEntryPoint" />
+
     <!-- Filter for REST services. -->
     <beans:bean id="restServicesFilter"
           class="ua.ros.taxiapp.web.security.RestUsernamePasswordAuthenticationFilter">
@@ -47,9 +29,11 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
         <beans:property name="authenticationManager" ref="authenticationManager" />
         <beans:property name="authenticationSuccessHandler" ref="restServicesSuccessHandler" />
     </beans:bean>
+
     <!-- A handler for successful REST service authentication. -->
     <beans:bean id="restServicesSuccessHandler"
           class="ua.ros.taxiapp.web.security.RestAuthenticationSuccessHandler" />
+
     <!-- Authentication manager. -->
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
@@ -61,6 +45,7 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
                                where users.username = ? AND users.username=authorities.username "/>
         </authentication-provider>
     </authentication-manager>
+
     <global-method-security
             secured-annotations="enabled" jsr250-annotations="enabled"
             pre-post-annotations="enabled">

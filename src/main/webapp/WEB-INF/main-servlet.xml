@@ -22,6 +22,8 @@
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <import resource="security.xml"/>
+    <import resource="database.xml"/>
+
     <context:annotation-config />
     <context:component-scan base-package="ua.ros.taxiapp.web" />
     <mvc:annotation-driven/>
@@ -42,38 +44,6 @@
         <property name="defaultEncoding" value="UTF-8" />
     </bean>
 
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="/WEB-INF/jdbc.properties" />
-
-    <bean id="dataSource"
-          class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
-          p:driverClass="${jdbc.driverClassName}"
-          p:jdbcUrl="${jdbc.databaseurl}" p:user="${jdbc.username}"
-          p:password="${jdbc.password}" />
-
-
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="configLocation">
-            <value>classpath:hibernate.cfg.xml</value>
-        </property>
-        <property name="packagesToScan" value="ua.ros.taxiapp.domain"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
-                <prop key="hibernate.show_sql">true</prop>
-            </props>
-        </property>
-    </bean>
-
-    <bean id = "userService" class = "ua.ros.taxiapp.services.UserServiceImpl"/>
-    <bean id = "userDAO" class = "ua.ros.taxiapp.repository.hibernate.UserHibernateDAO"/>
-    <bean id = "taxistService" class = "ua.ros.taxiapp.services.TaxistServiceImpl"/>
-    <bean id = "customerService" class = "ua.ros.taxiapp.services.CustomerServiceImpl"/>
-    <bean id = "customerDAO" class = "ua.ros.taxiapp.repository.hibernate.CustomerHibernateDAO"/>
-
     <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
@@ -84,9 +54,10 @@
         </property>
     </bean>
 
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-
+    <bean id = "userService" class = "ua.ros.taxiapp.services.UserServiceImpl"/>
+    <bean id = "userDAO" class = "ua.ros.taxiapp.repository.hibernate.UserHibernateDAO"/>
+    <bean id = "taxistService" class = "ua.ros.taxiapp.services.TaxistServiceImpl"/>
+    <bean id = "taxistDAO" class = "ua.ros.taxiapp.repository.hibernate.TaxistHibernateDAO"/>
+    <bean id = "customerService" class = "ua.ros.taxiapp.services.CustomerServiceImpl"/>
+    <bean id = "customerDAO" class = "ua.ros.taxiapp.repository.hibernate.CustomerHibernateDAO"/>
 </beans>
