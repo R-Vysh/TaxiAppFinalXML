@@ -2,18 +2,15 @@ package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
+@NamedQueries({
+        @NamedQuery(name = "order.active", query = "from Order o where o.status = 'active'"),
+        @NamedQuery(name = "order.with.customer", query = "from Order o where o.customer = :customer")
+})
+
 public class Order implements Serializable {
 
     @Id

@@ -20,7 +20,6 @@ public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer>
     @Transactional
     public Customer findByCurrentOrder(Order order) {
         Customer cust = null;
-        String hql = "FROM customers WHERE ID_ORDER = :orId";
         Query query = this.getSession().getNamedQuery("customer.with.order");
         query.setParameter("ord", order);
         cust = findOne(query);

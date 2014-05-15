@@ -14,8 +14,7 @@ public class ModelHibernateDAO extends GenericDAOHibernate<Model, Integer> imple
     @Override
     public Model findByName(String name) {
         Model model = null;
-        String hql = "FROM models WHERE NAME = :name";
-        Query query = this.getSession().createQuery(hql);
+        Query query = this.getSession().getNamedQuery("model.with.name");
         query.setParameter("name", name);
         model = findOne(query);
         return model;
@@ -23,9 +22,8 @@ public class ModelHibernateDAO extends GenericDAOHibernate<Model, Integer> imple
 
     @Override
     public List<Model> findByBrand(Brand brand) {
-        String hql = "FROM models WHERE ID_BRAND = :brId";
-        Query query = this.getSession().createQuery(hql);
-        query.setParameter("brId", brand.getBrandId());
+        Query query = this.getSession().getNamedQuery("model.with.brand");
+        query.setParameter("brand", brand);
         List<Model> models = query.list();
         return models;
     }

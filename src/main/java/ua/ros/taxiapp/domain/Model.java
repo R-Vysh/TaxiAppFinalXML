@@ -7,6 +7,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "models")
+@NamedQueries({
+        @NamedQuery(name = "model.with.name", query = "from Model m where m.modelsName = :name"),
+        @NamedQuery(name = "model.with.brand", query = "from Model m where m.brand = :brand")
+})
+
 public class Model implements Serializable {
 
     @Id

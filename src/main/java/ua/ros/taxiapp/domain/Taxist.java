@@ -6,6 +6,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "taxists")
+@NamedQueries({
+        @NamedQuery(name = "taxist.free", query = "from Taxist t where t.free = true"),
+        @NamedQuery(name = "taxist.with.mobile", query = "from Taxist t where t.user.mobile = :mobile")
+})
 public class Taxist {
 
     @Id

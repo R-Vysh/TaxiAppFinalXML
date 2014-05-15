@@ -14,19 +14,9 @@ public class FavouriteHibernateDAO extends GenericDAOHibernate<Favourite, Intege
     @Override
     public Favourite findByAddress(String address) {
         Favourite fav = null;
-        String hql = "FROM favourites WHERE ADDRESS = :addr";
-        Query query = this.getSession().createQuery(hql);
-        query.setParameter("addr", address);
+        Query query = this.getSession().getNamedQuery("favourite.with.address");
+        query.setParameter("address", address);
         fav = findOne(query);
         return fav;
-    }
-
-    @Override
-    public List<Favourite> findByCustomer(Customer customer) {
-        String hql = "from Favourite f join f.customers c where c.customerId=:custId";
-        Query query = this.getSession().createQuery(hql);
-        query.setParameter("custId", customer.getCustomerId());
-        List<Favourite> favs = (List<Favourite>) query.list();
-        return favs;
     }
 }

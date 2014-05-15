@@ -1,5 +1,6 @@
 package ua.ros.taxiapp.repository.hibernate;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
@@ -12,21 +13,28 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
 
     @Override
     public List<Order> findActiveOrders() {
-        return null;
+        Query query = this.getSession().getNamedQuery("order.active");
+        List<Order> orders = query.list();
+        return orders;
     }
 
     @Override
     public List<Order> findByCustomer(Customer customer) {
-        return null;
+        Query query = this.getSession().getNamedQuery("order.with.customer");
+        query.setParameter("customer", customer);
+        List<Order> orders = query.list();
+        return orders;
     }
 
     @Override
-    public boolean takeOrder(Order order) {
-        return false;
+    public void takeOrder(Order order) {
+        order.setStatus("Taken");
+        save(order);
     }
 
     @Override
-    public boolean cancelOrder(Order order) {
-        return false;
+    public void cancelOrder(Order order) {
+        order.setStatus("Cancelled");
+        save(order);
     }
 }

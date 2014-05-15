@@ -14,18 +14,16 @@ public class CommentHibernateDAO extends GenericDAOHibernate<Comment, Integer> i
 
     @Override
     public List<Comment> findByCustomer(Customer customer) {
-        String hql = "FROM comments WHERE ID_CUSTOMER = :customer";
-        Query query = this.getSession().createQuery(hql);
-        query.setParameter("customer", customer.getCustomerId());
+        Query query = this.getSession().getNamedQuery("comment.with.customer");
+        query.setParameter("customer", customer);
         List<Comment> comments = (List<Comment>) query.list();
         return comments;
     }
 
     @Override
     public List<Comment> findByTaxist(Taxist taxist) {
-        String hql = "FROM comments WHERE ID_TAXIST = :taxist";
-        Query query = this.getSession().createQuery(hql);
-        query.setParameter("taxist", taxist.getTaxistId());
+        Query query = this.getSession().getNamedQuery("comment.with.taxist");
+        query.setParameter("taxist", taxist);
         List<Comment> comments = (List<Comment>) query.list();
         return comments;
     }

@@ -1,17 +1,15 @@
 package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "comments")
+@NamedQueries({
+        @NamedQuery(name = "comment.with.customer", query = "from Comment c where c.customer = :customer"),
+        @NamedQuery(name = "comment.with.taxist", query = "from Comment c where c.taxist = :taxist")
+})
+
 public class Comment implements Serializable {
 
     @Id

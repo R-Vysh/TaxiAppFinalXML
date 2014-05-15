@@ -8,6 +8,4 @@ import java.util.List;
 public interface FavouriteDAO extends GenericDAO<Favourite, Integer> {
 
     public Favourite findByAddress(String address);
-
-    public List<Favourite> findByCustomer(Customer customer);
 }
