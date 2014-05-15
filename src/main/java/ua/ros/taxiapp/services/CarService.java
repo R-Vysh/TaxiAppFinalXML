@@ -1,7 +1,20 @@
 package ua.ros.taxiapp.services;
 
-/**
- * Created by ros on 14.05.14.
- */
+import ua.ros.taxiapp.domain.Brand;
+import ua.ros.taxiapp.domain.Car;
+
+import java.util.List;
+
 public interface CarService {
+    public boolean createCar(Car car);
+
+    public Car findById(Integer id);
+
+    public List<Car> getAllCars();
+
+    public Car findByNumber(String number);
+
+    public boolean updateCar(Car car);
+
+    public boolean deleteCar(Car car);
 }

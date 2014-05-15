@@ -7,7 +7,6 @@ import ua.ros.taxiapp.domain.Model;
 import java.util.List;
 
 public interface CarDAO extends GenericDAO<Car, Integer> {
-
     public Car findByNumber(String number);
 
     public List<Car> findByPricePerKm(Double price);

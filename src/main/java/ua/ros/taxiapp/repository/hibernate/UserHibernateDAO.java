@@ -1,9 +1,11 @@
 package ua.ros.taxiapp.repository.hibernate;
 
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.UserDAO;
 
+@Repository
 public class UserHibernateDAO extends GenericDAOHibernate<User, Integer> implements UserDAO {
     
     @Override

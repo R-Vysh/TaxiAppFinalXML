@@ -6,32 +6,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ua.ros.taxiapp.domain.Model;
-import ua.ros.taxiapp.domain.Order;
-import ua.ros.taxiapp.services.OrderService;
+import ua.ros.taxiapp.domain.Taxist;
+import ua.ros.taxiapp.domain.User;
+import ua.ros.taxiapp.services.UserService;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/rest/orders")
-public class OrderController {
+@RequestMapping("/rest/users")
+public class UserController {
 
     @Autowired
-    private OrderService orderService;
+    UserService userService;
 
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Order findOrderById(@PathVariable("id") Integer id) {
-        return orderService.findById(id);
+    public User findUserById(@PathVariable("id") Integer id) {
+        return userService.findById(id);
     }
+
 }

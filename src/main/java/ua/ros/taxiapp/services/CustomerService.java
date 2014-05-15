@@ -8,9 +8,13 @@ public interface CustomerService {
 
     public boolean createCustomer(Customer customer);
 
-    public Customer findCustomerById(Integer id);
+    public Customer findById(Integer id);
 
     public List<Customer> getAllCustomers();
 
-    public Customer findCustomerWithMobile(String mobile);
+    public Customer findByMobile(String mobile);
+
+    public boolean updateCustomer(Customer customer);
+
+    public boolean deleteCustomer(Customer customer);
 }

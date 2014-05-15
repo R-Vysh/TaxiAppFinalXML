@@ -1,12 +1,14 @@
 package ua.ros.taxiapp.repository.hibernate;
 
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Favourite;
 import ua.ros.taxiapp.repository.FavouriteDAO;
 
 import java.util.List;
 
+@Repository
 public class FavouriteHibernateDAO extends GenericDAOHibernate<Favourite, Integer> implements FavouriteDAO {
     
     @Override

@@ -1,5 +1,7 @@
 package ua.ros.taxiapp.domain;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +22,7 @@ public class Brand implements Serializable {
     @Column(name = "name", unique = true, nullable = false)
     String brandsName;
     @OneToMany(mappedBy = "brand")
+    @JsonManagedReference
     Set<Model> models = new HashSet<>();
 
     public Brand() {

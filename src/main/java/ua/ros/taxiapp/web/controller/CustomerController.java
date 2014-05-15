@@ -10,7 +10,7 @@ import ua.ros.taxiapp.services.CustomerService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/customers")
+@RequestMapping("/rest/customers")
 public class CustomerController {
      // private static final Logger LOG = LoggerFactory.getLogger(SiteController.class);
 
@@ -21,12 +21,6 @@ public class CustomerController {
         this.customerService = customerService;
     }
         
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    @ResponseBody
-    public String printHello() {
-        return "Welcome.";
-    }
-    
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
     public List<Customer> getAllCustomers() {
@@ -48,12 +42,12 @@ public class CustomerController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Customer findCustomer(@PathVariable("id") Integer id) {
-        return customerService.findCustomerById(id);
+        return customerService.findById(id);
     }
 
     @RequestMapping(value = "/withmobile", method = RequestMethod.GET)
     @ResponseBody
     public Customer findCustomerWithMobile(@RequestParam("mobile") String mobile) {
-        return customerService.findCustomerWithMobile(mobile);
+        return customerService.findByMobile(mobile);
     }
 }

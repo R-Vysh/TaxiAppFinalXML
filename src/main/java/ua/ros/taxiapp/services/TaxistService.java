@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface TaxistService {
 
-    public List<Taxist> requestAllFreeTaxists();
+    public List<Taxist> getAllFreeTaxists();
 
-    public Taxist requestTaxist(Serializable id);
+    public List<Taxist> getAllTaxists();
+
+    public Taxist findById(Integer id);
 
     public boolean createNewTaxist(Taxist taxist);
 
-    public boolean deleteTaxist(Serializable id);
+    public boolean deleteTaxist(Taxist taxist);
 }

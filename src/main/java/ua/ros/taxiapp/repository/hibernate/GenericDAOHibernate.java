@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.repository.GenericDAO;
 
@@ -21,21 +22,21 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
  
     @Override
     @Transactional
-    public void save(T entity) {
+    public void save(T entity) throws DataAccessException {
         Session hibernateSession = this.getSession();
         hibernateSession.saveOrUpdate(entity);
     }
  
     @Override
     @Transactional
-    public void merge(T entity) {
+    public void merge(T entity) throws DataAccessException {
         Session hibernateSession = this.getSession();
         hibernateSession.merge(entity);
     }
  
     @Override
     @Transactional
-    public void delete(T entity) {
+    public void delete(T entity) throws DataAccessException {
         Session hibernateSession = this.getSession();
         hibernateSession.delete(entity);
     }

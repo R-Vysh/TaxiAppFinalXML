@@ -16,7 +16,7 @@ public class Car implements Serializable {
     @Column(name = "car_id")
     @GeneratedValue
     Integer carId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "model_id", nullable = false)
     Model model;
     @Column(name = "year")

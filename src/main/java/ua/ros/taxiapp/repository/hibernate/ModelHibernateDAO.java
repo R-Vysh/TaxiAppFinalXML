@@ -1,12 +1,14 @@
 package ua.ros.taxiapp.repository.hibernate;
 
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 import ua.ros.taxiapp.domain.Brand;
 import ua.ros.taxiapp.domain.Model;
 import ua.ros.taxiapp.repository.ModelDAO;
 
 import java.util.List;
 
+@Repository
 public class ModelHibernateDAO extends GenericDAOHibernate<Model, Integer> implements ModelDAO {
 
     @Override

@@ -1,7 +1,16 @@
 package ua.ros.taxiapp.repository;
 
+import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 
-public interface OrderDAO extends GenericDAO<Order, Integer> {
+import java.util.List;
 
+public interface OrderDAO extends GenericDAO<Order, Integer> {
+    public List<Order> findActiveOrders();
+
+    public List<Order> findByCustomer(Customer customer);
+
+    public boolean takeOrder(Order order);
+
+    public boolean cancelOrder(Order order);
 }

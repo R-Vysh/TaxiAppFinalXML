@@ -11,4 +11,5 @@ public interface CommentDAO extends GenericDAO<Comment, Integer> {
     public List<Comment> findByCustomer(Customer customer);
 
     public List<Comment> findByTaxist(Taxist taxist);
+
 }

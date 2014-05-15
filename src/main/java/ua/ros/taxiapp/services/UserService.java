@@ -9,9 +9,9 @@ public interface UserService {
 
     public List<User> getAllUsers();
 
-    public User requestUser(Serializable id);
+    public User findById(Integer id);
 
     public boolean createNewUser(User user);
 
-    public boolean deleteUser(Serializable id);
+    public boolean deleteUser(User user);
 }

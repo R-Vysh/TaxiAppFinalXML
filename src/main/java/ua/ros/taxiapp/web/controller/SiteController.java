@@ -11,6 +11,6 @@ public class SiteController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public String printHello() {
-        return "Welcome. Authorization success";
+        return "Welcome.";
     }
 }

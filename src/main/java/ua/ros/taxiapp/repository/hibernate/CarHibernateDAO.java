@@ -1,11 +1,13 @@
 package ua.ros.taxiapp.repository.hibernate;
 
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 import ua.ros.taxiapp.domain.Car;
 import ua.ros.taxiapp.repository.CarDAO;
 
 import java.util.List;
 
+@Repository
 public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implements CarDAO {
 
     @Override

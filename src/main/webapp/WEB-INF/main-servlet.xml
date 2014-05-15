@@ -12,6 +12,7 @@
 
     <import resource="security.xml"/>
     <import resource="database.xml"/>
+    <import resource="services-and-DAOS.xml"/>
 
     <context:annotation-config />
     <context:component-scan base-package="ua.ros.taxiapp.web" />
@@ -42,23 +43,6 @@
         </property>
     </bean>
 
-    <bean id = "brandService" class = "ua.ros.taxiapp.services.BrandServiceImpl"/>
-    <bean id = "brandDAO" class = "ua.ros.taxiapp.repository.hibernate.BrandHibernateDAO"/>
-    <bean id = "carService" class = "ua.ros.taxiapp.services.CarServiceImpl"/>
-    <bean id = "carDAO" class = "ua.ros.taxiapp.repository.hibernate.CarHibernateDAO"/>
-    <bean id = "commentService" class = "ua.ros.taxiapp.services.CommentServiceImpl"/>
-    <bean id = "commentDAO" class = "ua.ros.taxiapp.repository.hibernate.CommentHibernateDAO"/>
-    <bean id = "customerService" class = "ua.ros.taxiapp.services.CustomerServiceImpl"/>
-    <bean id = "customerDAO" class = "ua.ros.taxiapp.repository.hibernate.CustomerHibernateDAO"/>
-    <bean id = "favouriteService" class = "ua.ros.taxiapp.services.FavouriteServiceImpl"/>
-    <bean id = "favouriteDAO" class = "ua.ros.taxiapp.repository.hibernate.FavouriteHibernateDAO"/>
-    <bean id = "modelService" class = "ua.ros.taxiapp.services.ModelServiceImpl"/>
-    <bean id = "modelDAO" class = "ua.ros.taxiapp.repository.hibernate.ModelHibernateDAO"/>
-    <bean id = "orderService" class = "ua.ros.taxiapp.services.OrderServiceImpl"/>
-    <bean id = "orderDAO" class = "ua.ros.taxiapp.repository.hibernate.OrderHibernateDAO"/>
-    <bean id = "taxistService" class = "ua.ros.taxiapp.services.TaxistServiceImpl"/>
-    <bean id = "taxistDAO" class = "ua.ros.taxiapp.repository.hibernate.TaxistHibernateDAO"/>
-    <bean id = "userService" class = "ua.ros.taxiapp.services.UserServiceImpl"/>
-    <bean id = "userDAO" class = "ua.ros.taxiapp.repository.hibernate.UserHibernateDAO"/>
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
 </beans>

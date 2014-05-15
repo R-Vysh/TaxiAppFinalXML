@@ -7,11 +7,17 @@ import java.util.List;
 
 public interface OrderService {
 
-    public List<Order> requestAllOrders();
+    public List<Order> getAllOrders();
 
     public boolean createOrder(Order order);
 
-    public Order requestOrder(Serializable id);
+    public Order findById(Integer id);
 
-    public boolean deleteOrder(Serializable id);
+    public boolean deleteOrder(Order order);
+
+    public boolean updateOrder(Order order);
+
+    public boolean takeOrder(Order order);
+
+    public boolean cancelOrder(Order order);
 }

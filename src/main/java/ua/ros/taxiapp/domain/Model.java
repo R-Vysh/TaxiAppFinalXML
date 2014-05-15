@@ -1,14 +1,9 @@
 package ua.ros.taxiapp.domain;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "models")
@@ -18,8 +13,9 @@ public class Model implements Serializable {
     @GeneratedValue
     @Column(name = "model_id")
     Integer modelId;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "brand_id", nullable = false)
+    @JsonBackReference
     Brand brand;
     @Column(name = "name")
     String modelsName;

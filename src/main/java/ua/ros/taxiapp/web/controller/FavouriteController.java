@@ -6,32 +6,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ua.ros.taxiapp.domain.Model;
-import ua.ros.taxiapp.domain.Order;
-import ua.ros.taxiapp.services.OrderService;
+import ua.ros.taxiapp.domain.Comment;
+import ua.ros.taxiapp.domain.Favourite;
+import ua.ros.taxiapp.services.FavouriteService;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/rest/orders")
-public class OrderController {
+@RequestMapping("/rest/favourites")
+public class FavouriteController {
 
     @Autowired
-    private OrderService orderService;
+    private FavouriteService favouriteService;
 
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
+    public void setFavouriteService(FavouriteService favouriteService) {
+        this.favouriteService = favouriteService;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    public List<Favourite> getAllFavourites() {
+        return favouriteService.getAllFavourites();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Order findOrderById(@PathVariable("id") Integer id) {
-        return orderService.findById(id);
+    public Favourite findFavouriteById(@PathVariable("id") Integer id) {
+        return favouriteService.findById(id);
     }
+
 }

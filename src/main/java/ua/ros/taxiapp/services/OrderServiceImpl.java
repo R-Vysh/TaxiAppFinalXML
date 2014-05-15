@@ -1,30 +1,86 @@
 package ua.ros.taxiapp.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 import ua.ros.taxiapp.domain.Order;
+import ua.ros.taxiapp.repository.OrderDAO;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
+    @Autowired
+    OrderDAO orderDAO;
+
+    public OrderDAO getOrderDAO() {
+        return orderDAO;
+    }
+
+    public void setOrderDAO(OrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
+    }
+
     @Override
-    public List<Order> requestAllOrders() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Order> getAllOrders() {
+        return orderDAO.findAll(Order.class);
     }
 
     @Override
     public boolean createOrder(Order order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            orderDAO.save(order);
+        } catch (DataAccessException ex) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public Order requestOrder(Serializable id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Order findById(Integer id) {
+        return orderDAO.findByID(Order.class, id);
     }
 
     @Override
-    public boolean deleteOrder(Serializable id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean deleteOrder(Order order) {
+        try {
+            orderDAO.delete(order);
+        } catch (DataAccessException ex) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateOrder(Order order) {
+        try {
+            orderDAO.save(order);
+        } catch (DataAccessException ex) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean takeOrder(Order order) {
+        try {
+            orderDAO.takeOrder(order);
+        } catch (DataAccessException ex) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean cancelOrder(Order order) {
+        try {
+            orderDAO.cancelOrder(order);
+        } catch (DataAccessException ex) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -9,7 +9,7 @@
     <!-- Security configuration for REST services. -->
 
     <http pattern="/" security="none"/>
-    <http pattern="/customers/register" security="none"/>
+    <http pattern="/rest/customers/register" security="none"/>
 
     <http pattern="/**"
           authentication-manager-ref="authenticationManager" entry-point-ref="restServicesEntryPoint"
