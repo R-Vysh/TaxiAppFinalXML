@@ -28,7 +28,8 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void saveCustomer(@RequestParam("mobile") String mobile, @RequestParam("password") String password,
+    @ResponseBody
+    public String saveCustomer(@RequestParam("mobile") String mobile, @RequestParam("password") String password,
                                 @RequestParam("username") String username) {
         User user = new User();
         user.setMobile(mobile);
@@ -37,6 +38,7 @@ public class CustomerController {
         Customer customer = new Customer();
         customer.setUser(user);
         customerService.createCustomer(customer);
+        return "Helo";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

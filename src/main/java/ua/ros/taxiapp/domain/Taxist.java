@@ -1,8 +1,8 @@
 package ua.ros.taxiapp.domain;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "taxists")
@@ -28,12 +28,13 @@ public class Taxist {
     Boolean free;
     @Column(name = "is_online")
     Boolean online;
-    @OneToMany(mappedBy = "taxist")
-    Set<Comment> comments = new HashSet<>();
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     User user;
-    
+    @OneToOne(cascade=CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Coordinates coordinates;
+
     public Taxist() {
     }
     
@@ -82,20 +83,8 @@ public class Taxist {
         this.rating = rating;
     }
 
-    public Boolean isFree() {
-        return free;
-    }
-
     public void setFree(Boolean free) {
         this.free = free;
-    }
-
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
     }
 
     public Boolean getOnline() {
@@ -108,5 +97,13 @@ public class Taxist {
 
     public Boolean getFree() {
         return free;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 }
