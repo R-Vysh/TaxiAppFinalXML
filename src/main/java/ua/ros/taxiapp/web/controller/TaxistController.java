@@ -2,12 +2,8 @@ package ua.ros.taxiapp.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import ua.ros.taxiapp.domain.Order;
-import ua.ros.taxiapp.domain.Taxist;
+import org.springframework.web.bind.annotation.*;
+import ua.ros.taxiapp.domain.*;
 import ua.ros.taxiapp.services.TaxistService;
 
 import java.util.List;
@@ -39,5 +35,18 @@ public class TaxistController {
     @ResponseBody
     public Taxist findTaxistById(@PathVariable("id") Integer id) {
         return taxistService.findById(id);
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public StatusMessage saveTaxist(@RequestParam("user") User user, @RequestParam("car") Car car) {
+        user.setTaxist(true);
+        Taxist taxist = new Taxist();
+        taxist.setUser(user);
+        if(taxistService.createNewTaxist(taxist)) {
+            return new StatusMessage(StatusMessage.OK);
+        } else {
+            return new StatusMessage(StatusMessage.FAIL);
+        }
     }
 }
