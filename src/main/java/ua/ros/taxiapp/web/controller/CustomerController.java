@@ -3,6 +3,7 @@ package ua.ros.taxiapp.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sun.plugin2.message.ShowStatusMessage;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.services.CustomerService;
@@ -29,16 +30,20 @@ public class CustomerController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public String saveCustomer(@RequestParam("mobile") String mobile, @RequestParam("password") String password,
+    public StatusMessage saveCustomer(@RequestParam("mobile") String mobile, @RequestParam("password") String password,
                                 @RequestParam("username") String username) {
         User user = new User();
         user.setMobile(mobile);
         user.setPassword(password);
         user.setUsername(username);
+        user.setTaxist(false);
         Customer customer = new Customer();
         customer.setUser(user);
-        customerService.createCustomer(customer);
-        return "Helo";
+        if(customerService.createCustomer(customer)) {
+        return new StatusMessage(StatusMessage.OK);
+        } else {
+            return new StatusMessage(StatusMessage.FAIL);
+        }
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
