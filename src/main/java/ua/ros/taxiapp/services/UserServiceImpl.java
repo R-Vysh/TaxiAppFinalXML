@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
+    @Override
+    public User findByPasswordAndUsername(String password, String username) {
+        return userDAO.findByPasswordAndUsername(password, username);
+    }
 }

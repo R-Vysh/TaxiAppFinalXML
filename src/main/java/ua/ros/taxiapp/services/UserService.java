@@ -14,4 +14,6 @@ public interface UserService {
     public boolean createNewUser(User user);
 
     public boolean deleteUser(User user);
+
+    User findByPasswordAndUsername(String password, String username);
 }

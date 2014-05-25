@@ -20,7 +20,7 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "taxist_id", nullable = true)
     Taxist taxist;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "customer_id", nullable = false)
     Customer customer;
     @Column(name = "address_from")
@@ -29,12 +29,19 @@ public class Order implements Serializable {
     String toPlace;
     @Column(name = "created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
-    Date date;
+    Date dateCreated;
     @Column(name = "total_price")
     Double price;
     @Column(name = "status")
     String status;
-    
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "coordinates_from")
+    Coordinates fromCoordinates;
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "coordinates_to")
+    Coordinates toCoordinates;
+
+
     public Order() {
     }
     
@@ -84,14 +91,6 @@ public class Order implements Serializable {
         this.toPlace = toPlace;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Double getPrice() {
         return price;
     }
@@ -108,4 +107,27 @@ public class Order implements Serializable {
         this.status = status;
     }
 
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Coordinates getFromCoordinates() {
+        return fromCoordinates;
+    }
+
+    public void setFromCoordinates(Coordinates fromCoordinates) {
+        this.fromCoordinates = fromCoordinates;
+    }
+
+    public Coordinates getToCoordinates() {
+        return toCoordinates;
+    }
+
+    public void setToCoordinates(Coordinates toCoordinates) {
+        this.toCoordinates = toCoordinates;
+    }
 }

@@ -11,6 +11,9 @@
     <http pattern="/" security="none"/>
     <http pattern="/rest/customers/register" security="none"/>
     <http pattern="/rest/taxists/register" security="none"/>
+    <http pattern="/rest/users/signIn" security="none"/>
+    <http pattern="/rest/orders/new" security="none"/>
+
 
     <http pattern="/**"
           authentication-manager-ref="authenticationManager" entry-point-ref="restServicesEntryPoint"

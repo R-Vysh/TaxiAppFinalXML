@@ -33,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             orderDAO.save(order);
         } catch (DataAccessException ex) {
+            ex.printStackTrace();
             return false;
         }
         return true;

@@ -32,7 +32,7 @@ public class Taxist {
     @JoinColumn(name = "user_id", nullable = false)
     User user;
     @OneToOne(cascade=CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates;
 
     public Taxist() {

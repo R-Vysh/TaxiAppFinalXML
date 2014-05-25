@@ -7,7 +7,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-        @NamedQuery(name = "user.with.mobile", query = "from User u where u.mobile = :mobile")
+        @NamedQuery(name = "user.with.mobile", query = "from User u where u.mobile = :mobile"),
+        @NamedQuery(name = "user.with.password.and.username",
+                query = "from User u where u.password = :password and u.username = :username")
 })
 public class User implements Serializable {
 
@@ -26,10 +28,10 @@ public class User implements Serializable {
     Date createdTime;
     @Column(name = "username")
     String username;
-    
+
     public User() {
     }
-    
+
     public User(String mobile, String pass) {
         this.mobile = mobile;
         this.password = pass;
@@ -50,35 +52,35 @@ public class User implements Serializable {
     public Integer getUserId() {
         return userId;
     }
-    
+
     public void setUserId(Integer id) {
         this.userId = id;
     }
-    
+
     public String getPassword() {
         return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public String getMobile() {
         return mobile;
     }
-    
+
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-    
+
     public Date getCreatedTime() {
         return createdTime;
     }
-    
+
     public void setCreatedTime(Date time) {
         this.createdTime = time;
     }
-    
+
     public void setTaxist(Boolean taxist) {
         this.taxist = taxist;
     }

@@ -7,34 +7,34 @@ import java.io.Serializable;
 @Table(name = "coordinates")
 public class Coordinates implements Serializable {
     @Id
-    @Column(name = "taxist_id")
-    Integer taxistId;
+    @GeneratedValue
+    Integer coordinatesId;
     @Column(name = "longtitude", nullable = false)
-    Float longtitude;
+    Double longtitude;
     @Column(name = "latitude", nullable = false)
-    Float latitude;
+    Double latitude;
 
-    public Integer getTaxistId() {
-        return taxistId;
+    public Integer getCoordinatesId() {
+        return coordinatesId;
     }
 
-    public void setTaxistId(Integer taxistId) {
-        this.taxistId = taxistId;
+    public void setCoordinatesId(Integer coordinatesId) {
+        this.coordinatesId = coordinatesId;
     }
 
-    public Float getLongtitude() {
+    public Double getLongtitude() {
         return longtitude;
     }
 
-    public void setLongtitude(Float longtitude) {
+    public void setLongtitude(Double longtitude) {
         this.longtitude = longtitude;
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 }

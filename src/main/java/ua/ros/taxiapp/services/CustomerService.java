@@ -17,4 +17,6 @@ public interface CustomerService {
     public boolean updateCustomer(Customer customer);
 
     public boolean deleteCustomer(Customer customer);
+
+    Customer findByUsernameAndPassword(String username, String password);
 }

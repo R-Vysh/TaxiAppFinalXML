@@ -69,6 +69,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer findByUsernameAndPassword(String username, String password) {
+        return customerDAO.findByUsernameAndPassword(username, password);
+    }
+
+    @Override
     public Customer findByMobile(String mobile) {
         return customerDAO.findByMobile(mobile);
     }

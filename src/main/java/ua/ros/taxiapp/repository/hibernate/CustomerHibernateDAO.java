@@ -35,4 +35,15 @@ public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer>
         cust = findOne(query);
         return cust;
     }
+
+    @Override
+    @Transactional
+    public Customer findByUsernameAndPassword(String username, String password) {
+        Customer cust = null;
+        Query query = this.getSession().getNamedQuery("customer.with.username.and.password");
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        cust = findOne(query);
+        return cust;
+    }
 }
