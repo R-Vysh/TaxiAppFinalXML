@@ -3,46 +3,59 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <import resource="security.xml"/>
     <import resource="database.xml"/>
-    <import resource="services-and-DAOS.xml"/>
+    <import resource="security.xml"/>
+    <!--<import resource="services-and-DAOS.xml"/>-->
 
-    <context:annotation-config />
-    <context:component-scan base-package="ua.ros.taxiapp.web" />
+    <context:annotation-config/>
+    <context:component-scan base-package="ua.ros.taxiapp"/>
     <mvc:annotation-driven/>
-    <tx:annotation-driven transaction-manager = "transactionManager"/>
 
-    <bean id="jspViewResolver"
-          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass"
-                  value="org.springframework.web.servlet.view.JstlView" />
-        <property name="prefix" value="/WEB-INF/view/" />
-        <property name="suffix" value=".jsp" />
+    <!--  RESOURCE FOLDERS CONFIGURATION                                  -->
+    <mvc:resources location="/resources/images/" mapping="/images/**"/>
+    <mvc:resources location="/resources/css/" mapping="/css/**"/>
+
+    <!--  MESSAGE EXTERNALIZATION/INTERNATIONALIZATION                    -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
     </bean>
 
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:messages" />
-        <property name="defaultEncoding" value="UTF-8" />
+    <!--  THYMELEAF-SPECIFIC ARTIFACTS                                    -->
+    <!--  TemplateResolver <- TemplateEngine <- ViewResolver              -->
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".html"/>
+        <property name="templateMode" value="HTML5"/>
     </bean>
 
-    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
-
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonConverter"/>
-            </list>
-        </property>
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring3.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
     </bean>
 
-    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    <bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"/>
+    </bean>
+
+    <!--  SPRING ANNOTATION PROCESSING                                    -->
+    <!--<mvc:annotation-driven conversion-service="conversionService" />-->
+
+    <!--  CONVERSION SERVICE                                              -->
+    <!--  Standard Spring formatting-enabled implementation               -->
+    <!--<bean id="conversionService"-->
+    <!--class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+    <!--<property name="formatters">-->
+    <!--<set>-->
+    <!--<bean class="thymeleafexamples.stsm.web.conversion.VarietyFormatter" />-->
+    <!--<bean class="thymeleafexamples.stsm.web.conversion.DateFormatter" />-->
+    <!--</set>-->
+    <!--</property>-->
+    <!--</bean>-->
 
 </beans>

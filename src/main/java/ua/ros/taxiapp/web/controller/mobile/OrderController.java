@@ -1,11 +1,10 @@
-package ua.ros.taxiapp.web.controller;
+package ua.ros.taxiapp.web.controller.mobile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.ros.taxiapp.domain.Coordinates;
 import ua.ros.taxiapp.domain.Customer;
-import ua.ros.taxiapp.domain.Model;
 import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.services.OrderService;

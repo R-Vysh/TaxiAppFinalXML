@@ -1,4 +1,4 @@
-package ua.ros.taxiapp.web.controller;
+package ua.ros.taxiapp.web.controller.mobile;
 
 public class StatusMessage {
     public static final String OK = "Successfull";

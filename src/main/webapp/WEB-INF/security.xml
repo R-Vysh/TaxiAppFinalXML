@@ -1,42 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
-             http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-             http://www.springframework.org/schema/security
-             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+                                 http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                                 http://www.springframework.org/schema/security
+                                 http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <!-- Security configuration for REST services. -->
-
-    <http pattern="/" security="none"/>
-    <http pattern="/rest/customers/register" security="none"/>
-    <http pattern="/rest/taxists/register" security="none"/>
-    <http pattern="/rest/users/signIn" security="none"/>
-    <http pattern="/rest/orders/new" security="none"/>
-
-
-    <http pattern="/**"
-          authentication-manager-ref="authenticationManager" entry-point-ref="restServicesEntryPoint"
-          create-session="stateless">
-        <custom-filter ref="restServicesFilter"
-                       before="PRE_AUTH_FILTER" />
+    <http auto-config="true" use-expressions="true">
+        <form-login login-page="/login" authentication-failure-url="/login-error" />
+        <logout />
+        <intercept-url pattern="/web/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
     </http>
-
-    <!-- Entry point for REST service. -->
-    <beans:bean id="restServicesEntryPoint"
-          class="ua.ros.taxiapp.web.security.RestAuthenticationEntryPoint" />
-
-    <!-- Filter for REST services. -->
-    <beans:bean id="restServicesFilter"
-          class="ua.ros.taxiapp.web.security.RestUsernamePasswordAuthenticationFilter">
-        <beans:property name="postOnly" value="false" />
-        <beans:property name="authenticationManager" ref="authenticationManager" />
-        <beans:property name="authenticationSuccessHandler" ref="restServicesSuccessHandler" />
-    </beans:bean>
-
-    <!-- A handler for successful REST service authentication. -->
-    <beans:bean id="restServicesSuccessHandler"
-          class="ua.ros.taxiapp.web.security.RestAuthenticationSuccessHandler" />
 
     <!-- Authentication manager. -->
     <authentication-manager alias="authenticationManager">

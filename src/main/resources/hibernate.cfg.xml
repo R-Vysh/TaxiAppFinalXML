@@ -15,6 +15,7 @@
         <mapping class="ua.ros.taxiapp.domain.Taxist" />
         <mapping class="ua.ros.taxiapp.domain.Comment" />
         <mapping class="ua.ros.taxiapp.domain.Order" />
-    
+        <mapping class="ua.ros.taxiapp.domain.Coordinates" />
+
     </session-factory>
 </hibernate-configuration>

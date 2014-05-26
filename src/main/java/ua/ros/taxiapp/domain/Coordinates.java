@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Table(name = "coordinates")
 public class Coordinates implements Serializable {
     @Id
+    @Column(name = "coordinates_id")
     @GeneratedValue
     Integer coordinatesId;
     @Column(name = "longtitude", nullable = false)
