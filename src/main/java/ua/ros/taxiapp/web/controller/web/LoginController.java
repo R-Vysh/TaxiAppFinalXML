@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import ua.ros.taxiapp.domain.Customer;
+import ua.ros.taxiapp.domain.User;
+import ua.ros.taxiapp.web.controller.mobile.StatusMessage;
 
 @Controller
 @RequestMapping("/")
@@ -23,4 +26,17 @@ public class LoginController {
         model.addAttribute("loginError", true);
         return "login";
     }
+
+    @RequestMapping(value = "/perform_login", method = RequestMethod.POST)
+    public void doLogin(@RequestParam("j_password") String j_password,
+                        @RequestParam("j_username") String j_username) {
+
+    }
+
+    @RequestMapping(value = "/web/user/1", method = RequestMethod.GET)
+    public String sayHello() {
+        return "welcome";
+    }
+
+
 }
