@@ -10,10 +10,12 @@
 
     <import resource="database.xml"/>
     <import resource="security.xml"/>
-    <!--<import resource="services-and-DAOS.xml"/>-->
+    <import resource="services-and-DAOS.xml"/>
 
     <context:annotation-config/>
-    <context:component-scan base-package="ua.ros.taxiapp"/>
+    <context:component-scan base-package="ua.ros.taxiapp.web"/>
+    <!--<context:component-scan base-package="ua.ros.taxiapp."/>-->
+
     <mvc:annotation-driven/>
 
     <!--  RESOURCE FOLDERS CONFIGURATION                                  -->

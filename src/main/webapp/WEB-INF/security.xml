@@ -8,9 +8,13 @@
                                  http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <http auto-config="true" use-expressions="true">
-        <form-login login-page="/login" authentication-failure-url="/login-error"
-                    login-processing-url="/perform_login"/>
+        <form-login login-page="/web/login" authentication-failure-url="/web/login-error"
+                    login-processing-url="/web/perform-login"/>
         <logout />
+        <intercept-url pattern="/web/login" access="hasRole('ROLE_ANONYMOUS')" />
+        <intercept-url pattern="/web/login-error" access="hasRole('ROLE_ANONYMOUS')" />
+        <intercept-url pattern="/web/perform-login" access="hasRole('ROLE_ANONYMOUS')" />
+        <intercept-url pattern="/web/customer/register" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
     </http>
 

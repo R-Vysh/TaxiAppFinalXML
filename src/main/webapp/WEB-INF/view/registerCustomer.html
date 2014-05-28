@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<p th:if="${registrationUnsuccessful}" th:text="#{registercustomer.registration.unsuccessful}">Oops. Something went wrong.</p>
+<form action="#" th:action="@{/web/customer/register}" th:object="${customer}" method="post">
+    <input type="text" th:field="*{user.mobile}" />
+    <input type="text" th:field="*{user.password}" />
+    <input type="text" th:field="*{user.username}" />
+    <input type="submit" />
+</form>
+</body>
+</html>

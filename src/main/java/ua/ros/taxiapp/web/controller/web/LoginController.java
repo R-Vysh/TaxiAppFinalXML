@@ -13,7 +13,7 @@ import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.web.controller.mobile.StatusMessage;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/web")
 public class LoginController {
 
     @RequestMapping("/login")
@@ -27,13 +27,13 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/perform_login", method = RequestMethod.POST)
+    @RequestMapping(value = "/perform-login", method = RequestMethod.POST)
     public void doLogin(@RequestParam("j_password") String j_password,
                         @RequestParam("j_username") String j_username) {
 
     }
 
-    @RequestMapping(value = "/web/user/1", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/1", method = RequestMethod.GET)
     public String sayHello() {
         return "welcome";
     }

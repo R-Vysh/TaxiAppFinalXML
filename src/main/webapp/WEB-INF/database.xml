@@ -23,8 +23,17 @@
     <bean id="dataSource"
           class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
           p:driverClass="${jdbc.driverClassName}"
-          p:jdbcUrl="${jdbc.databaseurl}" p:user="${jdbc.username}"
-          p:password="${jdbc.password}"/>
+          p:jdbcUrl="${jdbc.url}" p:user="${jdbc.username}"
+          p:password="${jdbc.password}"
+            />
+
+    <!--<bean id="dataSource"           class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+          <!-->-->
+        	    <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
+        	    <!--<property name="url" value="jdbc:mysql://localhost:3306/taxi" />-->
+        	    <!--<property name="username" value="root" />-->
+        	    <!--<property name="password" value="root" />-->
+        	  <!--</bean>-->
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -37,9 +46,10 @@
             <props>
                 <prop key="hibernate.dialect">${jdbc.dialect}</prop>
                 <prop key="hibernate.connection.driver_class">${jdbc.driverClassName}</prop>
-                <prop key="hibernate.connection.url">${jdbc.databaseurl}</prop>
+                <prop key="hibernate.connection.url">${jdbc.url}</prop>
                 <prop key="hibernate.connection.username">${jdbc.username}</prop>
                 <prop key="hibernate.connection.password">${jdbc.password}</prop>
+                <prop key="hibernate.connection.autocommit">false</prop>
                 <prop key="show_sql">true</prop>
                 <prop key="format_sql">true</prop>
             </props>

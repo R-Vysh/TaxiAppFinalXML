@@ -5,13 +5,19 @@
 </head>
 <body>
 <h3>Login page</h3>
-<p th:if="${loginError}">Wrong user or password</p>
-<form th:action="@{/perform_login}" method="post">
+<p th:if="${loginError}" th:text="#{login.wrong.credentials}">Wrong user or password</p>
+<p th:if="${registrationSuccessful}" th:text="#{login.registration.successful}">You have successfully registered.</p>
+<form th:action="@{/web/perform-login}" method="post">
     <label for="j_username">Username</label>:
     <input type="text" id="j_username" name="j_username" /> <br />
     <label for="j_password">Password</label>:
     <input type="password" id="j_password" name="j_password" /> <br />
     <input type="submit" value="Log in" />
 </form>
+<a href="registerCustomer.html"
+   th:href="@{/web/customer/register}" th:text="#{login.register.customer}">Register a customer</a>
+<a href="registerTaxist.html"
+   th:href="@{/web/taxist/register}" th:text="#{login.register.taxist}">Register a taxist</a>
+
 </body>
 </html>

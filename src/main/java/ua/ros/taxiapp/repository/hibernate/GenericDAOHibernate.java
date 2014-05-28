@@ -3,6 +3,7 @@ package ua.ros.taxiapp.repository.hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,35 +13,52 @@ import java.io.Serializable;
 import java.util.List;
 
 public abstract class GenericDAOHibernate<T, ID extends Serializable> implements GenericDAO<T, ID> {
-    
+
     @Autowired
     private SessionFactory sessionFactory;
 
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
- 
+
     @Override
-    @Transactional
+    @Transactional(rollbackFor={Exception.class})
     public void save(T entity) throws DataAccessException {
-        Session hibernateSession = this.getSession();
-        hibernateSession.saveOrUpdate(entity);
+        Session session = this.getSession();
+//        Transaction tx = null;
+//        try{
+//            tx = session.beginTransaction();
+//            tx.setTimeout(5);
+            session.save(entity);
+//            tx.commit();
+//
+//        }catch(Exception e){
+//            if(tx!=null) {
+//            try{
+//             //   tx.rollback();
+//            }catch(RuntimeException rbe){
+//            }
+//            throw e;
+//        }}finally{
+//            if(session!=null){
+//                session.close();
+            //}}
     }
- 
+
     @Override
     @Transactional
     public void merge(T entity) throws DataAccessException {
         Session hibernateSession = this.getSession();
         hibernateSession.merge(entity);
     }
- 
+
     @Override
     @Transactional
     public void delete(T entity) throws DataAccessException {
         Session hibernateSession = this.getSession();
         hibernateSession.delete(entity);
     }
-    
+
     @Override
     @Transactional
     public T findOne(Query query) {
@@ -48,7 +66,7 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
         t = (T) query.uniqueResult();
         return t;
     }
- 
+
     @Override
     @Transactional
     public T findByID(Class clazz, ID id) {
@@ -57,7 +75,7 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
         t = (T) hibernateSession.get(clazz, id);
         return t;
     }
- 
+
     @SuppressWarnings("unchecked")
     @Override
     @Transactional
