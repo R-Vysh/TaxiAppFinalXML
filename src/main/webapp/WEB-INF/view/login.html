@@ -4,20 +4,20 @@
     <title th:text="#{login.title}"></title>
 </head>
 <body>
-<h3>Login page</h3>
-<p th:if="${loginError}" th:text="#{login.wrong.credentials}">Wrong user or password</p>
-<p th:if="${registrationSuccessful}" th:text="#{login.registration.successful}">You have successfully registered.</p>
+<h3 th:text="#{login.title}">Login page</h3>
+<p th:if="${loginError}" th:text="#{wrong.credentials}">Wrong user or password</p>
+<p th:if="${registrationSuccessful}" th:text="#{registration.successful}">You have successfully registered.</p>
 <form th:action="@{/web/perform-login}" method="post">
-    <label for="j_username">Username</label>:
+    <label for="j_username" th:text = "#{username}">Username</label>:
     <input type="text" id="j_username" name="j_username" /> <br />
-    <label for="j_password">Password</label>:
+    <label for="j_password" th:text = "#{password}">Password</label>:
     <input type="password" id="j_password" name="j_password" /> <br />
-    <input type="submit" value="Log in" />
+    <input type="submit" th:value="#{sign.in}" />
 </form>
 <a href="registerCustomer.html"
-   th:href="@{/web/customer/register}" th:text="#{login.register.customer}">Register a customer</a>
+   th:href="@{/web/customer/register}" th:text="#{register.customer}">Register a customer</a>
 <a href="registerTaxist.html"
-   th:href="@{/web/taxist/register}" th:text="#{login.register.taxist}">Register a taxist</a>
+   th:href="@{/web/taxist/register}" th:text="#{register.taxist}">Register a taxist</a>
 
 </body>
 </html>

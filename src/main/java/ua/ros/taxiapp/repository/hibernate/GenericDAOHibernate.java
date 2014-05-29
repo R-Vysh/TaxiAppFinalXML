@@ -25,24 +25,7 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
     @Transactional(rollbackFor={Exception.class})
     public void save(T entity) throws DataAccessException {
         Session session = this.getSession();
-//        Transaction tx = null;
-//        try{
-//            tx = session.beginTransaction();
-//            tx.setTimeout(5);
             session.save(entity);
-//            tx.commit();
-//
-//        }catch(Exception e){
-//            if(tx!=null) {
-//            try{
-//             //   tx.rollback();
-//            }catch(RuntimeException rbe){
-//            }
-//            throw e;
-//        }}finally{
-//            if(session!=null){
-//                session.close();
-            //}}
     }
 
     @Override

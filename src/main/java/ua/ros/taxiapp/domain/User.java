@@ -12,7 +12,6 @@ import javax.persistence.*;
                 query = "from User u where u.password = :password and u.username = :username")
 })
 public class User implements Serializable {
-
     @Id
     @GeneratedValue
     @Column(name = "user_id")
@@ -28,6 +27,8 @@ public class User implements Serializable {
     Date createdTime;
     @Column(name = "username")
     String username;
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    Authority authority;
 
     public User() {
     }
@@ -35,6 +36,14 @@ public class User implements Serializable {
     public User(String mobile, String pass) {
         this.mobile = mobile;
         this.password = pass;
+    }
+
+    public Authority getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 
     public String getUsername() {

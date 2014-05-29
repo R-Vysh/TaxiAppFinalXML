@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title th:text="#{register.customer}"></title>
 </head>
 <body>
-<p th:if="${registrationUnsuccessful}" th:text="#{registercustomer.registration.unsuccessful}">Oops. Something went wrong.</p>
+<p th:if="${registrationUnsuccessful}" th:text="#{registration.unsuccessful}">Oops. Something went wrong.</p>
+<h3 th:text="#{register.customer}">Register customer</h3>
+
 <form action="#" th:action="@{/web/customer/register}" th:object="${customer}" method="post">
-    <input type="text" th:field="*{user.mobile}" />
-    <input type="text" th:field="*{user.password}" />
-    <input type="text" th:field="*{user.username}" />
-    <input type="submit" />
+    <table>
+        <tr>
+            <th th:text="#{username}">Username</th>
+            <th><input type="text" th:field="*{user.username}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{password}">Password</th>
+            <th><input type="password" th:field="*{user.password}"/></th>
+        </tr>
+        <!--<tr>-->
+            <!--<th th:text="#{confirm.password}">Confirm password</th>-->
+            <!--<th><input type="password" th:field="*{user.password}"/></th>-->
+        <!--</tr>-->
+        <tr>
+            <th th:text="#{mobile}">Mobile</th>
+            <th><input type="text" th:field="*{user.mobile}"/></th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input type="submit" th:value="#{register}"/></th>
+        </tr>
+    </table>
 </form>
 </body>
 </html>
