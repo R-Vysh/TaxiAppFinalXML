@@ -1,10 +1,11 @@
 package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "authorities")
-public class Authority {
+public class Authority implements Serializable {
 
     public enum Rolename {
         ROLE_CUST("ROLE_CUST"), ROLE_TAXIST("ROLE_TAXIST"), ROLE_ADMIN("ROLE_ADMIN");
@@ -23,21 +24,13 @@ public class Authority {
     @Id
     @GeneratedValue
     @Column(name = "authority_id")
-    Integer authorityId;
-    @OneToOne(fetch = FetchType.EAGER)
+    private Integer authorityId;
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
-    User user;
+    private User user;
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
-    Rolename rolename;
-
-    public Integer getAuthorityId() {
-        return authorityId;
-    }
-
-    public void setAuthorityId(Integer authorityId) {
-        this.authorityId = authorityId;
-    }
+    private Rolename rolename;
 
     public User getUser() {
         return user;
@@ -47,14 +40,13 @@ public class Authority {
         this.user = user;
     }
 
-//    public String getRolename() {
-//        return rolename;
-//    }
-//
-//    public void setRolename(String rolename) {
-//        this.rolename = rolename;
-//    }
+    public Integer getAuthorityId() {
+        return authorityId;
+    }
 
+    public void setAuthorityId(Integer authorityId) {
+        this.authorityId = authorityId;
+    }
 
     public Rolename getRolename() {
         return rolename;
@@ -63,4 +55,6 @@ public class Authority {
     public void setRolename(Rolename rolename) {
         this.rolename = rolename;
     }
+
+
 }

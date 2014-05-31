@@ -12,12 +12,16 @@
     <input type="text" id="j_username" name="j_username" /> <br />
     <label for="j_password" th:text = "#{password}">Password</label>:
     <input type="password" id="j_password" name="j_password" /> <br />
+    <label for="_spring_security_remember_me" th:text = "#{remember.me}">Remember me</label>:
+    <input type="checkbox" id="_spring_security_remember_me" name="_spring_security_remember_me" /> <br />
     <input type="submit" th:value="#{sign.in}" />
 </form>
 <a href="registerCustomer.html"
    th:href="@{/web/customer/register}" th:text="#{register.customer}">Register a customer</a>
 <a href="registerTaxist.html"
    th:href="@{/web/taxist/register}" th:text="#{register.taxist}">Register a taxist</a>
+<a href="changePassword.html"
+   th:href="@{/web/change-password}" th:text="#{change.password}">Change password</a>
 
 </body>
 </html>

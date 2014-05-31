@@ -9,11 +9,11 @@ public class Coordinates implements Serializable {
     @Id
     @Column(name = "coordinates_id")
     @GeneratedValue
-    Integer coordinatesId;
+    private Integer coordinatesId;
     @Column(name = "longtitude", nullable = false)
-    Double longtitude;
+    private Double longtitude;
     @Column(name = "latitude", nullable = false)
-    Double latitude;
+    private Double latitude;
 
     public Integer getCoordinatesId() {
         return coordinatesId;

@@ -64,11 +64,9 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
     @Transactional
     public List<T> findAll(Class clazz) {
         Session hibernateSession = this.getSession();
-        //hibernateSession.beginTransaction();
         List<T> t = null;
         Query query = hibernateSession.createQuery("from " + clazz.getName());
         t = query.list();
-        //hibernateSession.getTransaction().commit();
         return t;
     }
 }

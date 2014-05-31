@@ -2,33 +2,35 @@ package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-@NamedQueries({
+@NamedQueries(value = {
         @NamedQuery(name = "user.with.mobile", query = "from User u where u.mobile = :mobile"),
         @NamedQuery(name = "user.with.password.and.username",
-                query = "from User u where u.password = :password and u.username = :username")
+                query = "from User u where u.password = :password and u.username = :username"),
+        @NamedQuery(name = "user.with.username", query = "from User u where u.username like :custName")
 })
 public class User implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "user_id")
-    Integer userId;
+    private Integer userId;
     @Column(name = "password")
-    String password;
+    private String password;
     @Column(name = "mobile")
-    String mobile;
+    private String mobile;
     @Column(name = "is_taxist")
-    Boolean taxist;
+    private Boolean taxist;
     @Column(name = "created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
-    Date createdTime;
+    private Date createdTime;
     @Column(name = "username")
-    String username;
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-    Authority authority;
+    private String username;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Authority> authorities;
 
     public User() {
     }
@@ -38,20 +40,20 @@ public class User implements Serializable {
         this.password = pass;
     }
 
-    public Authority getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(Authority authority) {
-        this.authority = authority;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     public Boolean getTaxist() {
@@ -93,6 +95,7 @@ public class User implements Serializable {
     public void setTaxist(Boolean taxist) {
         this.taxist = taxist;
     }
+
 
 
 }

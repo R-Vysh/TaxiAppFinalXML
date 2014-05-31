@@ -14,13 +14,13 @@ public class Favourite {
     @Id
     @GeneratedValue
     @Column(name = "favourite_id")
-    Integer favouriteId;
+    private Integer favouriteId;
     @Column(name = "address")
-    String address;
+    private String address;
 
     public Favourite() {
     }
-    
+
     public Favourite(String address) {
         this.address = address;
     }

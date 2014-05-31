@@ -15,34 +15,34 @@ public class Taxist {
     @Id
     @GeneratedValue
     @Column(name = "taxist_id")
-    Integer taxistId;
+    private Integer taxistId;
     @OneToOne
     @JoinColumn(name = "car_id")
-    Car car;
+    private Car car;
     @OneToOne
     @JoinColumn(name = "order_id")
-    Order currentOrder;
+    private Order currentOrder;
     @Column(name = "rating")
-    Double rating;
+    private Double rating;
     @Column(name = "is_free")
-    Boolean free;
+    private Boolean free;
     @Column(name = "is_online")
-    Boolean online;
+    private Boolean online;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
-    User user;
-    @OneToOne(cascade=CascadeType.ALL)
+    private User user;
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates;
 
     public Taxist() {
     }
-    
+
     public Taxist(Car car, User user) {
         this.car = car;
         this.user = user;
     }
-    
+
     public User getUser() {
         return user;
     }
@@ -50,7 +50,7 @@ public class Taxist {
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     public Integer getTaxistId() {
         return taxistId;
     }

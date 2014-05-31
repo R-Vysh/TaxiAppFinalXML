@@ -17,42 +17,42 @@ public class Model implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "model_id")
-    Integer modelId;
+    private Integer modelId;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "brand_id", nullable = false)
     @JsonBackReference
-    Brand brand;
+    private Brand brand;
     @Column(name = "name")
-    String modelsName;
-    
-    public Model() {     
+    private String modelsName;
+
+    public Model() {
     }
-    
+
     public Model(String name, Brand brand) {
         this.modelsName = name;
         this.brand = brand;
     }
-    
+
     public Integer getModelId() {
         return modelId;
     }
-    
+
     public void setModelId(Integer newId) {
         this.modelId = newId;
     }
-    
+
     public Brand getBrand() {
         return brand;
     }
-    
+
     public void setBrand(Brand newBrand) {
         brand = newBrand;
     }
-    
+
     public String getModelsName() {
         return modelsName;
     }
-    
+
     public void setModelsName(String newName) {
         this.modelsName = newName;
     }

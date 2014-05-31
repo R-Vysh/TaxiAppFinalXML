@@ -8,5 +8,6 @@
 <body>
 <h2 th:text="${title}"> Title</h2>
 <p th:text="#{welcome.hello}">Welcome to our grocery store!</p>
+<p th:text = "${#httpSession.getAttribute('user')}"></p>
 </body>
 </html>

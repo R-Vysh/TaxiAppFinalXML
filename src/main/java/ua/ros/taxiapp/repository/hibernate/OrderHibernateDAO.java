@@ -28,13 +28,13 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
 
     @Override
     public void takeOrder(Order order) {
-        order.setStatus("Taken");
+        order.setStatus(Order.OrderStatus.TAKEN);
         save(order);
     }
 
     @Override
     public void cancelOrder(Order order) {
-        order.setStatus("Cancelled");
+        order.setStatus(Order.OrderStatus.DECLINED);
         save(order);
     }
 }

@@ -18,12 +18,12 @@ public class Brand implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "brand_id")
-    Integer brandId;
+    private Integer brandId;
     @Column(name = "name", unique = true, nullable = false)
-    String brandsName;
+    private String brandsName;
     @OneToMany(mappedBy = "brand")
     @JsonManagedReference
-    Set<Model> models = new HashSet<>();
+    private Set<Model> models = new HashSet<>();
 
     public Brand() {
     }
@@ -54,5 +54,9 @@ public class Brand implements Serializable {
 
     public void setModels(Set<Model> models) {
         this.models = models;
+    }
+
+    public void addModel(Model model) {
+        this.models.add(model);
     }
 }

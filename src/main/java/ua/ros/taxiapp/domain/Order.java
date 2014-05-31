@@ -7,50 +7,63 @@ import javax.persistence.*;
 @Entity
 @Table(name = "orders")
 @NamedQueries({
-        @NamedQuery(name = "order.active", query = "from Order o where o.status = 'active'"),
+        @NamedQuery(name = "order.active", query = "from Order o where o.status = 'NOTTAKEN'"),
         @NamedQuery(name = "order.with.customer", query = "from Order o where o.customer = :customer")
 })
 
 public class Order implements Serializable {
 
+    public enum OrderStatus {
+        NOTTAKEN("NOTTAKEN"), DONE("DONE"), TAKEN("TAKEN"), DECLINED("DECLINED");
+
+        private String value;
+
+        OrderStatus(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "order_id")
-    Integer orderId;
+    private Integer orderId;
     @ManyToOne
     @JoinColumn(name = "taxist_id", nullable = true)
-    Taxist taxist;
+    private Taxist taxist;
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "customer_id", nullable = false)
-    Customer customer;
+    private Customer customer;
     @Column(name = "address_from")
-    String fromPlace;
+    private String fromPlace;
     @Column(name = "address_to")
-    String toPlace;
+    private String toPlace;
     @Column(name = "created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
-    Date dateCreated;
+    private Date dateCreated;
     @Column(name = "total_price")
-    Double price;
+    private Double price;
     @Column(name = "status")
-    String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "coordinates_from")
-    Coordinates fromCoordinates;
+    private Coordinates fromCoordinates;
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "coordinates_to")
-    Coordinates toCoordinates;
-
+    private Coordinates toCoordinates;
 
     public Order() {
     }
-    
+
     public Order(Customer cust, String from, String to) {
         this.customer = cust;
         this.fromPlace = from;
         this.toPlace = to;
     }
-    
+
     public Integer getOrderId() {
         return orderId;
     }
@@ -99,11 +112,11 @@ public class Order implements Serializable {
         this.price = price;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 

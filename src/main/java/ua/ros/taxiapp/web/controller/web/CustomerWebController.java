@@ -10,7 +10,9 @@ import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.web.controller.mobile.StatusMessage;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 @Controller
 @RequestMapping("/web/customer")
@@ -31,18 +33,17 @@ public class CustomerWebController {
         return "registerCustomer";
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
-    }
-
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerCustomer(@ModelAttribute(value = "customer") Customer customer, Model model) {
+    public String registerCustomer(@ModelAttribute(value = "customer") Customer customer,
+                                    Model model) {
         customer.getUser().setTaxist(false);
         Authority authority = new Authority();
         authority.setRolename(Authority.Rolename.ROLE_CUST);
         authority.setUser(customer.getUser());
-        customer.getUser().setAuthority(authority);
+        HashSet<Authority> auth = new HashSet<>();
+        auth.add(authority);
+        customer.getUser().setAuthorities(auth);
+//        customer.getUser().setAuthority(authority);
         if (customerService.createCustomer(customer)) {
             model.addAttribute("registrationSuccessful", true);
             return "login";
@@ -50,10 +51,4 @@ public class CustomerWebController {
         model.addAttribute("registrationUnsuccessful", true);
         return "registerCustomer";
     }
-
-//    @RequestMapping(value = "/registration-successful")
-//    public String registrationSuccessful(Model model) {
-//        model.addAttribute("registrationSuccessful", true);
-//        return "login";
-//    }
 }

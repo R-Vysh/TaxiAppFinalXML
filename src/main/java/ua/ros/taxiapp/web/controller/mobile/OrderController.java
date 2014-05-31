@@ -54,7 +54,7 @@ public class OrderController {
         order.setFromCoordinates(fromCoordinates);
         order.setToCoordinates(toCoordinates);
         order.setCustomer(customer);
-        order.setStatus("NOTTAKEN");
+        order.setStatus(Order.OrderStatus.NOTTAKEN);
         order.setFromPlace(fromAddressName);
         order.setToPlace(toAddressName);
         if(orderService.createOrder(order)) {

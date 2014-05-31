@@ -15,16 +15,16 @@ public class Car implements Serializable {
     @Id
     @Column(name = "car_id")
     @GeneratedValue
-    Integer carId;
+    private Integer carId;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "model_id", nullable = false)
-    Model model;
+    private Model model;
     @Column(name = "year")
-    Integer year;
+    private Integer year;
     @Column(name = "registrational_number")
-    String registrationalNumber;
+    private String registrationalNumber;
     @Column(name = "price_per_kilometer")
-    Double pricePerKm;
+    private Double pricePerKm;
 
     public Car() {
     }

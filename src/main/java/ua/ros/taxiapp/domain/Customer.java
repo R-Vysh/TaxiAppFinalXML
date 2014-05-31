@@ -4,26 +4,24 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @Table(name = "customers")
 @NamedQueries({
         @NamedQuery(name = "customer.with.mobile", query = "from Customer c where c.user.mobile = :mobile"),
-        @NamedQuery(name = "customer.with.order", query = "from Customer c where c.currentOrder = :ord"),
-        @NamedQuery(name = "customer.with.username.and.password",
-                query = "from Customer c where c.user.username = :username and c.user.password = :password")
-})
+        @NamedQuery(name = "customer.with.order", query = "from Customer c where c.currentOrder = :ord")})
 public class Customer implements Serializable {
 
     @Id
     @GeneratedValue
     @Column(name = "customer_id", unique = true, nullable = false)
-    Integer customerId;
+    private Integer customerId;
     @Column(name = "blames")
-    Integer blames;
+    private Integer blames;
     @OneToOne
     @JoinColumn(name = "order_id", nullable = true)
-    Order currentOrder;
+    private Order currentOrder;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "favourite_customer_maps",
             joinColumns = {
@@ -33,7 +31,7 @@ public class Customer implements Serializable {
     private Set<Favourite> favourites;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    private User user;
 
     public Customer() {
         this.favourites = new HashSet<>();
@@ -80,4 +78,6 @@ public class Customer implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

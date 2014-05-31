@@ -29,4 +29,14 @@ public class UserHibernateDAO extends GenericDAOHibernate<User, Integer> impleme
         return user;
     }
 
+    @Override
+    @Transactional
+    public User findByUsername(String username) {
+        Query query = this.getSession().getNamedQuery("user.with.username");
+        System.out.println("In DAO " + username);
+        query.setString("custName", username);
+        User user = (User)query.uniqueResult();
+        return user;
+    }
+
 }

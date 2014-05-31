@@ -15,7 +15,9 @@
         <intercept-url pattern="/web/login-error" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/perform-login" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/customer/register" access="hasRole('ROLE_ANONYMOUS')" />
+        <intercept-url pattern="/web/change-password" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/**" access="hasAnyRole('ROLE_CUST','ROLE_ADMIN')" />
+        <remember-me key="uniqueAndSecret" />
     </http>
 
     <!-- Authentication manager. -->

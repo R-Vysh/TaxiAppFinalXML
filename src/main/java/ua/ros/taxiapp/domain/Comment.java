@@ -15,64 +15,64 @@ public class Comment implements Serializable {
     @Id
     @Column(name = "comment_id")
     @GeneratedValue
-    Integer commentId;
+    private Integer commentId;
     @ManyToOne
     @JoinColumn(name = "taxist_id", nullable = false)
-    Taxist taxist;
+    private Taxist taxist;
     @ManyToOne
     @PrimaryKeyJoinColumn
-    Customer customer;
+    private Customer customer;
     @Column(name = "rating")
-    Integer rating;
+    private Integer rating;
     @Column(name = "text")
-    String text;
-    
+    private String text;
+
     public Comment() {
     }
-    
+
     public Comment(Customer cust, Taxist taxist, Integer rating, String text) {
         this.customer = cust;
         this.taxist = taxist;
         this.rating = rating;
         this.text = text;
     }
-    
+
     public Integer getCommentId() {
         return commentId;
     }
-    
+
     public void setCommentId(Integer newId) {
         commentId = newId;
     }
-    
+
     public Taxist getTaxist() {
         return taxist;
     }
-    
+
     public void setTaxist(Taxist taxist) {
         this.taxist = taxist;
     }
-    
+
     public Customer getCustomer() {
         return customer;
     }
-    
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    
+
     public Integer getRating() {
         return rating;
-    } 
-    
+    }
+
     public void setRating(Integer rating) {
         this.rating = rating;
     }
-    
+
     public String getText() {
         return text;
     }
-    
+
     public void setText(String newText) {
         this.text = newText;
     }
