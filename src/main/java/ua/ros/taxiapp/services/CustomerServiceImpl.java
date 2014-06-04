@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import ua.ros.taxiapp.domain.Customer;
+import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.CustomerDAO;
 
 @Service
@@ -51,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean updateCustomer(Customer customer) {
         try {
-            customerDAO.save(customer);
+            customerDAO.update(customer);
         } catch (DataAccessException ex) {
             return false;
         }
@@ -70,7 +71,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findByUsernameAndPassword(String username, String password) {
-        return customerDAO.findByUsernameAndPassword(username, password);
+        return null; //customerDAO.findByUsernameAndPassword(username, password);
+    }
+
+    @Override
+    public Customer findByUser(User user) {
+        return customerDAO.findByUser(user);
     }
 
     @Override

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{register.taxist}"></title>
+</head>
+<body>
+<p th:if="${registrationUnsuccessful}" th:text="#{registration.unsuccessful}">Oops. Something went wrong.</p>
+<h3 th:text="#{register.taxist}">Register taxist</h3>
+
+<form action="#" th:action="@{/web/taxist/register}" th:object="${taxist}" method="post">
+    <table>
+        <tr>
+            <th th:text="#{username}">Username</th>
+            <th><input type="text" th:field="*{user.username}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{password}">Password</th>
+            <th><input type="password" th:field="*{user.password}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{mobile}">Mobile</th>
+            <th><input type="text" th:field="*{user.mobile}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{car.model}">Car model</th>
+            <th><input type="text" th:field="*{car.model.modelsName}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{car.brand}">Car brand</th>
+            <th><input type="text" th:field="*{car.model.brand.brandsName}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{car.year}">Year</th>
+            <th><input type="text" th:field="*{car.year}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{car.regnumber}">Year</th>
+            <th><input type="text" th:field="*{car.registrationalNumber}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{car.price.per.km}">Price per Km</th>
+            <th><input type="text" th:field="*{car.pricePerKm}"/></th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input type="submit" th:value="#{register}"/></th>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

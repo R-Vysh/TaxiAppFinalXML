@@ -13,9 +13,9 @@ public class BrandHibernateDAO extends GenericDAOHibernate<Brand, Integer> imple
     @Transactional
     public Brand findByName(String name) {
         Brand brand = null;
-        Query query = this.getSession().getNamedQuery("brand.with.name");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("brand.with.name");
         query.setParameter("brandName", name);
-        brand = findOne(query);
+        brand = (Brand) query.uniqueResult();
         return brand;
     }
 }

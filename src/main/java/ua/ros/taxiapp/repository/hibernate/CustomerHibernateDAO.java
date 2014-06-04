@@ -20,9 +20,9 @@ public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer>
     @Transactional
     public Customer findByCurrentOrder(Order order) {
         Customer cust = null;
-        Query query = this.getSession().getNamedQuery("customer.with.order");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("customer.with.order");
         query.setParameter("ord", order);
-        cust = findOne(query);
+        cust = (Customer) query.uniqueResult();
         return cust;
     }
     
@@ -30,20 +30,30 @@ public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer>
     @Transactional
     public Customer findByMobile(String mobile) {
         Customer cust = null;
-        Query query = this.getSession().getNamedQuery("customer.with.mobile");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("customer.with.mobile");
         query.setParameter("mobile", mobile);
-        cust = findOne(query);
+        cust = (Customer) query.uniqueResult();
         return cust;
     }
 
+//    @Override
+//    @Transactional
+//    public Customer findByUsernameAndPassword(String username, String password) {
+//        Customer cust = null;
+//        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("customer.with.username.and.password");
+//        query.setParameter("username", username);
+//        query.setParameter("password", password);
+//        cust = (Customer) query.uniqueResult();
+//        return cust;
+//    }
+
     @Override
     @Transactional
-    public Customer findByUsernameAndPassword(String username, String password) {
+    public Customer findByUser(User user) {
         Customer cust = null;
-        Query query = this.getSession().getNamedQuery("customer.with.username.and.password");
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        cust = findOne(query);
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("customer.with.user");
+        query.setParameter("user", user);
+        cust = (Customer) query.uniqueResult();
         return cust;
     }
 }

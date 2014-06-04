@@ -15,6 +15,11 @@ public class Coordinates implements Serializable {
     @Column(name = "latitude", nullable = false)
     private Double latitude;
 
+    public Coordinates() {
+        this.longtitude = 0.0;
+        this.latitude = 0.0;
+    }
+
     public Integer getCoordinatesId() {
         return coordinatesId;
     }

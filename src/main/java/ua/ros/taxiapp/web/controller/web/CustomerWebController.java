@@ -37,14 +37,14 @@ public class CustomerWebController {
     public String registerCustomer(@ModelAttribute(value = "customer") Customer customer,
                                     Model model) {
         customer.getUser().setTaxist(false);
+        customerService.createCustomer(customer);
         Authority authority = new Authority();
         authority.setRolename(Authority.Rolename.ROLE_CUST);
         authority.setUser(customer.getUser());
         HashSet<Authority> auth = new HashSet<>();
         auth.add(authority);
         customer.getUser().setAuthorities(auth);
-//        customer.getUser().setAuthority(authority);
-        if (customerService.createCustomer(customer)) {
+        if (customerService.updateCustomer(customer)) {
             model.addAttribute("registrationSuccessful", true);
             return "login";
         }

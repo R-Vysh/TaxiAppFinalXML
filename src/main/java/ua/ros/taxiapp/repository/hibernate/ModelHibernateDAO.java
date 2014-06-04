@@ -14,15 +14,15 @@ public class ModelHibernateDAO extends GenericDAOHibernate<Model, Integer> imple
     @Override
     public Model findByName(String name) {
         Model model = null;
-        Query query = this.getSession().getNamedQuery("model.with.name");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("model.with.name");
         query.setParameter("name", name);
-        model = findOne(query);
+        model = (Model) query.uniqueResult();
         return model;
     }
 
     @Override
     public List<Model> findByBrand(Brand brand) {
-        Query query = this.getSession().getNamedQuery("model.with.brand");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("model.with.brand");
         query.setParameter("brand", brand);
         List<Model> models = query.list();
         return models;

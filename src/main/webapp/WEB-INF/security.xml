@@ -9,14 +9,15 @@
 
     <http auto-config="true" use-expressions="true">
         <form-login login-page="/web/login" authentication-failure-url="/web/login-error"
-                    login-processing-url="/web/perform-login"/>
-        <logout />
+                    default-target-url="/web/main" login-processing-url="/web/perform-login"/>
+        <logout logout-success-url="/" />
         <intercept-url pattern="/web/login" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/login-error" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/perform-login" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/customer/register" access="hasRole('ROLE_ANONYMOUS')" />
+        <intercept-url pattern="/web/taxist/register" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/change-password" access="hasRole('ROLE_ANONYMOUS')" />
-        <intercept-url pattern="/web/**" access="hasAnyRole('ROLE_CUST','ROLE_ADMIN')" />
+        <intercept-url pattern="/web/**" access="hasAnyRole('ROLE_CUST','ROLE_TAXIST','ROLE_ADMIN')" />
         <remember-me key="uniqueAndSecret" />
     </http>
 

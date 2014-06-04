@@ -13,14 +13,14 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
 
     @Override
     public List<Order> findActiveOrders() {
-        Query query = this.getSession().getNamedQuery("order.active");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("order.active");
         List<Order> orders = query.list();
         return orders;
     }
 
     @Override
     public List<Order> findByCustomer(Customer customer) {
-        Query query = this.getSession().getNamedQuery("order.with.customer");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("order.with.customer");
         query.setParameter("customer", customer);
         List<Order> orders = query.list();
         return orders;

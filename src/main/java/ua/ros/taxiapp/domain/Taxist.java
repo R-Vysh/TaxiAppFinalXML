@@ -7,8 +7,9 @@ import java.util.Set;
 @Entity
 @Table(name = "taxists")
 @NamedQueries({
-        @NamedQuery(name = "taxist.free", query = "from Taxist t where t.free = true"),
-        @NamedQuery(name = "taxist.with.mobile", query = "from Taxist t where t.user.mobile = :mobile")
+        @NamedQuery(name = "taxist.free", query = "from Taxist t where t.free = true and t.online = true"),
+        @NamedQuery(name = "taxist.with.mobile", query = "from Taxist t where t.user.mobile = :mobile"),
+        @NamedQuery(name = "taxist.with.user", query = "from Taxist t where t.user = :user")
 })
 public class Taxist {
 
@@ -16,7 +17,7 @@ public class Taxist {
     @GeneratedValue
     @Column(name = "taxist_id")
     private Integer taxistId;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private Car car;
     @OneToOne
@@ -36,6 +37,9 @@ public class Taxist {
     private Coordinates coordinates;
 
     public Taxist() {
+        this.free = true;
+        this.online = false;
+        this.rating = 0.0;
     }
 
     public Taxist(Car car, User user) {

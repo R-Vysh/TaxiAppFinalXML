@@ -17,43 +17,39 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
     @Autowired
     private SessionFactory sessionFactory;
 
-    protected Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
     @Override
     @Transactional(rollbackFor={Exception.class})
     public void save(T entity) throws DataAccessException {
-        Session session = this.getSession();
+        Session session = this.sessionFactory.getCurrentSession();
             session.save(entity);
     }
 
     @Override
     @Transactional
-    public void merge(T entity) throws DataAccessException {
-        Session hibernateSession = this.getSession();
-        hibernateSession.merge(entity);
+    public void update(T entity) throws DataAccessException {
+        Session hibernateSession = this.sessionFactory.getCurrentSession();
+        hibernateSession.update(entity);
     }
 
     @Override
     @Transactional
     public void delete(T entity) throws DataAccessException {
-        Session hibernateSession = this.getSession();
+        Session hibernateSession = this.sessionFactory.getCurrentSession();
         hibernateSession.delete(entity);
     }
 
-    @Override
-    @Transactional
-    public T findOne(Query query) {
-        T t;
-        t = (T) query.uniqueResult();
-        return t;
-    }
+//    @Override
+//    @Transactional
+//    public T findOne(Query query) {
+//        T t;
+//        t = (T) query.uniqueResult();
+//        return t;
+//    }
 
     @Override
     @Transactional
     public T findByID(Class clazz, ID id) {
-        Session hibernateSession = this.getSession();
+        Session hibernateSession = this.sessionFactory.getCurrentSession();
         T t = null;
         t = (T) hibernateSession.get(clazz, id);
         return t;
@@ -63,10 +59,14 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
     @Override
     @Transactional
     public List<T> findAll(Class clazz) {
-        Session hibernateSession = this.getSession();
+        Session hibernateSession = this.sessionFactory.getCurrentSession();
         List<T> t = null;
         Query query = hibernateSession.createQuery("from " + clazz.getName());
         t = query.list();
         return t;
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 }

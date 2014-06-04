@@ -13,27 +13,26 @@ public class UserHibernateDAO extends GenericDAOHibernate<User, Integer> impleme
     @Override
     @Transactional
     public User findByMobile(String mobile) {
-        Query query = this.getSession().getNamedQuery("user.with.mobile");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("user.with.mobile");
         query.setParameter("mobile", mobile);
-        User user = findOne(query);
+        User user = (User) query.uniqueResult();
         return user;
     }
 
     @Override
     @Transactional
     public User findByPasswordAndUsername(String password, String username) {
-        Query query = this.getSession().getNamedQuery("user.with.password.and.username");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("user.with.password.and.username");
         query.setParameter("password", password);
         query.setParameter("username", username);
-        User user = findOne(query);
+        User user = (User) query.uniqueResult();
         return user;
     }
 
     @Override
     @Transactional
     public User findByUsername(String username) {
-        Query query = this.getSession().getNamedQuery("user.with.username");
-        System.out.println("In DAO " + username);
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("user.with.username");
         query.setString("custName", username);
         User user = (User)query.uniqueResult();
         return user;

@@ -13,15 +13,15 @@ public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implement
     @Override
     public Car findByNumber(String registrationalNumber) {
         Car car = null;
-        Query query = this.getSession().getNamedQuery("car.with.number");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("car.with.number");
         query.setParameter("regNumber", registrationalNumber);
-        car = findOne(query);
+        car = (Car) query.uniqueResult();
         return car;
     }
 
     @Override
     public List<Car> findByPricePerKm(Double price) {
-        Query query = this.getSession().getNamedQuery("car.with.price");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("car.with.price");
         query.setParameter("price", price);
         List<Car> cars = (List<Car>) query.list();
         return cars;
@@ -29,7 +29,7 @@ public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implement
 
     @Override
     public List<Car> findByPricePerKmBetween(Double lower, Double higher) {
-        Query query = this.getSession().getNamedQuery("car.with.price.between");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("car.with.price.between");
         query.setParameter("lowerPrice", lower);
         query.setParameter("higherPrice", higher);
         List<Car> cars = (List<Car>) query.list();

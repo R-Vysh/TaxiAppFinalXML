@@ -14,9 +14,9 @@ public class FavouriteHibernateDAO extends GenericDAOHibernate<Favourite, Intege
     @Override
     public Favourite findByAddress(String address) {
         Favourite fav = null;
-        Query query = this.getSession().getNamedQuery("favourite.with.address");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("favourite.with.address");
         query.setParameter("address", address);
-        fav = findOne(query);
+        fav = (Favourite) query.uniqueResult();
         return fav;
     }
 }

@@ -14,7 +14,7 @@ public class CommentHibernateDAO extends GenericDAOHibernate<Comment, Integer> i
 
     @Override
     public List<Comment> findByCustomer(Customer customer) {
-        Query query = this.getSession().getNamedQuery("comment.with.customer");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("comment.with.customer");
         query.setParameter("customer", customer);
         List<Comment> comments = (List<Comment>) query.list();
         return comments;
@@ -22,7 +22,7 @@ public class CommentHibernateDAO extends GenericDAOHibernate<Comment, Integer> i
 
     @Override
     public List<Comment> findByTaxist(Taxist taxist) {
-        Query query = this.getSession().getNamedQuery("comment.with.taxist");
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("comment.with.taxist");
         query.setParameter("taxist", taxist);
         List<Comment> comments = (List<Comment>) query.list();
         return comments;

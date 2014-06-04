@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import ua.ros.taxiapp.domain.Taxist;
+import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.TaxistDAO;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Service
@@ -42,7 +42,9 @@ public class TaxistServiceImpl implements TaxistService {
         try {
             taxistDAO.save(taxist);
         } catch (DataAccessException ex) {
+            ex.printStackTrace();
             return false;
+
         }
         return true;
     }
@@ -53,6 +55,23 @@ public class TaxistServiceImpl implements TaxistService {
             taxistDAO.delete(taxist);
         } catch (DataAccessException ex) {
             return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Taxist findByUser(User user) {
+        return taxistDAO.findByUser(user);
+    }
+
+    @Override
+    public boolean updateTaxist(Taxist taxist) throws DataAccessException {
+        try {
+            taxistDAO.update(taxist);
+        } catch (DataAccessException ex) {
+            ex.printStackTrace();
+            return false;
+
         }
         return true;
     }

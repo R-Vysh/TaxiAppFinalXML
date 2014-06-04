@@ -29,7 +29,7 @@ public class User implements Serializable {
     private Date createdTime;
     @Column(name = "username")
     private String username;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Authority> authorities;
 
     public User() {

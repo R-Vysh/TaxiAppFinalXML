@@ -25,7 +25,7 @@ public class Authority implements Serializable {
     @GeneratedValue
     @Column(name = "authority_id")
     private Integer authorityId;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
     @Enumerated(EnumType.STRING)

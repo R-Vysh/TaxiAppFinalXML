@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+Hello
+<p th:text="${#httpSession.getAttribute('Customer').user.username}"/>
+<table align="left" border="0" cellpadding="1" cellspacing="1">
+    <tbody>
+    <tr>
+        <td>
+            <table align="left" border="0" cellpadding="1" cellspacing="1">
+                <tbody>
+                <tr>
+                    <td>Active order</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>To</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Taxist</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Phone number</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><a href="http://Cancel order">http://Cancel order</a></td>
+                </tr>
+                <tr>
+                    <td><a href="http://Logout">http://Logout</a></td>
+                    <td><a href="http://View history">http://View history</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <form>
+                <table border="0" cellpadding="1" cellspacing="1">
+                    <tbody>
+                    <tr>
+                        <td><label for="from_place" th:text="#{from.place}">From</label>:</td>
+                        <td><input type="text" id="from_place" name="from_place"/></td>
+
+                    </tr>
+                    <tr>
+                        <td><label for="to_place" th:text="#{to.place}">To</label>:</td>
+                        <td><input type="text" id="to_place" name="to_place"/></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{available.cars}">Available cars</td>
+                    </tr>
+                    <tr>
+                        <table border="1" cellpadding="1" cellspacing="1" style="width: 100%; height: 100%;">
+                            <tbody>
+                            <tr>
+                                <td>Reg Number</td>
+                                <td>Brand</td>
+                                <td>Model</td>
+                                <td>Rating</td>
+                                <td>Price</td>
+                                <td>Comments</td>
+                                <td>Order</td>
+                            </tr>
+                            <tr th:each="taxist : ${freeTaxists}">
+                                <td th:text="${taxist.car.regNumber}">N/A</td>
+                                <td th:text="${taxist.car.brand}">N/A</td>
+                                <td th:text="${taxist.car.model}">N/A</td>
+                                <td th:text="${taxist.rating}">N/A</td>
+                                <td th:text="${taxist.car.pricePerKm}">N/A</td>
+                                <td th:text="${taxist.car.brand}">N/A</td>
+                                <td th:text="${taxist.car.brand}">N/A</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><input name="MakeOrder" type="submit" value="MakeOrder"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>&nbsp;</p>
+
+</body>
+</html>
