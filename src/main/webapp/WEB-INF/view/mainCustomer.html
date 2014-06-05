@@ -62,34 +62,34 @@
                         <td th:text="#{to.place}">To:</td>
                         <td><input type="text" th:field="*{toPlace}"/></td>
                     </tr>
-                    <tr>
-                        <td th:text="#{available.cars}">Available cars</td>
-                    </tr>
-                    <tr>
-                        <table border="1" cellpadding="1" cellspacing="1" style="width: 100%; height: 100%;">
-                            <tbody>
-                            <tr>
-                                <td>Reg Number</td>
-                                <td>Brand</td>
-                                <td>Model</td>
-                                <td>Rating</td>
-                                <td>Price</td>
-                                <td>Comments</td>
-                                <td>Order</td>
-                            </tr>
-                            <tr th:each="taxi : ${freeTaxis}">
-                                <td th:text="${taxi.car.registrationalNumber}">N/A</td>
-                                <td th:text="${taxi.car.model.brand.brandsName}">N/A</td>
-                                <td th:text="${taxi.car.model.modelsName}">N/A</td>
-                                <td th:text="${taxi.rating}">N/A</td>
-                                <td th:text="${taxi.car.pricePerKm}">N/A</td>
-                                <td th:text="${taxi.car.pricePerKm}">N/A</td>
-                                <td th:text="${taxi.car.pricePerKm}">N/A</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <!--<tr>-->
+                        <!--<td th:text="#{available.cars}">Available cars</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<table border="1" cellpadding="1" cellspacing="1" style="width: 100%; height: 100%;">-->
+                            <!--<tbody>-->
+                            <!--<tr>-->
+                                <!--<td>Reg Number</td>-->
+                                <!--<td>Brand</td>-->
+                                <!--<td>Model</td>-->
+                                <!--<td>Rating</td>-->
+                                <!--<td>Price</td>-->
+                                <!--<td>Comments</td>-->
+                                <!--<td>Order</td>-->
+                            <!--</tr>-->
+                            <!--<tr th:each="taxi : ${freeTaxis}">-->
+                                <!--<td th:text="${taxi.car.registrationalNumber}">N/A</td>-->
+                                <!--<td th:text="${taxi.car.model.brand.brandsName}">N/A</td>-->
+                                <!--<td th:text="${taxi.car.model.modelsName}">N/A</td>-->
+                                <!--<td th:text="${taxi.rating}">N/A</td>-->
+                                <!--<td th:text="${taxi.car.pricePerKm}">N/A</td>-->
+                                <!--<td th:text="${taxi.car.pricePerKm}">N/A</td>-->
+                                <!--<td th:text="${taxi.car.pricePerKm}">N/A</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
 
-                    </tr>
+                    <!--</tr>-->
                     <tr>
                         <td>&nbsp;</td>
                         <td><input name="MakeOrder" type="submit" th:value="#{make.order}"/></td>

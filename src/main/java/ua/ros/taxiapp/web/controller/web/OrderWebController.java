@@ -1,5 +1,7 @@
 package ua.ros.taxiapp.web.controller.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +22,7 @@ import java.util.TreeSet;
 @Controller
 @RequestMapping("/web/order")
 public class OrderWebController {
-    // private static final Logger LOG = LoggerFactory.getLogger(SiteController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrderWebController.class);
 
     @Autowired
     OrderService orderService;
@@ -42,6 +44,7 @@ public class OrderWebController {
             customer.setCurrentOrder(order);
             if(customerService.updateCustomer(customer)) {
                 model.addAttribute("orderSuccessful", true);
+                logger.info("User " + customer.getUser().getUsername() + " made an order ");
             }
             return "mainCustomer";
         }
