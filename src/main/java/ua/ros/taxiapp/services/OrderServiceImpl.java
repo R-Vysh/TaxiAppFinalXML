@@ -3,6 +3,7 @@ package ua.ros.taxiapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.repository.OrderDAO;
 
@@ -82,6 +83,11 @@ public class OrderServiceImpl implements OrderService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Order> findByCustomer(Customer customer) {
+        return orderDAO.findByCustomer(customer);
     }
 
 }

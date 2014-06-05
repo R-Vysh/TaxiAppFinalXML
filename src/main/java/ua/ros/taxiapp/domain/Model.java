@@ -18,7 +18,7 @@ public class Model implements Serializable {
     @GeneratedValue
     @Column(name = "model_id")
     private Integer modelId;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id", nullable = false)
     @JsonBackReference
     private Brand brand;

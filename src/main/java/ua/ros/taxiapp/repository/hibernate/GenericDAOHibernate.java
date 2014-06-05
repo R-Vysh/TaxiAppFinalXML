@@ -21,7 +21,7 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
     @Transactional(rollbackFor={Exception.class})
     public void save(T entity) throws DataAccessException {
         Session session = this.sessionFactory.getCurrentSession();
-            session.save(entity);
+            session.saveOrUpdate(entity);
     }
 
     @Override
@@ -38,6 +38,12 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
         hibernateSession.delete(entity);
     }
 
+    @Override
+    @Transactional(rollbackFor={Exception.class})
+    public void merge(T entity) throws DataAccessException {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.merge(entity);
+    }
 //    @Override
 //    @Transactional
 //    public T findOne(Query query) {

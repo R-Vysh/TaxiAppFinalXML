@@ -11,9 +11,11 @@ import ua.ros.taxiapp.domain.Coordinates;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.services.CustomerService;
+import ua.ros.taxiapp.services.ModelService;
 import ua.ros.taxiapp.services.TaxistService;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Controller
 @RequestMapping("/web/taxist")
@@ -23,6 +25,9 @@ public class TaxistWebController {
     @Autowired
     TaxistService taxistService;
 
+    @Autowired
+    ModelService modelService;
+
     public void setTaxistService(TaxistService taxistService) {
         this.taxistService = taxistService;
     }
@@ -30,7 +35,9 @@ public class TaxistWebController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage(Model model) {
         Taxist taxist = new Taxist();
+        List<ua.ros.taxiapp.domain.Model> models = modelService.getAllModels();
         model.addAttribute("taxist", taxist);
+        model.addAttribute("allModels", models);
         return "registerTaxist";
     }
 
@@ -40,7 +47,11 @@ public class TaxistWebController {
         taxist.getUser().setTaxist(true);
         taxist.setCoordinates(new Coordinates());
         taxist.setCurrentOrder(null);
+        try {
         taxistService.createNewTaxist(taxist);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         Authority authority = new Authority();
         authority.setRolename(Authority.Rolename.ROLE_TAXIST);
         authority.setUser(taxist.getUser());

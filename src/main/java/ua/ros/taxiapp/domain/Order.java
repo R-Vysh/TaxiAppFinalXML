@@ -30,7 +30,7 @@ public class Order implements Serializable {
     @GeneratedValue
     @Column(name = "order_id")
     private Integer orderId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "taxist_id", nullable = true)
     private Taxist taxist;
     @ManyToOne(cascade = {CascadeType.ALL})

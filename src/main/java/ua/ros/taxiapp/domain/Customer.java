@@ -20,7 +20,7 @@ public class Customer implements Serializable {
     private Integer customerId;
     @Column(name = "blames")
     private Integer blames;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", nullable = true)
     private Order currentOrder;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})

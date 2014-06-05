@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+<p th:text="#{order.history}">Order history</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 100%; height: 100%;">
+    <tbody>
+    <tr>
+        <td>Date</td>
+        <td>From</td>
+        <td>To</td>
+        <td>Price</td>
+        <td>Reg number</td>
+        <td>Mobile</td>
+        <td>Rate</td>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.dateCreated}">N/A</td>
+        <td th:text="${order.fromPlace}">N/A</td>
+        <td th:text="${order.toPlace}">N/A</td>
+        <td th:text="${order.price}">N/A</td>
+        <td th:text="${order.taxist} ? ${order.taxist.car.registrationalNumber}">N/A</td>
+        <td th:text="${order.taxist} ? ${order.taxist.user.mobile}">N/A</td>
+        <td th:text="${order.taxist} ? ${order.taxist.user.mobile}">N/A</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

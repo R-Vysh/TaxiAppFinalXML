@@ -17,7 +17,7 @@ public class Taxist {
     @GeneratedValue
     @Column(name = "taxist_id")
     private Integer taxistId;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id")
     private Car car;
     @OneToOne

@@ -4,8 +4,9 @@
     <title></title>
 </head>
 <body>
-Hello
-<p th:text="${#httpSession.getAttribute('Customer').user.username}"/>
+<p th:text="${#httpSession.getAttribute('customer').user.username}"/>
+<p th:if="${orderSuccessful}" th:text="#{order.successful}">Order created.</p>
+<p th:if="${orderUnsuccessful}" th:text="#{order.unsuccessful}">Could not create order.</p>
 <table align="left" border="0" cellpadding="1" cellspacing="1">
     <tbody>
     <tr>
@@ -42,23 +43,24 @@ Hello
                 </tr>
                 <tr>
                     <td><a href="http://Logout">http://Logout</a></td>
-                    <td><a href="http://View history">http://View history</a></td>
+                    <td><a href="registerCustomer.html"
+                           th:href="@{/web/order/history}" th:text="#{view.history}">View history</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </td>
         <td>
-            <form>
+            <form action="#" th:action="@{/web/order/make-order}" th:object="${order}" method="post">
                 <table border="0" cellpadding="1" cellspacing="1">
                     <tbody>
                     <tr>
-                        <td><label for="from_place" th:text="#{from.place}">From</label>:</td>
-                        <td><input type="text" id="from_place" name="from_place"/></td>
-
+                        <td th:text="#{from.place}">From:</td>
+                        <td><input type="text" th:field="*{fromPlace}"/></td>
                     </tr>
                     <tr>
-                        <td><label for="to_place" th:text="#{to.place}">To</label>:</td>
-                        <td><input type="text" id="to_place" name="to_place"/></td>
+                        <td th:text="#{to.place}">To:</td>
+                        <td><input type="text" th:field="*{toPlace}"/></td>
                     </tr>
                     <tr>
                         <td th:text="#{available.cars}">Available cars</td>
@@ -75,14 +77,14 @@ Hello
                                 <td>Comments</td>
                                 <td>Order</td>
                             </tr>
-                            <tr th:each="taxist : ${freeTaxists}">
-                                <td th:text="${taxist.car.regNumber}">N/A</td>
-                                <td th:text="${taxist.car.brand}">N/A</td>
-                                <td th:text="${taxist.car.model}">N/A</td>
-                                <td th:text="${taxist.rating}">N/A</td>
-                                <td th:text="${taxist.car.pricePerKm}">N/A</td>
-                                <td th:text="${taxist.car.brand}">N/A</td>
-                                <td th:text="${taxist.car.brand}">N/A</td>
+                            <tr th:each="taxi : ${freeTaxis}">
+                                <td th:text="${taxi.car.registrationalNumber}">N/A</td>
+                                <td th:text="${taxi.car.model.brand.brandsName}">N/A</td>
+                                <td th:text="${taxi.car.model.modelsName}">N/A</td>
+                                <td th:text="${taxi.rating}">N/A</td>
+                                <td th:text="${taxi.car.pricePerKm}">N/A</td>
+                                <td th:text="${taxi.car.pricePerKm}">N/A</td>
+                                <td th:text="${taxi.car.pricePerKm}">N/A</td>
                             </tr>
                             </tbody>
                         </table>
@@ -90,7 +92,7 @@ Hello
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td><input name="MakeOrder" type="submit" value="MakeOrder"/></td>
+                        <td><input name="MakeOrder" type="submit" th:value="#{make.order}"/></td>
                     </tr>
                     </tbody>
                 </table>
@@ -99,7 +101,5 @@ Hello
     </tr>
     </tbody>
 </table>
-<p>&nbsp;</p>
-
 </body>
 </html>

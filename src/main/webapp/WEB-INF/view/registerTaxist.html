@@ -5,6 +5,7 @@
 </head>
 <body>
 <p th:if="${registrationUnsuccessful}" th:text="#{registration.unsuccessful}">Oops. Something went wrong.</p>
+
 <h3 th:text="#{register.taxist}">Register taxist</h3>
 
 <form action="#" th:action="@{/web/taxist/register}" th:object="${taxist}" method="post">
@@ -21,6 +22,16 @@
             <th th:text="#{mobile}">Mobile</th>
             <th><input type="text" th:field="*{user.mobile}"/></th>
         </tr>
+        <!--<tr>-->
+            <!--<th >Car model</th>-->
+            <!--<th>-->
+                <!--<select th:field="*{car.model}">-->
+                    <!--<option th:each="model : ${allModels}"-->
+                            <!--th:value="${model}"-->
+                            <!--th:text="${model.brand.brandsName} + ' ' + ${model.modelsName}"/>-->
+                <!--</select>-->
+            <!--</th>-->
+        <!--</tr>-->
         <tr>
             <th th:text="#{car.model}">Car model</th>
             <th><input type="text" th:field="*{car.model.modelsName}"/></th>

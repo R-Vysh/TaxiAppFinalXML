@@ -1,5 +1,6 @@
 package ua.ros.taxiapp.services;
 
+import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 
 import java.io.Serializable;
@@ -20,4 +21,6 @@ public interface OrderService {
     public boolean takeOrder(Order order);
 
     public boolean cancelOrder(Order order);
+
+    List<Order> findByCustomer(Customer customer);
 }

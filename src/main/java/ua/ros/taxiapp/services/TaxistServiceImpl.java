@@ -41,7 +41,7 @@ public class TaxistServiceImpl implements TaxistService {
     public boolean createNewTaxist(Taxist taxist) {
         try {
             taxistDAO.save(taxist);
-        } catch (DataAccessException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
 
