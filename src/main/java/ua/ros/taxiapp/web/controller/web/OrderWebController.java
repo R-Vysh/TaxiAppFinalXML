@@ -15,6 +15,7 @@ import ua.ros.taxiapp.services.OrderService;
 import ua.ros.taxiapp.web.controller.mobile.StatusMessage;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
@@ -29,6 +30,9 @@ public class OrderWebController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    SessionUserChecker sessionUserChecker;
 
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
@@ -53,7 +57,8 @@ public class OrderWebController {
     }
 
     @RequestMapping(value = "/history", method = RequestMethod.GET)
-    public String showHistory(Model model, HttpSession session) {
+    public String showHistory(Principal principal, Model model, HttpSession session) {
+        sessionUserChecker.checkUser(principal, session);
         Customer customer = (Customer) session.getAttribute("customer");
         List<Order> orders = orderService.findByCustomer(customer);
         model.addAttribute("orders", orders);

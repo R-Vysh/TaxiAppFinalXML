@@ -1,5 +1,7 @@
 package ua.ros.taxiapp.web.controller.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/web")
 public class MainWebController {
+    private static final Logger logger = LoggerFactory.getLogger(MainWebController.class);
+
     @Autowired
     UserService userService;
 
@@ -29,19 +33,12 @@ public class MainWebController {
     @Autowired
     TaxistService taxistService;
 
+    @Autowired
+    SessionUserChecker sessionUserChecker;
+
     @RequestMapping("/main")
     public String mainMenu(Principal principal, HttpSession session, Model model) {
-        if ((session.getAttribute("taxist") == null) && (session.getAttribute("customer") == null)) {
-            String username = principal.getName();
-            User user = userService.findByUsername(username);
-            if (!user.getTaxist()) {
-                Customer customer = customerService.findByUser(user);
-                session.setAttribute("customer", customer);
-            } else {
-                session.setAttribute("taxist", taxistService.findByUser(user));
-                return "mainTaxist";
-            }
-        }
+        sessionUserChecker.checkUser(principal, session);
         if (session.getAttribute("taxist") != null) {
             return "mainTaxist";
         } else {
