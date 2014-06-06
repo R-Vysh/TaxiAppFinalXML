@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> implements OrderDAO {
 
+
+
     @Override
     @Transactional
     public List<Order> findActiveOrders() {

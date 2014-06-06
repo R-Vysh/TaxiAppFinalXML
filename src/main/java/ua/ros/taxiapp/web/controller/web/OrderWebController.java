@@ -50,6 +50,7 @@ public class OrderWebController {
                 model.addAttribute("orderSuccessful", true);
                 logger.info("User " + customer.getUser().getUsername() + " made an order ");
             }
+            System.out.println(order.getFromPlace());
             return "mainCustomer";
         }
         model.addAttribute("orderUnsuccessful", true);

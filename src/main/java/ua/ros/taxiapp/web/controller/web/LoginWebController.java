@@ -43,7 +43,7 @@ public class LoginWebController {
         return "changePassword";
     }
 
-    @RequestMapping(value = "/user/1", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String sayHello() {
         return "welcome";
     }

@@ -17,10 +17,10 @@
             <th th:text="#{password}">Password</th>
             <th><input type="password" th:field="*{user.password}"/></th>
         </tr>
-        <!--<tr>-->
-            <!--<th th:text="#{confirm.password}">Confirm password</th>-->
-            <!--<th><input type="password" th:field="*{user.password}"/></th>-->
-        <!--</tr>-->
+        <tr>
+            <th th:text="#{confirm.password}">Confirm password</th>
+            <th><input type="password" th:field="confirmPassword"/></th>
+        </tr>
         <tr>
             <th th:text="#{mobile}">Mobile</th>
             <th><input type="text" th:field="*{user.mobile}"/></th>

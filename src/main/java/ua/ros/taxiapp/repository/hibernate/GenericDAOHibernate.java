@@ -4,15 +4,20 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.repository.GenericDAO;
+import ua.ros.taxiapp.web.controller.web.MainWebController;
 
 import java.io.Serializable;
 import java.util.List;
 
 public abstract class GenericDAOHibernate<T, ID extends Serializable> implements GenericDAO<T, ID> {
+
+    private static final Logger logger = LoggerFactory.getLogger(GenericDAOHibernate.class);
 
     @Autowired
     private SessionFactory sessionFactory;

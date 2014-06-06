@@ -31,6 +31,7 @@ public class User implements Serializable {
     private String username;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Authority> authorities;
+    private String confirmPassword;
 
     public User() {
     }
@@ -96,6 +97,11 @@ public class User implements Serializable {
         this.taxist = taxist;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
 
-
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 }

@@ -1,13 +1,21 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-4.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>PetClinic</title>
+    <link href="../../resources/css/welcome.css"
+          th:href="@{/css/welcome.css}" rel="stylesheet"/>
 </head>
+
 <body>
-<h2 th:text="${title}"> Title</h2>
-<p th:text="#{welcome.hello}">Welcome to our grocery store!</p>
-<p th:text = "${#httpSession.getAttribute('user')}"></p>
+<!--<div id="logo">-->
+    <!--<img th:src="@{/images/1.jpg}"-->
+         <!--src="../../resources/images/1.jpg" />-->
+<!--</div>-->
+<div id="welcomeText" th:text="#{welcome}"> Welcome!</div>
+
 </body>
+
 </html>
