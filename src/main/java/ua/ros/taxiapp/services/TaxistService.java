@@ -21,4 +21,6 @@ public interface TaxistService {
     public Taxist findByUser(User user);
 
     boolean updateTaxist(Taxist taxist);
+
+    void setOffline(Taxist taxist);
 }

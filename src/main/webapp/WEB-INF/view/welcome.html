@@ -4,13 +4,13 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>PetClinic</title>
+    <title th:text="#{welcome}">Welcome</title>
     <link href="../../resources/css/welcome.css"
           th:href="@{/css/welcome.css}" rel="stylesheet"/>
 </head>
 
 <body>
-<div>
+<div id="central">
     <div id="welcomeText" th:text="#{welcome}"> Welcome!</div>
     <div><a href="login.html"
             th:href="@{/web/main}" th:text="#{enter.site}">Enter site</a>

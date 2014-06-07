@@ -16,6 +16,10 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <listener>
+        <listener-class>ua.ros.taxiapp.web.controller.web.MyHttpSessionListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>main</servlet-name>
         <servlet-class>

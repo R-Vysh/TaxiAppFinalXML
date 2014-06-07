@@ -18,8 +18,7 @@ public class LoginWebController {
 
     @RequestMapping("/perform-login")
     public void doLogin(Principal principal, HttpSession session, Model model) {
-        logger.info("logged in");
-        System.out.println("we are here");
+
     }
 
     @RequestMapping("/login")
@@ -47,6 +46,4 @@ public class LoginWebController {
     public String sayHello() {
         return "welcome";
     }
-
-
 }

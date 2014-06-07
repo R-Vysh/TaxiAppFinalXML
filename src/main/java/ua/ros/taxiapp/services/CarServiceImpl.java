@@ -66,4 +66,9 @@ public class CarServiceImpl implements CarService {
         }
         return true;
     }
+
+    @Override
+    public List<Car> findWithCriteria(String modelName, String brandName, Double pricePerKmHigh, Double pricePerKmLow) {
+        return carDAO.criteriaSearch(brandName, modelName, pricePerKmLow, pricePerKmHigh);
+    }
 }

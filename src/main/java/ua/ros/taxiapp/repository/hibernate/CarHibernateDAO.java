@@ -1,7 +1,11 @@
 package ua.ros.taxiapp.repository.hibernate;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.domain.Car;
 import ua.ros.taxiapp.repository.CarDAO;
 
@@ -36,33 +40,24 @@ public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implement
         return cars;
     }
 
-    //TODO Criteria API !!!
-
-//    @Override
-//    public List<Car> findByBrand(Brand brand) {
-//        String hql = "FROM cars WHERE ID_BRAND = :brand";
-//        Query query = this.getSession().createQuery(hql);
-//        query.setParameter("brand", brand.getBrandId());
-//        List<Car> cars = (List<Car>) query.list();
-//        return cars;
-//    }
-//
-//    @Override
-//    public List<Car> findByBrandAndModel(Brand brand, Model model) {
-//        String hql = "FROM cars WHERE ID_BRAND = :brand AND ID_MODEL = :model";
-//        Query query = this.getSession().createQuery(hql);
-//        query.setParameter("brand", brand.getBrandId());
-//        query.setParameter("model", model.getModelId());
-//        List<Car> cars = (List<Car>) query.list();
-//        return cars;
-//    }
-//
-//    @Override
-//    public List<Car> findByYear(Integer year) {
-//        String hql = "FROM cars WHERE YEAR = :year";
-//        Query query = this.getSession().createQuery(hql);
-//        query.setParameter("year", year);
-//        List<Car> cars = (List<Car>) query.list();
-//        return cars;
-//    }
+    @Override
+    @Transactional
+    public List<Car> criteriaSearch(String brand, String model, Double pricePerKmLow, Double pricePerKmHigh) {
+        Criteria criteria = this.getSessionFactory().getCurrentSession().createCriteria(Car.class);
+        if(model!=null){
+            criteria.createAlias("model", "model");
+            criteria.add(Restrictions.like("model.modelsName", model));
+        }
+        if(brand!=null){
+            criteria.createAlias("model.brand", "brand");
+            criteria.add(Restrictions.like("brand.brandsName", brand));
+        }
+        if(pricePerKmLow!=null){
+            criteria.add(Restrictions.ge("pricePerKm", pricePerKmLow));
+        }
+        if(pricePerKmHigh!=null){
+            criteria.add(Restrictions.le("pricePerKm", pricePerKmHigh));
+        } 
+        return criteria.list();
+    }
 }

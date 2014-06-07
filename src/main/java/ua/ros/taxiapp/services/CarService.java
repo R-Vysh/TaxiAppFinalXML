@@ -17,4 +17,6 @@ public interface CarService {
     public boolean updateCar(Car car);
 
     public boolean deleteCar(Car car);
+
+    public List<Car> findWithCriteria(String modelName, String brandName, Double pricePerKmHigh, Double pricePerKmLow);
 }

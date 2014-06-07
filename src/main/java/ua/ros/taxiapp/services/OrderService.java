@@ -10,7 +10,7 @@ public interface OrderService {
 
     public List<Order> getAllOrders();
 
-    public boolean createOrder(Order order);
+    public boolean createOrder(Order order, Customer customer);
 
     public Order findById(Integer id);
 
@@ -23,4 +23,6 @@ public interface OrderService {
     public boolean cancelOrder(Order order);
 
     List<Order> findByCustomer(Customer customer);
+
+    boolean createDetailedOrder(Order order, Customer customer, String modelName, String brandName, Double pricePerKmHigh, Double pricePerKmLow);
 }

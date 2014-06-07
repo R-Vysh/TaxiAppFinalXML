@@ -7,18 +7,20 @@ body {
     background-color: #F5F5DC;
 }
 
-#welcomeText {
-    font-size: 40px;
-    font-family: sans-serif;
-    font-style: normal;
-    color: black;
+#central {
     width: 500px;
     height: 50px;
-
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
+}
+
+#welcomeText {
+    font-size: 35px;
+    font-family: sans-serif;
+    font-style: normal;
+    color: black;
 }

@@ -6,19 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.ros.taxiapp.domain.Authority;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
-import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.services.OrderService;
-import ua.ros.taxiapp.web.controller.mobile.StatusMessage;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
 
 @Controller
 @RequestMapping("/web/order")
@@ -42,15 +37,8 @@ public class OrderWebController {
     public String makeOrder(@ModelAttribute(value = "order") Order order,
                             Model model, HttpSession session) {
         Customer customer = (Customer) session.getAttribute("customer");
-        order.setCustomer(customer);
-        order.setStatus(Order.OrderStatus.NOTTAKEN);
-        if (orderService.createOrder(order)) {
-            customer.setCurrentOrder(order);
-            if(customerService.updateCustomer(customer)) {
-                model.addAttribute("orderSuccessful", true);
-                logger.info("User " + customer.getUser().getUsername() + " made an order ");
-            }
-            System.out.println(order.getFromPlace());
+        if (orderService.createOrder(order, customer)) {
+            model.addAttribute("orderSuccessful", true);
             return "mainCustomer";
         }
         model.addAttribute("orderUnsuccessful", true);
@@ -69,16 +57,43 @@ public class OrderWebController {
     @RequestMapping(value = "/detailed-order", method = RequestMethod.GET)
     public String detailedOrder(Principal principal, Model model, HttpSession session) {
         sessionUserChecker.checkUser(principal, session);
+        model.addAttribute("order", new Order());
         return "detailedOrder";
     }
 
+    @RequestMapping(value = "/detailed-order", method = RequestMethod.POST)
+    public String makeDetailedOrder(@ModelAttribute(value = "order") Order order,
+                                    @RequestParam(value = "model", required = false) String modelName,
+                                    @RequestParam(value = "brand", required = false) String brandName,
+                                    @RequestParam(required = false, value = "pricePerKmHigh") String pricePerKmHigh,
+                                    @RequestParam(required = false, value = "pricePerKmLow") String pricePerKmLow,
+                                    Model model, HttpSession session) {
+        Customer customer = (Customer) session.getAttribute("customer");
+        Double priceHigh=null;
+        Double priceLow=null;
+        if(pricePerKmHigh!=null && !pricePerKmHigh.isEmpty()) {
+            priceHigh = Double.parseDouble(pricePerKmHigh);
+        }
+        if(pricePerKmLow!=null && !pricePerKmLow.isEmpty()) {
+            priceLow = Double.parseDouble(pricePerKmLow);
+        }
+        if (orderService.createDetailedOrder(order, customer, modelName, brandName, priceHigh, priceLow)) {
+            model.addAttribute("orderSuccessful", true);
+            return "mainCustomer";
+        }
+        model.addAttribute("orderUnsuccessful", true);
+        return "mainCustomer";
+    }
+
     @RequestMapping(value = "/cancel-order", method = RequestMethod.GET)
-    public String cancelOrder(Principal principal, Model model, HttpSession session) {
+    public String cancelOrder(Principal principal, HttpSession session) {
         sessionUserChecker.checkUser(principal, session);
         Customer customer = (Customer) session.getAttribute("customer");
-        customerService.cancelOrder(customer);
-
-        customer.getCurrentOrder().setStatus(Order.OrderStatus.CANCELED);
-        return "detailedOrder";
+        Order order = customer.getCurrentOrder();
+        if (order != null) {
+            orderService.cancelOrder(order);
+            customerService.cancelOrder(customer);
+        }
+        return "redirect:/web/main";
     }
 }

@@ -75,4 +75,10 @@ public class TaxistServiceImpl implements TaxistService {
         }
         return true;
     }
+
+    @Override
+    public void setOffline(Taxist taxist) {
+        taxist.setOnline(false);
+        updateTaxist(taxist);
+    }
 }

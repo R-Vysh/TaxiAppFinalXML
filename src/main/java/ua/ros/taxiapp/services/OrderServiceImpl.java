@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import ua.ros.taxiapp.domain.Car;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.repository.OrderDAO;
@@ -12,6 +13,7 @@ import ua.ros.taxiapp.web.controller.web.MainWebController;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -20,6 +22,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderDAO orderDAO;
+
+    @Autowired
+    CustomerService customerService;
+
+    @Autowired
+    CarService carService;
 
     public OrderDAO getOrderDAO() {
         return orderDAO;
@@ -35,14 +43,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean createOrder(Order order) {
+    public boolean createOrder(Order order, Customer customer) {
+        order.setCustomer(customer);
+        order.setStatus(Order.OrderStatus.NOTTAKEN);
+        customer.setCurrentOrder(order);
         try {
             orderDAO.save(order);
         } catch (DataAccessException ex) {
             ex.printStackTrace();
             return false;
         }
-        return true;
+        if (customerService.updateCustomer(customer)) {
+            logger.info("User " + customer.getUser().getUsername() + " made an order ");
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -82,12 +97,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean cancelOrder(Order order) {
-        try {
-            orderDAO.cancelOrder(order);
-        } catch (DataAccessException ex) {
-            return false;
-        }
-        return true;
+        order.setStatus(Order.OrderStatus.CANCELED);
+        return updateOrder(order);
     }
 
     @Override
@@ -95,4 +106,10 @@ public class OrderServiceImpl implements OrderService {
         return orderDAO.findByCustomer(customer);
     }
 
+    @Override
+    public boolean createDetailedOrder(Order order, Customer customer, String modelName, String brandName, Double pricePerKmHigh, Double pricePerKmLow) {
+        List<Car> cars = carService.findWithCriteria(modelName, brandName, pricePerKmHigh, pricePerKmLow);
+        order.setAppropriateCars(cars);
+        return createOrder(order, customer);
+    }
 }

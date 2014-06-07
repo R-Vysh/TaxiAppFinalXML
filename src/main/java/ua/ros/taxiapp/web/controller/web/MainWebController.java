@@ -42,8 +42,6 @@ public class MainWebController {
         if (session.getAttribute("taxist") != null) {
             return "mainTaxist";
         } else {
-            List<Taxist> taxists = taxistService.getAllFreeTaxists();
-            model.addAttribute("freeTaxis", taxists);
             model.addAttribute("order", new Order());
             return "mainCustomer";
         }

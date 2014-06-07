@@ -2,6 +2,7 @@ package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -61,7 +62,7 @@ public class Order implements Serializable {
                     @JoinColumn(name = "order_id")},
             inverseJoinColumns = {
                     @JoinColumn(name = "car_id")})
-    private Set<Car> appropriateCars;
+    private List<Car> appropriateCars;
 
     public Order() {
     }
@@ -152,11 +153,11 @@ public class Order implements Serializable {
         this.toCoordinates = toCoordinates;
     }
 
-    public Set<Car> getAppropriateCars() {
+    public List<Car> getAppropriateCars() {
         return appropriateCars;
     }
 
-    public void setAppropriateCars(Set<Car> appropriateCars) {
+    public void setAppropriateCars(List<Car> appropriateCars) {
         this.appropriateCars = appropriateCars;
     }
 }

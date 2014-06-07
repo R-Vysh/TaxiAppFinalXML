@@ -57,7 +57,7 @@ public class OrderController {
         order.setStatus(Order.OrderStatus.NOTTAKEN);
         order.setFromPlace(fromAddressName);
         order.setToPlace(toAddressName);
-        if(orderService.createOrder(order)) {
+        if(orderService.createOrder(order, customer)) {
             return new StatusMessage(StatusMessage.OK);
         } else {
             return new StatusMessage(StatusMessage.FAIL);

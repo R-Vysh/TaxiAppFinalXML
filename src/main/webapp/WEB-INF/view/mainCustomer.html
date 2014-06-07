@@ -5,13 +5,13 @@
     <title></title>
 </head>
 <body>
-<p th:text="${#httpSession.getAttribute('customer').user.username}"/>
+<p th:text="#{logged.in.as} + ' ' + ${#httpSession.getAttribute('customer').user.username}"/>
 
 <p th:if="${orderSuccessful}" th:text="#{order.successful}">Order created.</p>
 
 <p th:if="${orderUnsuccessful}" th:text="#{order.unsuccessful}">Could not create order.</p>
 
-<table align="left" border="0" cellpadding="1" cellspacing="1">
+<table align="left" border="0" cellpadding="1" cellspacing="1" style="width: 100%">
     <tbody>
     <tr>
         <td>
@@ -34,17 +34,23 @@
                 </tr>
                 <tr>
                     <td>Taxis phone</td>
-                    <td th:text="${#httpSession.getAttribute('customer').currentOrder.taxist}
-                                   ? ${#httpSession.getAttribute('customer').currentOrder.taxist.user.mobile}"></td>
+                    <td th:text="${#httpSession.getAttribute('customer').currentOrder}
+                                 ? (${#httpSession.getAttribute('customer').currentOrder.taxist}
+                                 ? ${#httpSession.getAttribute('customer').currentOrder.taxist.user.mobile})"></td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td>
-                    <td><a href="@{/web/order/cancel}" th:text="#{cancel.order}">http://Cancel order</a></td>
+                    <td><a href="//web/order/cancel-order"
+                           th:href="@{/web/order/cancel-order}" th:text="#{cancel.order}">Cancel order</a></td>
                 </tr>
                 <tr>
-                    <td><a href="http://Logout" th:text="#{logout}">http://Logout</a></td>
-                    <td><a href="registerCustomer.html"
+
+                    <td><a href="customerOrders.html"
                            th:href="@{/web/order/history}" th:text="#{view.history}">View history</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href="login.html"
+                           th:href="@{/j_spring_security_logout}" th:text="#{logout}">Logout</a>
                     </td>
                 </tr>
                 </tbody>
@@ -62,34 +68,6 @@
                         <td th:text="#{to.place}">To:</td>
                         <td><input type="text" th:field="*{toPlace}"/></td>
                     </tr>
-                    <!--<tr>-->
-                    <!--<td th:text="#{available.cars}">Available cars</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                    <!--<table border="1" cellpadding="1" cellspacing="1" style="width: 100%; height: 100%;">-->
-                    <!--<tbody>-->
-                    <!--<tr>-->
-                    <!--<td>Reg Number</td>-->
-                    <!--<td>Brand</td>-->
-                    <!--<td>Model</td>-->
-                    <!--<td>Rating</td>-->
-                    <!--<td>Price</td>-->
-                    <!--<td>Comments</td>-->
-                    <!--<td>Order</td>-->
-                    <!--</tr>-->
-                    <!--<tr th:each="taxi : ${freeTaxis}">-->
-                    <!--<td th:text="${taxi.car.registrationalNumber}">N/A</td>-->
-                    <!--<td th:text="${taxi.car.model.brand.brandsName}">N/A</td>-->
-                    <!--<td th:text="${taxi.car.model.modelsName}">N/A</td>-->
-                    <!--<td th:text="${taxi.rating}">N/A</td>-->
-                    <!--<td th:text="${taxi.car.pricePerKm}">N/A</td>-->
-                    <!--<td th:text="${taxi.car.pricePerKm}">N/A</td>-->
-                    <!--<td th:text="${taxi.car.pricePerKm}">N/A</td>-->
-                    <!--</tr>-->
-                    <!--</tbody>-->
-                    <!--</table>-->
-
-                    <!--</tr>-->
                     <tr>
                         <td><a href="detailedOrder.html"
                                th:href="@{/web/order/detailed-order}" th:text="#{detailed.order}">Detailed order</a>
