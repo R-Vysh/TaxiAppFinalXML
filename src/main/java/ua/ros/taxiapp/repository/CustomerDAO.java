@@ -12,5 +12,7 @@ public interface CustomerDAO extends GenericDAO<Customer, Integer> {
 
   //  Customer findByUsernameAndPassword(String username, String password);
 
-    Customer findByUser(User user);
+    public Customer findByUser(User user);
+
+
 }

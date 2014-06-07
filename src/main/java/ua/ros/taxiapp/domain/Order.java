@@ -2,6 +2,7 @@ package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +15,7 @@ import javax.persistence.*;
 public class Order implements Serializable {
 
     public enum OrderStatus {
-        NOTTAKEN("NOTTAKEN"), DONE("DONE"), TAKEN("TAKEN"), DECLINED("DECLINED");
+        NOTTAKEN("NOTTAKEN"), DONE("DONE"), TAKEN("TAKEN"), CANCELED("CANCELED"), ONPLACE("ONPLACE");
 
         private String value;
 
@@ -54,6 +55,13 @@ public class Order implements Serializable {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "coordinates_to")
     private Coordinates toCoordinates;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(name = "order_car_maps",
+            joinColumns = {
+                    @JoinColumn(name = "order_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "car_id")})
+    private Set<Car> appropriateCars;
 
     public Order() {
     }
@@ -142,5 +150,13 @@ public class Order implements Serializable {
 
     public void setToCoordinates(Coordinates toCoordinates) {
         this.toCoordinates = toCoordinates;
+    }
+
+    public Set<Car> getAppropriateCars() {
+        return appropriateCars;
+    }
+
+    public void setAppropriateCars(Set<Car> appropriateCars) {
+        this.appropriateCars = appropriateCars;
     }
 }

@@ -65,4 +65,20 @@ public class OrderWebController {
         model.addAttribute("orders", orders);
         return "customerOrders";
     }
+
+    @RequestMapping(value = "/detailed-order", method = RequestMethod.GET)
+    public String detailedOrder(Principal principal, Model model, HttpSession session) {
+        sessionUserChecker.checkUser(principal, session);
+        return "detailedOrder";
+    }
+
+    @RequestMapping(value = "/cancel-order", method = RequestMethod.GET)
+    public String cancelOrder(Principal principal, Model model, HttpSession session) {
+        sessionUserChecker.checkUser(principal, session);
+        Customer customer = (Customer) session.getAttribute("customer");
+        customerService.cancelOrder(customer);
+
+        customer.getCurrentOrder().setStatus(Order.OrderStatus.CANCELED);
+        return "detailedOrder";
+    }
 }

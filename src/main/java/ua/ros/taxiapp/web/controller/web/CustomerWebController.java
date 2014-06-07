@@ -35,7 +35,12 @@ public class CustomerWebController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerCustomer(@ModelAttribute(value = "customer") Customer customer,
-                                    Model model) {
+                                   @RequestParam(value = "confirmPassword") String confirmPassword,
+                                   Model model) {
+        if(!confirmPassword.equals(customer.getUser().getPassword())) {
+            model.addAttribute("registrationUnsuccessful", true);
+            return "registerCustomer";
+        }
         customer.getUser().setTaxist(false);
         customerService.createCustomer(customer);
         Authority authority = new Authority();

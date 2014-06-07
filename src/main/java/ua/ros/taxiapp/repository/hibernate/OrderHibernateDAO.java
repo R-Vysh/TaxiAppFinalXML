@@ -41,7 +41,7 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
     @Override
     @Transactional
     public void cancelOrder(Order order) {
-        order.setStatus(Order.OrderStatus.DECLINED);
+        order.setStatus(Order.OrderStatus.CANCELED);
         save(order);
     }
 }

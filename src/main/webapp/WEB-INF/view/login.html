@@ -1,27 +1,74 @@
-<!DOCTYPE html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-4.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title th:text="#{login.title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>PetClinic</title>
+    <link href="../../resources/css/login.css"
+          th:href="@{/css/login.css}" rel="stylesheet"/>
 </head>
 <body>
 <h3 th:text="#{login.title}">Login page</h3>
-<p th:if="${loginError}" th:text="#{wrong.credentials}">Wrong user or password</p>
-<p th:if="${registrationSuccessful}" th:text="#{registration.successful}">You have successfully registered.</p>
-<form th:action="@{/web/perform-login}" method="post">
-    <label for="j_username" th:text = "#{username}">Username</label>:
-    <input type="text" id="j_username" name="j_username" /> <br />
-    <label for="j_password" th:text = "#{password}">Password</label>:
-    <input type="password" id="j_password" name="j_password" /> <br />
-    <label for="_spring_security_remember_me" th:text = "#{remember.me}">Remember me</label>:
-    <input type="checkbox" id="_spring_security_remember_me" name="_spring_security_remember_me" /> <br />
-    <input type="submit" th:value="#{sign.in}" />
-</form>
-<a href="registerCustomer.html"
-   th:href="@{/web/customer/register}" th:text="#{register.customer}">Register a customer</a>
-<a href="registerTaxist.html"
-   th:href="@{/web/taxist/register}" th:text="#{register.taxist}">Register a taxist</a>
-<a href="changePassword.html"
-   th:href="@{/web/change-password}" th:text="#{change.password}">Change password</a>
 
+<p th:if="${loginError}" th:text="#{wrong.credentials}">Wrong user or password</p>
+
+<p th:if="${registrationSuccessful}" th:text="#{registration.successful}">You have successfully registered.</p>
+
+<table>
+    <tbody>
+    <tr>
+        <form th:action="@{/web/perform-login}" method="post">
+            <table border="0" cellpadding="1" cellspacing="1">
+                <tbody>
+                <tr>
+                    <td>
+                        <label for="j_username" th:text="#{username}">Username</label>:
+                    </td>
+                    <td>
+                        <input type="text" id="j_username" name="j_username"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="j_password" th:text="#{password}">Password</label>:
+                    </td>
+                    <td>
+                        <input type="password" id="j_password" name="j_password"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="_spring_security_remember_me" th:text="#{remember.me}">Remember me</label>:
+                    </td>
+                    <td>
+                        <input type="checkbox" id="_spring_security_remember_me" name="_spring_security_remember_me"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="submit" th:value="#{sign.in}"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </tr>
+    <tr>
+        <td>
+            <a href="registerCustomer.html"
+               th:href="@{/web/customer/register}" th:text="#{register.customer}">Register a customer</a>
+        </td>
+    </tr>
+    <tr>
+        <td><a href="registerTaxist.html"
+               th:href="@{/web/taxist/register}" th:text="#{register.taxist}">Register a taxist</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="changePassword.html"
+               th:href="@{/web/change-password}" th:text="#{change.password}">Change password</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

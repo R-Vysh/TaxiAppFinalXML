@@ -19,7 +19,9 @@ public interface CustomerService {
 
     public boolean deleteCustomer(Customer customer);
 
-    Customer findByUsernameAndPassword(String username, String password);
+    public Customer findByUsernameAndPassword(String username, String password);
 
-    Customer findByUser(User user);
+    public Customer findByUser(User user);
+
+    public boolean cancelOrder(Customer customer);
 }

@@ -1,0 +1,10 @@
+table {
+    text-align: left;
+    align: left;
+    border: 0;
+}
+
+body {
+    background: url("../images/background.jpg");
+    background-color: #F5F5DC;
+}

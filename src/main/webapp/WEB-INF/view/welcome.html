@@ -10,12 +10,11 @@
 </head>
 
 <body>
-<!--<div id="logo">-->
-    <!--<img th:src="@{/images/1.jpg}"-->
-         <!--src="../../resources/images/1.jpg" />-->
-<!--</div>-->
-<div id="welcomeText" th:text="#{welcome}"> Welcome!</div>
-
+<div>
+    <div id="welcomeText" th:text="#{welcome}"> Welcome!</div>
+    <div><a href="login.html"
+            th:href="@{/web/main}" th:text="#{enter.site}">Enter site</a>
+    </div>
+</div>
 </body>
-
 </html>

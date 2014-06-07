@@ -3,27 +3,27 @@
 <head>
     <title th:text="#{register.customer}"></title>
 </head>
-<body>
+<body >
 <p th:if="${registrationUnsuccessful}" th:text="#{registration.unsuccessful}">Oops. Something went wrong.</p>
 <h3 th:text="#{register.customer}">Register customer</h3>
 
-<form action="#" th:action="@{/web/customer/register}" th:object="${customer}" method="post">
+<form action="#" th:action="@{/web/customer/register}"  method="post">
     <table>
         <tr>
             <th th:text="#{username}">Username</th>
-            <th><input type="text" th:field="*{user.username}"/></th>
+            <th><input type="text" th:field="${customer.user.username}"/></th>
         </tr>
         <tr>
             <th th:text="#{password}">Password</th>
-            <th><input type="password" th:field="*{user.password}"/></th>
+            <th><input type="password" th:field="${customer.user.password}"/></th>
         </tr>
         <tr>
             <th th:text="#{confirm.password}">Confirm password</th>
-            <th><input type="password" th:field="confirmPassword"/></th>
+            <th><input type="password" th:name="confirmPassword"/></th>
         </tr>
         <tr>
             <th th:text="#{mobile}">Mobile</th>
-            <th><input type="text" th:field="*{user.mobile}"/></th>
+            <th><input type="text" th:field="${customer.user.mobile}"/></th>
         </tr>
         <tr>
             <th></th>

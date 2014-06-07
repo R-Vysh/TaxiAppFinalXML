@@ -56,4 +56,6 @@ public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer>
         cust = (Customer) query.uniqueResult();
         return cust;
     }
+
+
 }
