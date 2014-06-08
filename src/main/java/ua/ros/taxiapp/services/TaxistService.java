@@ -1,5 +1,6 @@
 package ua.ros.taxiapp.services;
 
+import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.domain.User;
 
@@ -20,7 +21,11 @@ public interface TaxistService {
 
     public Taxist findByUser(User user);
 
-    boolean updateTaxist(Taxist taxist);
+    public boolean updateTaxist(Taxist taxist);
 
-    void setOffline(Taxist taxist);
+    public void setOffline(Taxist taxist);
+
+    public void setOnline(Taxist taxist);
+
+    public void finishOrder(Taxist taxist, Order order);
 }

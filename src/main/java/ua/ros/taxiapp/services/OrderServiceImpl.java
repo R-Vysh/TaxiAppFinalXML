@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ua.ros.taxiapp.domain.Car;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
+import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.repository.OrderDAO;
 import ua.ros.taxiapp.web.controller.web.MainWebController;
 
@@ -28,6 +29,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     CarService carService;
+
+    @Autowired
+    TaxistService taxistService;
 
     public OrderDAO getOrderDAO() {
         return orderDAO;
@@ -111,5 +115,21 @@ public class OrderServiceImpl implements OrderService {
         List<Car> cars = carService.findWithCriteria(modelName, brandName, pricePerKmHigh, pricePerKmLow);
         order.setAppropriateCars(cars);
         return createOrder(order, customer);
+    }
+
+    @Override
+    public void onPlaceOrder(Order order) {
+        order.setStatus(Order.OrderStatus.ONPLACE);
+        updateOrder(order);
+    }
+
+    @Override
+    public void finishOrder(Order order) {
+        order.setStatus(Order.OrderStatus.DONE);
+        Taxist taxist = order.getTaxist();
+        taxist.setCurrentOrder(null);
+        taxist.setFree(true);
+        taxistService.updateTaxist(taxist);
+        updateOrder(order);
     }
 }

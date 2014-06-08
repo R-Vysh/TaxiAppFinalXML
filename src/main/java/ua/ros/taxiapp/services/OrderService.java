@@ -22,7 +22,11 @@ public interface OrderService {
 
     public boolean cancelOrder(Order order);
 
-    List<Order> findByCustomer(Customer customer);
+    public List<Order> findByCustomer(Customer customer);
 
-    boolean createDetailedOrder(Order order, Customer customer, String modelName, String brandName, Double pricePerKmHigh, Double pricePerKmLow);
+    public boolean createDetailedOrder(Order order, Customer customer, String modelName, String brandName, Double pricePerKmHigh, Double pricePerKmLow);
+
+    public void onPlaceOrder(Order order);
+
+    public void finishOrder(Order order);
 }

@@ -1,9 +1,57 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8"/>
     <title></title>
 </head>
 <body>
-Hello taxi <p th:text = "${#httpSession.getAttribute('Taxist').user.username}" />
+<p th:text="#{logged.in.as} + ' ' + ${#httpSession.getAttribute('taxist').user.username}"/>
+
+<table align="left" border="0" cellpadding="1" cellspacing="1">
+    <tbody>
+    <tr>
+        <td>Current order</td>
+    </tr>
+    <tr>
+        <td>From</td>
+        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.fromPlace}"></td>
+    </tr>
+    <tr>
+        <td>To</td>
+        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.toPlace}"></td>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>Customer phone</td>
+        <td th:text="${#httpSession.getAttribute('taxist').currentOrder}
+                                 ? (${#httpSession.getAttribute('taxist').currentOrder.customer}
+                                 ? ${#httpSession.getAttribute('taxist').currentOrder.customer.user.mobile})"></td>
+    </tr>
+    <tr>
+        <td><a href="/web/order/on-place"
+               th:href="@{/web/order/on-place}" th:text="#{on.place}">On place</a>
+        </td>
+        <td><a href="/web/order/finish"
+               th:href="@{/web/order/finish}" th:text="#{finished}">Finished</a>
+        </td>
+
+    </tr>
+    <tr>
+
+        <td><a href="taxistHistory.html"
+               th:href="@{/web/order/history}" th:text="#{view.history}">View history</a>
+        </td>
+    </tr>
+    <tr>
+        <td><a href="login.html"
+               th:href="@{/j_spring_security_logout}" th:text="#{logout}">Logout</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

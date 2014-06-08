@@ -3,6 +3,7 @@ package ua.ros.taxiapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.TaxistDAO;
@@ -79,6 +80,18 @@ public class TaxistServiceImpl implements TaxistService {
     @Override
     public void setOffline(Taxist taxist) {
         taxist.setOnline(false);
+        updateTaxist(taxist);
+    }
+
+    @Override
+    public void setOnline(Taxist taxist) {
+        taxist.setOnline(true);
+        updateTaxist(taxist);
+    }
+
+    @Override
+    public void finishOrder(Taxist taxist, Order order) {
+        taxist.setCurrentOrder(null);
         updateTaxist(taxist);
     }
 }

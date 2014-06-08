@@ -3,6 +3,7 @@ package ua.ros.taxiapp.web.controller.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.ros.taxiapp.domain.Customer;
+import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.services.TaxistService;
@@ -30,7 +31,9 @@ public class SessionUserChecker {
                 Customer customer = customerService.findByUser(user);
                 session.setAttribute("customer", customer);
             } else {
-                session.setAttribute("taxist", taxistService.findByUser(user));
+                Taxist taxist = taxistService.findByUser(user);
+                taxistService.setOnline(taxist);
+                session.setAttribute("taxist", taxist);
             }
         }
     }

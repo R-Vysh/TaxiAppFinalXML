@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
+import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.services.OrderService;
+import ua.ros.taxiapp.services.TaxistService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -25,6 +27,9 @@ public class OrderWebController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    TaxistService taxistService;
 
     @Autowired
     SessionUserChecker sessionUserChecker;
@@ -51,13 +56,15 @@ public class OrderWebController {
         Customer customer = (Customer) session.getAttribute("customer");
         List<Order> orders = orderService.findByCustomer(customer);
         model.addAttribute("orders", orders);
-        return "customerOrders";
+        return "customerHistory";
     }
 
     @RequestMapping(value = "/detailed-order", method = RequestMethod.GET)
     public String detailedOrder(Principal principal, Model model, HttpSession session) {
         sessionUserChecker.checkUser(principal, session);
         model.addAttribute("order", new Order());
+        List<Taxist> taxis = taxistService.getAllFreeTaxists();
+        model.addAttribute("freeTaxis", taxis);
         return "detailedOrder";
     }
 
@@ -93,6 +100,29 @@ public class OrderWebController {
         if (order != null) {
             orderService.cancelOrder(order);
             customerService.cancelOrder(customer);
+        }
+        return "redirect:/web/main";
+    }
+
+    @RequestMapping(value = "/on-place", method = RequestMethod.GET)
+    public String onPlaceOrder(Principal principal, HttpSession session) {
+        sessionUserChecker.checkUser(principal, session);
+        Taxist taxist = (Taxist) session.getAttribute("taxist");
+        Order order = taxist.getCurrentOrder();
+        if (order != null) {
+            orderService.onPlaceOrder(order);
+        }
+        return "redirect:/web/main";
+    }
+
+    @RequestMapping(value = "/finish", method = RequestMethod.GET)
+    public String finishOrder(Principal principal, HttpSession session) {
+        sessionUserChecker.checkUser(principal, session);
+        Taxist taxist = (Taxist) session.getAttribute("taxist");
+        Order order = taxist.getCurrentOrder();
+        if (order != null) {
+            orderService.finishOrder(order);
+            //taxistService.finishOrder(taxist, order);
         }
         return "redirect:/web/main";
     }
