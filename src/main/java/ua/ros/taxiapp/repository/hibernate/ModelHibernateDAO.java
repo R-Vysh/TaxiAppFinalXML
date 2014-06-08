@@ -2,6 +2,7 @@ package ua.ros.taxiapp.repository.hibernate;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.domain.Brand;
 import ua.ros.taxiapp.domain.Model;
 import ua.ros.taxiapp.repository.ModelDAO;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ModelHibernateDAO extends GenericDAOHibernate<Model, Integer> implements ModelDAO {
 
     @Override
+    @Transactional
     public Model findByName(String name) {
         Model model = null;
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("model.with.name");
@@ -21,6 +23,7 @@ public class ModelHibernateDAO extends GenericDAOHibernate<Model, Integer> imple
     }
 
     @Override
+    @Transactional
     public List<Model> findByBrand(Brand brand) {
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("model.with.brand");
         query.setParameter("brand", brand);

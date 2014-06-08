@@ -13,19 +13,9 @@ import javax.persistence.NamedQuery;
 
 @Repository
 public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer> implements CustomerDAO {
-    
+
     UserHibernateDAO userDAO = new UserHibernateDAO();
-    
-    @Override
-    @Transactional
-    public Customer findByCurrentOrder(Order order) {
-        Customer cust = null;
-        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("customer.with.order");
-        query.setParameter("ord", order);
-        cust = (Customer) query.uniqueResult();
-        return cust;
-    }
-    
+
     @Override
     @Transactional
     public Customer findByMobile(String mobile) {
@@ -35,17 +25,6 @@ public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer>
         cust = (Customer) query.uniqueResult();
         return cust;
     }
-
-//    @Override
-//    @Transactional
-//    public Customer findByUsernameAndPassword(String username, String password) {
-//        Customer cust = null;
-//        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("customer.with.username.and.password");
-//        query.setParameter("username", username);
-//        query.setParameter("password", password);
-//        cust = (Customer) query.uniqueResult();
-//        return cust;
-//    }
 
     @Override
     @Transactional
@@ -57,5 +36,14 @@ public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer>
         return cust;
     }
 
-
+    @Override
+    @Transactional
+    public Customer findByUsernameAndPassword(String username, String password) {
+        Customer cust = null;
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("customer.with.username.and.password");
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        cust = (Customer) query.uniqueResult();
+        return cust;
+    }
 }

@@ -2,6 +2,7 @@ package ua.ros.taxiapp.repository.hibernate;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.domain.Comment;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Taxist;
@@ -13,6 +14,7 @@ import java.util.List;
 public class CommentHibernateDAO extends GenericDAOHibernate<Comment, Integer> implements CommentDAO {
 
     @Override
+    @Transactional
     public List<Comment> findByCustomer(Customer customer) {
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("comment.with.customer");
         query.setParameter("customer", customer);
@@ -21,6 +23,7 @@ public class CommentHibernateDAO extends GenericDAOHibernate<Comment, Integer> i
     }
 
     @Override
+    @Transactional
     public List<Comment> findByTaxist(Taxist taxist) {
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("comment.with.taxist");
         query.setParameter("taxist", taxist);

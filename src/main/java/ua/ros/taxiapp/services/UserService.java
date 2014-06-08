@@ -15,7 +15,7 @@ public interface UserService {
 
     public boolean deleteUser(User user);
 
-    User findByPasswordAndUsername(String password, String username);
+    public User findByPasswordAndUsername(String password, String username);
 
-    User findByUsername(String username);
+    public User findByUsername(String username);
 }

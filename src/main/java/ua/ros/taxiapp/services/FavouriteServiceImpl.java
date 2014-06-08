@@ -22,7 +22,7 @@ public class FavouriteServiceImpl implements FavouriteService {
     }
 
     @Override
-    public boolean createFavourite(Favourite favourite) {
+    public boolean saveFavourite(Favourite favourite) {
         try {
             favouriteDAO.save(favourite);
         } catch (DataAccessException ex) {

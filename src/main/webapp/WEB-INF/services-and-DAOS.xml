@@ -3,7 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id = "authorityDAO" class = "ua.ros.taxiapp.repository.hibernate.AuthorityHibernateDAO"/>
     <bean id = "brandService" class = "ua.ros.taxiapp.services.BrandServiceImpl"/>
     <bean id = "brandDAO" class = "ua.ros.taxiapp.repository.hibernate.BrandHibernateDAO"/>
     <bean id = "carService" class = "ua.ros.taxiapp.services.CarServiceImpl"/>

@@ -10,11 +10,8 @@ import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.repository.OrderDAO;
-import ua.ros.taxiapp.web.controller.web.MainWebController;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -51,10 +48,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomer(customer);
         order.setStatus(Order.OrderStatus.NOTTAKEN);
         customer.setCurrentOrder(order);
-        try {
-            orderDAO.save(order);
-        } catch (DataAccessException ex) {
-            ex.printStackTrace();
+        if (saveOrder(order) == false) {
             return false;
         }
         if (customerService.updateCustomer(customer)) {
@@ -62,6 +56,16 @@ public class OrderServiceImpl implements OrderService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean saveOrder(Order order) {
+        try {
+            orderDAO.save(order);
+        } catch (DataAccessException ex) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -90,13 +94,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean takeOrder(Order order) {
-        try {
-            orderDAO.takeOrder(order);
-        } catch (DataAccessException ex) {
+    public boolean takeOrder(Order order, Taxist taxist) {
+        if (taxist.getCurrentOrder() != null) {
             return false;
         }
-        return true;
+        order.setTaxist(taxist);
+        order.setStatus(Order.OrderStatus.TAKEN);
+        taxist.setCurrentOrder(order);
+        return updateOrder(order) && taxistService.updateTaxist(taxist);
     }
 
     @Override
@@ -118,18 +123,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void onPlaceOrder(Order order) {
+    public boolean onPlaceOrder(Order order) {
         order.setStatus(Order.OrderStatus.ONPLACE);
-        updateOrder(order);
+        return updateOrder(order);
     }
 
     @Override
-    public void finishOrder(Order order) {
+    public boolean finishOrder(Order order) {
         order.setStatus(Order.OrderStatus.DONE);
         Taxist taxist = order.getTaxist();
         taxist.setCurrentOrder(null);
         taxist.setFree(true);
-        taxistService.updateTaxist(taxist);
-        updateOrder(order);
+        return taxistService.updateTaxist(taxist) && updateOrder(order);
     }
 }

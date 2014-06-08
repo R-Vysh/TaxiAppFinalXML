@@ -15,6 +15,7 @@ import java.util.List;
 public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implements CarDAO {
 
     @Override
+    @Transactional
     public Car findByNumber(String registrationalNumber) {
         Car car = null;
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("car.with.number");
@@ -24,6 +25,7 @@ public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implement
     }
 
     @Override
+    @Transactional
     public List<Car> findByPricePerKm(Double price) {
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("car.with.price");
         query.setParameter("price", price);
@@ -32,32 +34,23 @@ public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implement
     }
 
     @Override
-    public List<Car> findByPricePerKmBetween(Double lower, Double higher) {
-        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("car.with.price.between");
-        query.setParameter("lowerPrice", lower);
-        query.setParameter("higherPrice", higher);
-        List<Car> cars = (List<Car>) query.list();
-        return cars;
-    }
-
-    @Override
     @Transactional
     public List<Car> criteriaSearch(String brand, String model, Double pricePerKmLow, Double pricePerKmHigh) {
         Criteria criteria = this.getSessionFactory().getCurrentSession().createCriteria(Car.class);
-        if(model!=null){
+        if (model != null) {
             criteria.createAlias("model", "model");
             criteria.add(Restrictions.like("model.modelsName", model));
         }
-        if(brand!=null){
+        if (brand != null) {
             criteria.createAlias("model.brand", "brand");
             criteria.add(Restrictions.like("brand.brandsName", brand));
         }
-        if(pricePerKmLow!=null){
+        if (pricePerKmLow != null) {
             criteria.add(Restrictions.ge("pricePerKm", pricePerKmLow));
         }
-        if(pricePerKmHigh!=null){
+        if (pricePerKmHigh != null) {
             criteria.add(Restrictions.le("pricePerKm", pricePerKmHigh));
-        } 
+        }
         return criteria.list();
     }
 }

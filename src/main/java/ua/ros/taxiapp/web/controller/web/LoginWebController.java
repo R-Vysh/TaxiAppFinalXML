@@ -32,11 +32,6 @@ public class LoginWebController {
         return "login";
     }
 
-//    @RequestMapping(value = "/perform-login", method = RequestMethod.GET)
-//    public void doLogin(@RequestParam("j_password") String j_password,
-//                        @RequestParam("j_username") String j_username, HttpSession session) {
-//    }
-
     @RequestMapping(value = "/change-password", method = RequestMethod.GET)
     public String changePassword() {
         return "changePassword";

@@ -2,6 +2,7 @@ package ua.ros.taxiapp.services;
 
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
+import ua.ros.taxiapp.domain.Taxist;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,13 +13,15 @@ public interface OrderService {
 
     public boolean createOrder(Order order, Customer customer);
 
+    public boolean saveOrder(Order order);
+
     public Order findById(Integer id);
 
     public boolean deleteOrder(Order order);
 
     public boolean updateOrder(Order order);
 
-    public boolean takeOrder(Order order);
+    public boolean takeOrder(Order order, Taxist taxist);
 
     public boolean cancelOrder(Order order);
 
@@ -26,7 +29,7 @@ public interface OrderService {
 
     public boolean createDetailedOrder(Order order, Customer customer, String modelName, String brandName, Double pricePerKmHigh, Double pricePerKmLow);
 
-    public void onPlaceOrder(Order order);
+    public boolean onPlaceOrder(Order order);
 
-    public void finishOrder(Order order);
+    public boolean finishOrder(Order order);
 }

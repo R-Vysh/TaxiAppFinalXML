@@ -22,7 +22,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public boolean createModel(Model model) {
+    public boolean saveModel(Model model) {
         try {
             modelDAO.save(model);
         } catch (DataAccessException ex) {

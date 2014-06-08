@@ -9,6 +9,8 @@ public interface CustomerService {
 
     public boolean createCustomer(Customer customer);
 
+    public boolean saveCustomer(Customer customer);
+
     public Customer findById(Integer id);
 
     public List<Customer> getAllCustomers();
@@ -19,9 +21,9 @@ public interface CustomerService {
 
     public boolean deleteCustomer(Customer customer);
 
-    public Customer findByUsernameAndPassword(String username, String password);
-
     public Customer findByUser(User user);
 
     public boolean cancelOrder(Customer customer);
+
+    public Customer findByUsernameAndPassword(String username, String password);
 }

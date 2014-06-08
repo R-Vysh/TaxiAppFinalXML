@@ -5,7 +5,7 @@ import ua.ros.taxiapp.domain.User;
 
 import java.util.List;
 
-public interface TaxistDAO extends GenericDAO<Taxist, Integer>{
+public interface TaxistDAO extends GenericDAO<Taxist, Integer> {
     public Taxist findByMobile(String mobile);
 
     public List<Taxist> findAllFree();

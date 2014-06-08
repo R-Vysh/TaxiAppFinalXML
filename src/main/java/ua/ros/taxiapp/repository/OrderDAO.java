@@ -10,7 +10,4 @@ public interface OrderDAO extends GenericDAO<Order, Integer> {
 
     public List<Order> findByCustomer(Customer customer);
 
-    public void takeOrder(Order order);
-
-    public void cancelOrder(Order order);
 }

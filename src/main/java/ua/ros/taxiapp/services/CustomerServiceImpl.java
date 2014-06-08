@@ -1,11 +1,13 @@
 package ua.ros.taxiapp.services;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
+import ua.ros.taxiapp.domain.Authority;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.CustomerDAO;
@@ -29,6 +31,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean createCustomer(Customer customer) {
+        customer.getUser().setTaxist(false);
+        if(!saveCustomer(customer)) {
+            return false;
+        }
+        Authority authority = new Authority();
+        authority.setRolename(Authority.Rolename.ROLE_CUST);
+        authority.setUser(customer.getUser());
+        HashSet<Authority> auth = new HashSet<>();
+        auth.add(authority);
+        customer.getUser().setAuthorities(auth);
+        return updateCustomer(customer);
+    }
+
+    @Override
+    public boolean saveCustomer(Customer customer) {
         try {
             customerDAO.save(customer);
         } catch (DataAccessException ex) {
@@ -70,11 +87,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findByUsernameAndPassword(String username, String password) {
-        return null; //customerDAO.findByUsernameAndPassword(username, password);
-    }
-
-    @Override
     public Customer findByUser(User user) {
         return customerDAO.findByUser(user);
     }
@@ -83,6 +95,11 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean cancelOrder(Customer customer) {
         customer.setCurrentOrder(null);
         return updateCustomer(customer);
+    }
+
+    @Override
+    public Customer findByUsernameAndPassword(String username, String password) {
+        return customerDAO.findByUsernameAndPassword(username, password);
     }
 
     @Override

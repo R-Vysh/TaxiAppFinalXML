@@ -15,7 +15,7 @@ public interface TaxistService {
 
     public Taxist findById(Integer id);
 
-    public boolean createNewTaxist(Taxist taxist);
+    public boolean createTaxist(Taxist taxist);
 
     public boolean deleteTaxist(Taxist taxist);
 
@@ -23,9 +23,9 @@ public interface TaxistService {
 
     public boolean updateTaxist(Taxist taxist);
 
-    public void setOffline(Taxist taxist);
+    public boolean setOffline(Taxist taxist);
 
-    public void setOnline(Taxist taxist);
+    public boolean setOnline(Taxist taxist);
 
-    public void finishOrder(Taxist taxist, Order order);
+    public boolean saveTaxist(Taxist taxist);
 }

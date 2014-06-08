@@ -6,7 +6,7 @@ import ua.ros.taxiapp.domain.Favourite;
 import java.util.List;
 
 public interface FavouriteService {
-    public boolean createFavourite(Favourite favourite);
+    public boolean saveFavourite(Favourite favourite);
 
     public Favourite findById(Integer id);
 

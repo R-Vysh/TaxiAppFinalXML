@@ -126,4 +126,16 @@ public class OrderWebController {
         }
         return "redirect:/web/main";
     }
+
+    @RequestMapping(value = "/take-order", method = RequestMethod.GET)
+    public String takeOrder(@PathVariable(value = "orderId") Integer orderId, Principal principal, HttpSession session) {
+        sessionUserChecker.checkUser(principal, session);
+        Taxist taxist = (Taxist) session.getAttribute("taxist");
+        Order order = orderService.findById(orderId);
+        if (order != null) {
+            orderService.takeOrder(order, taxist);
+            //taxistService.finishOrder(taxist, order);
+        }
+        return "redirect:/web/main";
+    }
 }

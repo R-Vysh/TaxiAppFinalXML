@@ -6,7 +6,7 @@ import ua.ros.taxiapp.domain.Model;
 import java.util.List;
 
 public interface ModelService {
-    public boolean createModel(Model model);
+    public boolean saveModel(Model model);
 
     public Model findById(Integer id);
 

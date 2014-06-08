@@ -11,7 +11,9 @@ import java.util.TreeSet;
 @NamedQueries({
         @NamedQuery(name = "customer.with.mobile", query = "from Customer c where c.user.mobile = :mobile"),
         @NamedQuery(name = "customer.with.order", query = "from Customer c where c.currentOrder = :ord"),
-        @NamedQuery(name = "customer.with.user", query = "from Customer c where c.user = :user")})
+        @NamedQuery(name = "customer.with.user", query = "from Customer c where c.user = :user"),
+        @NamedQuery(name = "customer.with.username.and.password",
+                query = "from Customer c where c.user.username = :username and c.user.password = :password")})
 public class Customer implements Serializable {
 
     @Id
@@ -79,6 +81,4 @@ public class Customer implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-
-
 }

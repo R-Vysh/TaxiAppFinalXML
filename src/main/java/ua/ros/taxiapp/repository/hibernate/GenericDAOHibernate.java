@@ -22,43 +22,40 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Override
-    @Transactional(rollbackFor={Exception.class})
-    public void save(T entity) throws DataAccessException {
-        Session session = this.sessionFactory.getCurrentSession();
-            session.saveOrUpdate(entity);
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {DataAccessException.class})
+    public void save(T entity) throws DataAccessException {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.saveOrUpdate(entity);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {DataAccessException.class})
     public void update(T entity) throws DataAccessException {
         Session hibernateSession = this.sessionFactory.getCurrentSession();
         hibernateSession.update(entity);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {DataAccessException.class})
     public void delete(T entity) throws DataAccessException {
         Session hibernateSession = this.sessionFactory.getCurrentSession();
         hibernateSession.delete(entity);
     }
 
     @Override
-    @Transactional(rollbackFor={Exception.class})
+    @Transactional(rollbackFor = {DataAccessException.class})
     public void merge(T entity) throws DataAccessException {
         Session session = this.sessionFactory.getCurrentSession();
         session.merge(entity);
     }
-//    @Override
-//    @Transactional
-//    public T findOne(Query query) {
-//        T t;
-//        t = (T) query.uniqueResult();
-//        return t;
-//    }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {DataAccessException.class})
     public T findByID(Class clazz, ID id) {
         Session hibernateSession = this.sessionFactory.getCurrentSession();
         T t = null;
@@ -66,18 +63,13 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
         return t;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {DataAccessException.class})
     public List<T> findAll(Class clazz) {
         Session hibernateSession = this.sessionFactory.getCurrentSession();
         List<T> t = null;
         Query query = hibernateSession.createQuery("from " + clazz.getName());
         t = query.list();
         return t;
-    }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
     }
 }

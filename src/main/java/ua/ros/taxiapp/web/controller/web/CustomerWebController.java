@@ -41,15 +41,7 @@ public class CustomerWebController {
             model.addAttribute("registrationUnsuccessful", true);
             return "registerCustomer";
         }
-        customer.getUser().setTaxist(false);
-        customerService.createCustomer(customer);
-        Authority authority = new Authority();
-        authority.setRolename(Authority.Rolename.ROLE_CUST);
-        authority.setUser(customer.getUser());
-        HashSet<Authority> auth = new HashSet<>();
-        auth.add(authority);
-        customer.getUser().setAuthorities(auth);
-        if (customerService.updateCustomer(customer)) {
+        if (customerService.createCustomer(customer)) {
             model.addAttribute("registrationSuccessful", true);
             return "login";
         }

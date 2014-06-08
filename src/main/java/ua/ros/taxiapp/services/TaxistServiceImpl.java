@@ -3,15 +3,15 @@ package ua.ros.taxiapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import ua.ros.taxiapp.domain.Order;
-import ua.ros.taxiapp.domain.Taxist;
-import ua.ros.taxiapp.domain.User;
+import ua.ros.taxiapp.domain.*;
 import ua.ros.taxiapp.repository.TaxistDAO;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class TaxistServiceImpl implements TaxistService {
+
     @Autowired
     TaxistDAO taxistDAO;
 
@@ -39,7 +39,24 @@ public class TaxistServiceImpl implements TaxistService {
     }
 
     @Override
-    public boolean createNewTaxist(Taxist taxist) {
+    public boolean createTaxist(Taxist taxist) {
+        taxist.getUser().setTaxist(true);
+        taxist.setCoordinates(new Coordinates());
+        taxist.setCurrentOrder(null);
+        if(!saveTaxist(taxist)) {
+            return false;
+        }
+        Authority authority = new Authority();
+        authority.setRolename(Authority.Rolename.ROLE_TAXIST);
+        authority.setUser(taxist.getUser());
+        HashSet<Authority> auth = new HashSet<>();
+        auth.add(authority);
+        taxist.getUser().setAuthorities(auth);
+        return updateTaxist(taxist);
+    }
+
+    @Override
+    public boolean saveTaxist(Taxist taxist) {
         try {
             taxistDAO.save(taxist);
         } catch (Exception ex) {
@@ -72,26 +89,19 @@ public class TaxistServiceImpl implements TaxistService {
         } catch (DataAccessException ex) {
             ex.printStackTrace();
             return false;
-
         }
         return true;
     }
 
     @Override
-    public void setOffline(Taxist taxist) {
+    public boolean setOffline(Taxist taxist) {
         taxist.setOnline(false);
-        updateTaxist(taxist);
+        return updateTaxist(taxist);
     }
 
     @Override
-    public void setOnline(Taxist taxist) {
+    public boolean setOnline(Taxist taxist) {
         taxist.setOnline(true);
-        updateTaxist(taxist);
-    }
-
-    @Override
-    public void finishOrder(Taxist taxist, Order order) {
-        taxist.setCurrentOrder(null);
-        updateTaxist(taxist);
+        return updateTaxist(taxist);
     }
 }

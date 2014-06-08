@@ -55,6 +55,4 @@ public class Authority implements Serializable {
     public void setRolename(Rolename rolename) {
         this.rolename = rolename;
     }
-
-
 }

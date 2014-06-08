@@ -43,7 +43,7 @@ public class TaxistController {
         user.setTaxist(true);
         Taxist taxist = new Taxist();
         taxist.setUser(user);
-        if(taxistService.createNewTaxist(taxist)) {
+        if(taxistService.createTaxist(taxist)) {
             return new StatusMessage(StatusMessage.OK);
         } else {
             return new StatusMessage(StatusMessage.FAIL);

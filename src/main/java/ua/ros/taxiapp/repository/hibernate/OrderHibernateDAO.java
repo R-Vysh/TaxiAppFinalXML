@@ -12,8 +12,6 @@ import java.util.List;
 @Repository
 public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> implements OrderDAO {
 
-
-
     @Override
     @Transactional
     public List<Order> findActiveOrders() {
@@ -29,19 +27,5 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
         query.setParameter("customer", customer);
         List<Order> orders = query.list();
         return orders;
-    }
-
-    @Override
-    @Transactional
-    public void takeOrder(Order order) {
-        order.setStatus(Order.OrderStatus.TAKEN);
-        save(order);
-    }
-
-    @Override
-    @Transactional
-    public void cancelOrder(Order order) {
-        order.setStatus(Order.OrderStatus.CANCELED);
-        save(order);
     }
 }

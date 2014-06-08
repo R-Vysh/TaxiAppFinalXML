@@ -9,7 +9,7 @@ import ua.ros.taxiapp.repository.UserDAO;
 
 @Repository
 public class UserHibernateDAO extends GenericDAOHibernate<User, Integer> implements UserDAO {
-    
+
     @Override
     @Transactional
     public User findByMobile(String mobile) {
@@ -34,7 +34,7 @@ public class UserHibernateDAO extends GenericDAOHibernate<User, Integer> impleme
     public User findByUsername(String username) {
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("user.with.username");
         query.setString("custName", username);
-        User user = (User)query.uniqueResult();
+        User user = (User) query.uniqueResult();
         return user;
     }
 

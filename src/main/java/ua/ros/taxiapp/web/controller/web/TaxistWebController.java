@@ -43,22 +43,8 @@ public class TaxistWebController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerTaxist(@ModelAttribute(value = "taxist") Taxist taxist,
-                                    Model model) {
-        taxist.getUser().setTaxist(true);
-        taxist.setCoordinates(new Coordinates());
-        taxist.setCurrentOrder(null);
-        try {
-        taxistService.createNewTaxist(taxist);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        Authority authority = new Authority();
-        authority.setRolename(Authority.Rolename.ROLE_TAXIST);
-        authority.setUser(taxist.getUser());
-        HashSet<Authority> auth = new HashSet<>();
-        auth.add(authority);
-        taxist.getUser().setAuthorities(auth);
-        if (taxistService.updateTaxist(taxist)) {
+                                 Model model) {
+        if (taxistService.createTaxist(taxist)) {
             model.addAttribute("registrationSuccessful", true);
             return "login";
         }
