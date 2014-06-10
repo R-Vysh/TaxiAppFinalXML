@@ -7,6 +7,7 @@
 <body>
 <p th:text="#{logged.in.as} + ' ' + ${#httpSession.getAttribute('taxist').user.username}"/>
 
+<p>
 <table align="left" border="0" cellpadding="1" cellspacing="1">
     <tbody>
     <tr>
@@ -14,15 +15,21 @@
     </tr>
     <tr>
         <td>From</td>
-        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.fromPlace}"></td>
+        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.fromPlace}">
+            N\A
+        </td>
     </tr>
     <tr>
         <td>To</td>
-        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.toPlace}"></td>
+        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.toPlace}">
+            N\A
+        </td>
     </tr>
     <tr>
         <td>Status</td>
-        <td>&nbsp;</td>
+        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? #{${'order.status.' +  #httpSession.getAttribute('taxist').currentOrder.status}}">
+            N\A
+        </td>
     </tr>
     <tr>
         <td>Customer phone</td>
@@ -39,19 +46,37 @@
         </td>
 
     </tr>
+    </tbody>
+</table>
+</p>
+<table align="left" border="0" cellpadding="10" cellspacing="1" style="width: 100%">
+    <tbody>
     <tr>
-
-        <td><a href="taxistHistory.html"
-               th:href="@{/web/order/history}" th:text="#{view.history}">View history</a>
-        </td>
+        <td>Date</td>
+        <td>From</td>
+        <td>To</td>
+        <td>Mobile</td>
+        <td>Price</td>
+        <td>Take</td>
+    </tr>
+    <tr th:each="order : ${availableOrders}">
+        <form action="#" th:action="@{${'/web/order/take-order/' + order.orderId}}" method="get">
+            <td th:text="${order.dateCreated}">N/A</td>
+            <td th:text="${order.fromPlace}">N/A</td>
+            <td th:text="${order.toPlace}">N/A</td>
+            <td th:text="${order.customer.user.mobile}">N/A</td>
+            <td><input type="number" th:name="price"/></td>
+            <td><input type="submit" th:value="#{submit}"/></td>
+        </form>
     </tr>
     <tr>
-        <td><a href="login.html"
+        <td><a href="taxistHistory.html"
+               th:href="@{/web/order/history}" th:text="#{view.history}">View history</a></td>
+        <td><a href="logout.html"
                th:href="@{/j_spring_security_logout}" th:text="#{logout}">Logout</a>
         </td>
     </tr>
     </tbody>
 </table>
-
 </body>
 </html>

@@ -22,21 +22,21 @@
                 </tr>
                 <tr>
                     <td>From</td>
-                    <td th:text="${#httpSession.getAttribute('customer').currentOrder} ? ${#httpSession.getAttribute('customer').currentOrder.fromPlace}"></td>
+                    <td th:text="${currentOrder} ? ${currentOrder.fromPlace}"></td>
                 </tr>
                 <tr>
                     <td>To</td>
-                    <td th:text="${#httpSession.getAttribute('customer').currentOrder} ? ${#httpSession.getAttribute('customer').currentOrder.toPlace}"></td>
+                    <td th:text="${currentOrder} ? ${currentOrder.toPlace}"></td>
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td>&nbsp;</td>
+                    <td th:text="${currentOrder} ? #{${'order.status.' + currentOrder.status}}">Not taken yet</td>
                 </tr>
                 <tr>
                     <td>Taxis phone</td>
-                    <td th:text="${#httpSession.getAttribute('customer').currentOrder}
-                                 ? (${#httpSession.getAttribute('customer').currentOrder.taxist}
-                                 ? ${#httpSession.getAttribute('customer').currentOrder.taxist.user.mobile})"></td>
+                    <td th:text="${currentOrder}
+                                 ? (${currentOrder.taxist}
+                                 ? ${currentOrder.taxist.user.mobile})"></td>
                 </tr>
                 <tr>
                     <td><a href="//web/order/cancel-order"

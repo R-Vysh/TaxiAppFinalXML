@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
+import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.repository.OrderDAO;
 
 import java.util.List;
@@ -25,6 +26,15 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
     public List<Order> findByCustomer(Customer customer) {
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("order.with.customer");
         query.setParameter("customer", customer);
+        List<Order> orders = query.list();
+        return orders;
+    }
+
+    @Override
+    @Transactional
+    public List<Order> findForTaxist(Taxist taxist) {
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("order.for.car");
+        query.setParameter("car", taxist.getCar());
         List<Order> orders = query.list();
         return orders;
     }

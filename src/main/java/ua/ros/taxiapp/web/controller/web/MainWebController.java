@@ -5,12 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.services.CustomerService;
+import ua.ros.taxiapp.services.OrderService;
 import ua.ros.taxiapp.services.TaxistService;
 import ua.ros.taxiapp.services.UserService;
 
@@ -34,15 +37,32 @@ public class MainWebController {
     TaxistService taxistService;
 
     @Autowired
+    OrderService orderService;
+
+    @Autowired
     SessionUserChecker sessionUserChecker;
 
     @RequestMapping("/main")
-    public String mainMenu(Principal principal, HttpSession session, Model model) {
+    public String mainMenu(Principal principal, HttpSession session,
+                           @RequestParam(value = "orderSuccessful", required = false) final Boolean orderSuccessful,
+                           Model model) {
         sessionUserChecker.checkUser(principal, session);
         if (session.getAttribute("taxist") != null) {
+            Taxist taxist = (Taxist) session.getAttribute("taxist");
+            List<Order> orders = orderService.findOrdersForTaxist(taxist);
+            model.addAttribute("availableOrders", orders);
             return "mainTaxist";
         } else {
+            Customer customer = (Customer) session.getAttribute("customer");
+            model.addAttribute("currentOrder", customer.getCurrentOrder());
             model.addAttribute("order", new Order());
+            if (orderSuccessful != null) {
+                if (orderSuccessful) {
+                    model.addAttribute("orderSuccessful", true);
+                } else {
+                    model.addAttribute("orderUnsuccessful", true);
+                }
+            }
             return "mainCustomer";
         }
     }

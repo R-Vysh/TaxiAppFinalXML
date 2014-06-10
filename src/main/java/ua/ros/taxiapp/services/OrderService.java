@@ -32,4 +32,6 @@ public interface OrderService {
     public boolean onPlaceOrder(Order order);
 
     public boolean finishOrder(Order order);
+
+    public List<Order> findOrdersForTaxist(Taxist taxist);
 }

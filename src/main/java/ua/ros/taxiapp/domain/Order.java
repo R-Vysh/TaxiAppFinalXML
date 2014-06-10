@@ -10,7 +10,9 @@ import javax.persistence.*;
 @Table(name = "orders")
 @NamedQueries({
         @NamedQuery(name = "order.active", query = "from Order o where o.status = 'NOTTAKEN'"),
-        @NamedQuery(name = "order.with.customer", query = "from Order o where o.customer = :customer")
+        @NamedQuery(name = "order.with.customer", query = "from Order o where o.customer = :customer"),
+        @NamedQuery(name = "order.for.car", query = "from Order o where o.status = 'NOTTAKEN' " +
+                "and (:car in elements(o.appropriateCars) or o.appropriateCars is empty)")
 })
 
 public class Order implements Serializable {
@@ -68,8 +70,8 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Customer cust, String from, String to) {
-        this.customer = cust;
+    public Order(Customer customer, String from, String to) {
+        this.customer = customer;
         this.fromPlace = from;
         this.toPlace = to;
     }

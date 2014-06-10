@@ -16,7 +16,6 @@
         <td>Price</td>
         <td>Reg number</td>
         <td>Mobile</td>
-        <td>Rate</td>
     </tr>
     <tr th:each="order : ${orders}">
         <td th:text="${order.dateCreated}">N/A</td>
@@ -24,7 +23,6 @@
         <td th:text="${order.toPlace}">N/A</td>
         <td th:text="${order.price}">N/A</td>
         <td th:text="${order.taxist} ? ${order.taxist.car.registrationalNumber}">N/A</td>
-        <td th:text="${order.taxist} ? ${order.taxist.user.mobile}">N/A</td>
         <td th:text="${order.taxist} ? ${order.taxist.user.mobile}">N/A</td>
     </tr>
     </tbody>

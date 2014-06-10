@@ -132,8 +132,15 @@ public class OrderServiceImpl implements OrderService {
     public boolean finishOrder(Order order) {
         order.setStatus(Order.OrderStatus.DONE);
         Taxist taxist = order.getTaxist();
+        Customer customer = order.getCustomer();
         taxist.setCurrentOrder(null);
         taxist.setFree(true);
-        return taxistService.updateTaxist(taxist) && updateOrder(order);
+        customer.setCurrentOrder(null);
+        return taxistService.updateTaxist(taxist) && updateOrder(order) && customerService.updateCustomer(customer);
+    }
+
+    @Override
+    public List<Order> findOrdersForTaxist(Taxist taxist) {
+        return orderDAO.findForTaxist(taxist);
     }
 }

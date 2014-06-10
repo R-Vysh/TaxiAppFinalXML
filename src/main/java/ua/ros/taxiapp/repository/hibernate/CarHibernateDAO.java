@@ -37,11 +37,11 @@ public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implement
     @Transactional
     public List<Car> criteriaSearch(String brand, String model, Double pricePerKmLow, Double pricePerKmHigh) {
         Criteria criteria = this.getSessionFactory().getCurrentSession().createCriteria(Car.class);
-        if (model != null) {
+        if (model != null && !model.isEmpty()) {
             criteria.createAlias("model", "model");
             criteria.add(Restrictions.like("model.modelsName", model));
         }
-        if (brand != null) {
+        if (brand != null && !brand.isEmpty()) {
             criteria.createAlias("model.brand", "brand");
             criteria.add(Restrictions.like("brand.brandsName", brand));
         }

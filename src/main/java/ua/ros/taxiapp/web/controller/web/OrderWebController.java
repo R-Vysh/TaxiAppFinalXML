@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.Taxist;
@@ -40,14 +41,14 @@ public class OrderWebController {
 
     @RequestMapping(value = "/make-order", method = RequestMethod.POST)
     public String makeOrder(@ModelAttribute(value = "order") Order order,
-                            Model model, HttpSession session) {
+                            Model model, HttpSession session, RedirectAttributes redirectAttrs) {
         Customer customer = (Customer) session.getAttribute("customer");
         if (orderService.createOrder(order, customer)) {
-            model.addAttribute("orderSuccessful", true);
-            return "mainCustomer";
+            redirectAttrs.addAttribute("orderSuccessful", true);
+            return "redirect:/web/main";
         }
-        model.addAttribute("orderUnsuccessful", true);
-        return "mainCustomer";
+        redirectAttrs.addAttribute("orderSuccessful", false);
+        return "redirect:/web/main";
     }
 
     @RequestMapping(value = "/history", method = RequestMethod.GET)
@@ -74,7 +75,7 @@ public class OrderWebController {
                                     @RequestParam(value = "brand", required = false) String brandName,
                                     @RequestParam(required = false, value = "pricePerKmHigh") String pricePerKmHigh,
                                     @RequestParam(required = false, value = "pricePerKmLow") String pricePerKmLow,
-                                    Model model, HttpSession session) {
+                                    Model model, HttpSession session, RedirectAttributes redirectAttrs) {
         Customer customer = (Customer) session.getAttribute("customer");
         Double priceHigh=null;
         Double priceLow=null;
@@ -85,11 +86,11 @@ public class OrderWebController {
             priceLow = Double.parseDouble(pricePerKmLow);
         }
         if (orderService.createDetailedOrder(order, customer, modelName, brandName, priceHigh, priceLow)) {
-            model.addAttribute("orderSuccessful", true);
-            return "mainCustomer";
+            redirectAttrs.addAttribute("orderSuccessful", true);
+            return "redirect:/web/main";
         }
-        model.addAttribute("orderUnsuccessful", true);
-        return "mainCustomer";
+        redirectAttrs.addAttribute("orderSuccessful", false);
+        return "redirect:/web/main";
     }
 
     @RequestMapping(value = "/cancel-order", method = RequestMethod.GET)
@@ -122,19 +123,20 @@ public class OrderWebController {
         Order order = taxist.getCurrentOrder();
         if (order != null) {
             orderService.finishOrder(order);
-            //taxistService.finishOrder(taxist, order);
         }
         return "redirect:/web/main";
     }
 
-    @RequestMapping(value = "/take-order", method = RequestMethod.GET)
-    public String takeOrder(@PathVariable(value = "orderId") Integer orderId, Principal principal, HttpSession session) {
+    @RequestMapping(value = "/take-order/{orderId}", method = RequestMethod.GET)
+    public String takeOrder(@PathVariable(value = "orderId") Integer orderId,
+                            @RequestParam(value = "price") Double price,
+                            Principal principal, HttpSession session) {
         sessionUserChecker.checkUser(principal, session);
         Taxist taxist = (Taxist) session.getAttribute("taxist");
         Order order = orderService.findById(orderId);
-        if (order != null) {
+        if (order != null && order.getStatus().equals(Order.OrderStatus.NOTTAKEN)) {
+            order.setPrice(price);
             orderService.takeOrder(order, taxist);
-            //taxistService.finishOrder(taxist, order);
         }
         return "redirect:/web/main";
     }

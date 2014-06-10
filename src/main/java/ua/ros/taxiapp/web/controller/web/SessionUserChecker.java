@@ -24,7 +24,6 @@ public class SessionUserChecker {
     TaxistService taxistService;
 
     public void checkUser(Principal principal, HttpSession session) {
-        if ((session.getAttribute("taxist") == null) && (session.getAttribute("customer") == null)) {
             String username = principal.getName();
             User user = userService.findByUsername(username);
             if (!user.getTaxist()) {
@@ -35,6 +34,6 @@ public class SessionUserChecker {
                 taxistService.setOnline(taxist);
                 session.setAttribute("taxist", taxist);
             }
-        }
+
     }
 }
