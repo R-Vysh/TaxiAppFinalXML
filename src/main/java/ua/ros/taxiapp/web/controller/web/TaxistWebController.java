@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.ros.taxiapp.domain.Authority;
 import ua.ros.taxiapp.domain.Coordinates;
 import ua.ros.taxiapp.domain.Customer;
@@ -43,10 +45,15 @@ public class TaxistWebController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerTaxist(@ModelAttribute(value = "taxist") Taxist taxist,
-                                 Model model) {
+                                 @RequestParam(value = "confirmPassword") String confirmPassword,
+                                 Model model, RedirectAttributes redirectAttributes) {
+        if(!confirmPassword.equals(taxist.getUser().getPassword())) {
+            model.addAttribute("registrationUnsuccessful", true);
+            return "registerCustomer";
+        }
         if (taxistService.createTaxist(taxist)) {
-            model.addAttribute("registrationSuccessful", true);
-            return "login";
+            redirectAttributes.addAttribute("registrationSuccessful", true);
+            return "redirect:/web/login";
         }
         model.addAttribute("registrationUnsuccessful", true);
         return "registerTaxist";

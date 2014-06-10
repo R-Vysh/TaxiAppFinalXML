@@ -19,9 +19,14 @@
             <th><input type="password" th:field="*{user.password}"/></th>
         </tr>
         <tr>
+            <th th:text="#{confirm.password}">Confirm password</th>
+            <th><input type="password" th:name="confirmPassword"/></th>
+        </tr>
+        <tr>
             <th th:text="#{mobile}">Mobile</th>
             <th><input type="text" th:field="*{user.mobile}"/></th>
         </tr>
+
         <!--<tr>-->
             <!--<th >Car model</th>-->
             <!--<th>-->
@@ -33,12 +38,12 @@
             <!--</th>-->
         <!--</tr>-->
         <tr>
-            <th th:text="#{car.model}">Car model</th>
-            <th><input type="text" th:field="*{car.model.modelsName}"/></th>
-        </tr>
-        <tr>
             <th th:text="#{car.brand}">Car brand</th>
             <th><input type="text" th:field="*{car.model.brand.brandsName}"/></th>
+        </tr>
+        <tr>
+            <th th:text="#{car.model}">Car model</th>
+            <th><input type="text" th:field="*{car.model.modelsName}"/></th>
         </tr>
         <tr>
             <th th:text="#{car.year}">Year</th>

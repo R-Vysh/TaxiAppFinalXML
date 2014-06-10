@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -18,11 +19,14 @@ public class LoginWebController {
 
     @RequestMapping("/perform-login")
     public void doLogin(Principal principal, HttpSession session, Model model) {
-
     }
 
     @RequestMapping("/login")
-    public String login() {
+    public String login(Model model,
+                        @RequestParam(value = "registrationSuccessful", required = false) Boolean regSuccess) {
+        if (regSuccess == Boolean.TRUE) {
+          model.addAttribute("registrationSuccessful", true);
+        }
         return "login";
     }
 
