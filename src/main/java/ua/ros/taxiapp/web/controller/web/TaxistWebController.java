@@ -16,6 +16,7 @@ import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.services.ModelService;
 import ua.ros.taxiapp.services.TaxistService;
 
+import javax.validation.ConstraintViolationException;
 import java.util.HashSet;
 import java.util.List;
 
@@ -34,6 +35,10 @@ public class TaxistWebController {
         this.taxistService = taxistService;
     }
 
+    public void setModelService(ModelService modelService) {
+        this.modelService = modelService;
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage(Model model) {
         Taxist taxist = new Taxist();
@@ -47,13 +52,18 @@ public class TaxistWebController {
     public String registerTaxist(@ModelAttribute(value = "taxist") Taxist taxist,
                                  @RequestParam(value = "confirmPassword") String confirmPassword,
                                  Model model, RedirectAttributes redirectAttributes) {
-        if(!confirmPassword.equals(taxist.getUser().getPassword())) {
+        if (!confirmPassword.equals(taxist.getUser().getPassword())) {
             model.addAttribute("registrationUnsuccessful", true);
             return "registerCustomer";
         }
-        if (taxistService.createTaxist(taxist)) {
-            redirectAttributes.addAttribute("registrationSuccessful", true);
-            return "redirect:/web/login";
+        try {
+
+            if (taxistService.createTaxist(taxist)) {
+                redirectAttributes.addAttribute("registrationSuccessful", true);
+                return "redirect:/web/login";
+            }
+        } catch (ConstraintViolationException ex) {
+            model.addAttribute("wrongData", true);
         }
         model.addAttribute("registrationUnsuccessful", true);
         return "registerTaxist";

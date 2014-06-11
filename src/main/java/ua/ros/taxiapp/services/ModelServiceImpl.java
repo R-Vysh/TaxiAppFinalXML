@@ -60,4 +60,9 @@ public class ModelServiceImpl implements ModelService {
         }
         return true;
     }
+
+    @Override
+    public Model findByName(String name) {
+        return modelDAO.findByName(name);
+    }
 }

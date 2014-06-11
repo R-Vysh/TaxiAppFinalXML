@@ -18,22 +18,22 @@
             <table align="left" border="0" cellpadding="1" cellspacing="1">
                 <tbody>
                 <tr>
-                    <td>Current order</td>
+                    <th th:text="#{current.order}">Current order</th>
                 </tr>
                 <tr>
-                    <td>From</td>
+                    <th th:text="#{from.place}">From</th>
                     <td th:text="${currentOrder} ? ${currentOrder.fromPlace}"></td>
                 </tr>
                 <tr>
-                    <td>To</td>
+                    <th th:text="#{to.place}">To</th>
                     <td th:text="${currentOrder} ? ${currentOrder.toPlace}"></td>
                 </tr>
                 <tr>
-                    <td>Status</td>
+                    <th th:text="#{status}">Status</th>
                     <td th:text="${currentOrder} ? #{${'order.status.' + currentOrder.status}}">Not taken yet</td>
                 </tr>
                 <tr>
-                    <td>Taxis phone</td>
+                    <th th:text="#{taxist.phone}">Taxist's phone</th>
                     <td th:text="${currentOrder}
                                  ? (${currentOrder.taxist}
                                  ? ${currentOrder.taxist.user.mobile})"></td>
@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
 
-                    <td><a href="customerHistory.htmlcustomerOrders.html"
+                    <td><a href="customerHistory.html"
                            th:href="@{/web/order/history}" th:text="#{view.history}">View history</a>
                     </td>
                 </tr>

@@ -16,4 +16,5 @@ public interface ModelService {
 
     public boolean updateModel(Model model);
 
+    public Model findByName(String name);
 }

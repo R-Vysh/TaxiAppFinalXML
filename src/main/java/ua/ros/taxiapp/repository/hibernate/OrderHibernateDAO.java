@@ -38,4 +38,31 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
         List<Order> orders = query.list();
         return orders;
     }
+
+    @Override
+    @Transactional
+    public List<Order> findByTaxist(Taxist taxist) {
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("order.with.taxist");
+        query.setParameter("taxist", taxist);
+        List<Order> orders = query.list();
+        return orders;
+    }
+
+    @Override
+    @Transactional
+    public Double countIncome(Taxist taxist) {
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("income.for.taxist");
+        query.setParameter("taxist", taxist);
+        Double income = (Double) query.uniqueResult();
+        return income;
+    }
+
+    @Override
+    @Transactional
+    public Double countOutcome(Customer customer) {
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("outcome.for.customer");
+        query.setParameter("customer", customer);
+        Double outcome = (Double) query.uniqueResult();
+        return outcome;
+    }
 }

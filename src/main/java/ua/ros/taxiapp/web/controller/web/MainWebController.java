@@ -42,15 +42,39 @@ public class MainWebController {
     @Autowired
     SessionUserChecker sessionUserChecker;
 
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    public void setTaxistService(TaxistService taxistService) {
+        this.taxistService = taxistService;
+    }
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    public void setSessionUserChecker(SessionUserChecker sessionUserChecker) {
+        this.sessionUserChecker = sessionUserChecker;
+    }
+
     @RequestMapping("/main")
     public String mainMenu(Principal principal, HttpSession session,
                            @RequestParam(value = "orderSuccessful", required = false) final Boolean orderSuccessful,
+                           @RequestParam(value = "updatedCar", required = false) final Boolean carUpdated,
                            Model model) {
         sessionUserChecker.checkUser(principal, session);
         if (session.getAttribute("taxist") != null) {
             Taxist taxist = (Taxist) session.getAttribute("taxist");
             List<Order> orders = orderService.findOrdersForTaxist(taxist);
             model.addAttribute("availableOrders", orders);
+            if (carUpdated != null) {
+                model.addAttribute("carUpdated", true);
+            }
             return "mainTaxist";
         } else {
             Customer customer = (Customer) session.getAttribute("customer");

@@ -2,6 +2,9 @@ package ua.ros.taxiapp.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cars")
@@ -18,12 +21,17 @@ public class Car implements Serializable {
     private Integer carId;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "model_id", nullable = false)
+    @NotNull
     private Model model;
     @Column(name = "year")
+    @Max(2014)
+    @Min(1930)
     private Integer year;
     @Column(name = "registrational_number")
+    @NotNull
     private String registrationalNumber;
     @Column(name = "price_per_kilometer")
+    @NotNull
     private Double pricePerKm;
 
     public Car() {

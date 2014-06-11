@@ -15,8 +15,17 @@
         <intercept-url pattern="/web/perform-login" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/customer/register" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern="/web/taxist/register" access="hasRole('ROLE_ANONYMOUS')" />
-        <intercept-url pattern="/web/change-password" access="hasRole('ROLE_ANONYMOUS')" />
-        <intercept-url pattern="/web/**" access="hasAnyRole('ROLE_CUST','ROLE_TAXIST','ROLE_ADMIN')" />
+        <intercept-url pattern="/web/order/take-order/**" access="hasRole('ROLE_TAXIST')" />
+        <intercept-url pattern="/web/order/make-order" access="hasRole('ROLE_CUST')" />
+        <intercept-url pattern="/web/order/history" access="hasRole('ROLE_CUST')" />
+        <intercept-url pattern="/web/order/history-taxist" access="hasRole('ROLE_TAXIST')" />
+        <intercept-url pattern="/web/order/detailed-order" access="hasRole('ROLE_CUST')" />
+        <intercept-url pattern="/web/order/cancel-order" access="hasRole('ROLE_CUST')" />
+        <intercept-url pattern="/web/order/on-place" access="hasRole('ROLE_TAXIST')" />
+        <intercept-url pattern="/web/order/finish" access="hasRole('ROLE_TAXIST')" />
+        <intercept-url pattern="/web/order/set-blamed/**" access="hasRole('ROLE_TAXIST')" />
+
+        <intercept-url pattern="/web/**" access="hasAnyRole('ROLE_CUST','ROLE_TAXIST')" />
         <remember-me key="uniqueAndSecret" />
         <logout delete-cookies="JSESSIONID"
                 logout-success-url="/web/login"/>

@@ -15,6 +15,9 @@ public class TaxistServiceImpl implements TaxistService {
     @Autowired
     TaxistDAO taxistDAO;
 
+    @Autowired
+    ModelService modelService;
+
     public TaxistDAO getTaxistDAO() {
         return taxistDAO;
     }
@@ -40,6 +43,12 @@ public class TaxistServiceImpl implements TaxistService {
 
     @Override
     public boolean createTaxist(Taxist taxist) {
+        Model existingModel = modelService.findByName(taxist.getCar().getModel().getModelsName());
+        if (existingModel != null &&
+                existingModel.getBrand().getBrandsName()
+                        .equals(taxist.getCar().getModel().getBrand().getBrandsName())) {
+            taxist.getCar().setModel(existingModel);
+        }
         taxist.getUser().setTaxist(true);
         taxist.setCoordinates(new Coordinates());
         taxist.setCurrentOrder(null);
@@ -62,7 +71,6 @@ public class TaxistServiceImpl implements TaxistService {
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
-
         }
         return true;
     }

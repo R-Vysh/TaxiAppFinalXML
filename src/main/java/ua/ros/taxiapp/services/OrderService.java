@@ -34,4 +34,10 @@ public interface OrderService {
     public boolean finishOrder(Order order);
 
     public List<Order> findOrdersForTaxist(Taxist taxist);
+
+    public List<Order> findByTaxist(Taxist taxist);
+
+    public Double countIncome(Taxist taxist);
+
+    public Double countOutcome(Customer customer);
 }

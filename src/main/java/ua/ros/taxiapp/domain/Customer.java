@@ -20,8 +20,6 @@ public class Customer implements Serializable {
     @GeneratedValue
     @Column(name = "customer_id", unique = true, nullable = false)
     private Integer customerId;
-    @Column(name = "blames")
-    private Integer blames;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", nullable = true)
     private Order currentOrder;
@@ -38,7 +36,6 @@ public class Customer implements Serializable {
 
     public Customer() {
         this.favourites = new HashSet<>();
-        this.blames = 0;
         this.currentOrder = null;
     }
 
@@ -48,14 +45,6 @@ public class Customer implements Serializable {
 
     public void setCustomerId(Integer id) {
         this.customerId = id;
-    }
-
-    public Integer getBlames() {
-        return blames;
-    }
-
-    public void setBlames(Integer blames) {
-        this.blames = blames;
     }
 
     public Order getCurrentOrder() {
@@ -81,4 +70,5 @@ public class Customer implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

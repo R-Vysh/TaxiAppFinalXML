@@ -101,13 +101,19 @@ public class OrderServiceImpl implements OrderService {
         order.setTaxist(taxist);
         order.setStatus(Order.OrderStatus.TAKEN);
         taxist.setCurrentOrder(order);
+        taxist.setFree(false);
         return updateOrder(order) && taxistService.updateTaxist(taxist);
     }
 
     @Override
     public boolean cancelOrder(Order order) {
         order.setStatus(Order.OrderStatus.CANCELED);
-        return updateOrder(order);
+        Taxist taxist = order.getTaxist();
+        Customer customer = order.getCustomer();
+        taxist.setCurrentOrder(null);
+        taxist.setFree(true);
+        customer.setCurrentOrder(null);
+        return taxistService.updateTaxist(taxist) && updateOrder(order) && customerService.updateCustomer(customer);
     }
 
     @Override
@@ -142,5 +148,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findOrdersForTaxist(Taxist taxist) {
         return orderDAO.findForTaxist(taxist);
+    }
+
+    @Override
+    public List<Order> findByTaxist(Taxist taxist) {
+        return orderDAO.findByTaxist(taxist);
+    }
+
+    @Override
+    public Double countIncome(Taxist taxist) {
+        return orderDAO.countIncome(taxist);
+    }
+
+    @Override
+    public Double countOutcome(Customer customer) {
+        return orderDAO.countOutcome(customer);
     }
 }

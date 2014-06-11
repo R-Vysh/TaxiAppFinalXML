@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
-
 @Controller
 public class WelcomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)

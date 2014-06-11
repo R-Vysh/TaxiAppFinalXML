@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -18,8 +20,12 @@ public class User implements Serializable {
     @GeneratedValue
     @Column(name = "user_id")
     private Integer userId;
+    @NotNull
+    @Size(min=3, max=30)
     @Column(name = "password")
     private String password;
+    @NotNull
+    @Size(min=13, max=13)
     @Column(name = "mobile")
     private String mobile;
     @Column(name = "is_taxist")
@@ -27,6 +33,8 @@ public class User implements Serializable {
     @Column(name = "created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
+    @NotNull
+    @Size(min=2, max=30)
     @Column(name = "username")
     private String username;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)

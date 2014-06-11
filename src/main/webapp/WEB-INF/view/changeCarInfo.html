@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{register.taxist}"></title>
+</head>
+<body>
+<p th:if="${updateUnsuccessful}" th:text="#{update.car.unsuccessful}">Oops. Something went wrong.</p>
+<p th:if="${wrongData}" th:text="#{incorrect.data}">Oops. Wrong data.</p>
+
+<h3 th:text="#{update.car.info}">Update car info</h3>
+
+
+<form action="#" th:action="@{/web/car/change-info}" th:object="${car}" method="post">
+    <table>
+        <tr>
+            <th th:text="#{car.brand}">Car brand</th>
+            <td><input type="text" th:field="*{model.brand.brandsName}"/></td>
+        </tr>
+        <tr>
+            <th th:text="#{car.model}">Car model</th>
+            <td><input type="text" th:field="*{model.modelsName}"/></td>
+        </tr>
+        <tr>
+            <th th:text="#{car.year}">Year</th>
+            <td><input type="text" th:field="*{year}"/></td>
+        </tr>
+        <tr>
+            <th th:text="#{car.regnumber}">Reg number</th>
+            <td><input type="text" th:field="*{registrationalNumber}"/></td>
+        </tr>
+        <tr>
+            <th th:text="#{car.price.per.km}">Price per Km</th>
+            <td><input type="text" th:field="*{pricePerKm}"/></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" th:value="#{change.info}"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -36,11 +36,6 @@ public class LoginWebController {
         return "login";
     }
 
-    @RequestMapping(value = "/change-password", method = RequestMethod.GET)
-    public String changePassword() {
-        return "changePassword";
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String sayHello() {
         return "welcome";

@@ -7,11 +7,13 @@
 <body>
 <p th:text="#{logged.in.as} + ' ' + ${#httpSession.getAttribute('taxist').user.username}"/>
 
+<p th:if="${carUpdated}" th:text="#{car.info.updated}">Updated car info.</p>
+
 <p>
 <table align="left" border="0" cellpadding="1" cellspacing="1">
     <tbody>
     <tr>
-        <td>Current order</td>
+        <th th:text="#{current.order}">Current order</th>
     </tr>
     <tr>
         <td>From</td>
@@ -52,12 +54,12 @@
 <table align="left" border="0" cellpadding="10" cellspacing="1" style="width: 100%">
     <tbody>
     <tr>
-        <td>Date</td>
-        <td>From</td>
-        <td>To</td>
-        <td>Mobile</td>
-        <td>Price</td>
-        <td>Take</td>
+        <th th:text="#{date.created}">Date</th>
+        <th th:text="#{from.place}">From</th>
+        <th th:text="#{to.place}">To</th>
+        <th th:text="#{mobile}">Mobile</th>
+        <th th:text="#{total.price}">Price</th>
+        <th th:text="#{take.order}">Take</th>
     </tr>
     <tr th:each="order : ${availableOrders}">
         <form action="#" th:action="@{${'/web/order/take-order/' + order.orderId}}" method="get">
@@ -66,14 +68,17 @@
             <td th:text="${order.toPlace}">N/A</td>
             <td th:text="${order.customer.user.mobile}">N/A</td>
             <td><input type="number" th:name="price"/></td>
-            <td><input type="submit" th:value="#{submit}"/></td>
+            <td><input type="submit" th:value="#{take.order}"/></td>
         </form>
     </tr>
     <tr>
         <td><a href="taxistHistory.html"
-               th:href="@{/web/order/history}" th:text="#{view.history}">View history</a></td>
+               th:href="@{/web/order/history-taxist}" th:text="#{view.history}">View history</a></td>
         <td><a href="logout.html"
                th:href="@{/j_spring_security_logout}" th:text="#{logout}">Logout</a>
+        </td>
+        <td><a href="changeCarInfo.html"
+               th:href="@{/web/car/change-info}" th:text="#{change.car.info}">Change car info</a>
         </td>
     </tr>
     </tbody>

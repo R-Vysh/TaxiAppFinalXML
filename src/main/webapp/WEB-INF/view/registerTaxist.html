@@ -5,8 +5,10 @@
 </head>
 <body>
 <p th:if="${registrationUnsuccessful}" th:text="#{registration.unsuccessful}">Oops. Something went wrong.</p>
+<p th:if="${wrongData}" th:text="#{incorrect.data}">Oops. Wrong data.</p>
 
 <h3 th:text="#{register.taxist}">Register taxist</h3>
+
 
 <form action="#" th:action="@{/web/taxist/register}" th:object="${taxist}" method="post">
     <table>
@@ -26,40 +28,29 @@
             <th th:text="#{mobile}">Mobile</th>
             <th><input type="text" th:field="*{user.mobile}"/></th>
         </tr>
-
-        <!--<tr>-->
-            <!--<th >Car model</th>-->
-            <!--<th>-->
-                <!--<select th:field="*{car.model}">-->
-                    <!--<option th:each="model : ${allModels}"-->
-                            <!--th:value="${model}"-->
-                            <!--th:text="${model.brand.brandsName} + ' ' + ${model.modelsName}"/>-->
-                <!--</select>-->
-            <!--</th>-->
-        <!--</tr>-->
         <tr>
             <th th:text="#{car.brand}">Car brand</th>
-            <th><input type="text" th:field="*{car.model.brand.brandsName}"/></th>
+            <td><input type="text" th:field="*{car.model.brand.brandsName}"/></td>
         </tr>
         <tr>
             <th th:text="#{car.model}">Car model</th>
-            <th><input type="text" th:field="*{car.model.modelsName}"/></th>
+            <td><input type="text" th:field="*{car.model.modelsName}"/></td>
         </tr>
         <tr>
             <th th:text="#{car.year}">Year</th>
-            <th><input type="text" th:field="*{car.year}"/></th>
+            <td><input type="text" th:field="*{car.year}"/></td>
         </tr>
         <tr>
-            <th th:text="#{car.regnumber}">Year</th>
-            <th><input type="text" th:field="*{car.registrationalNumber}"/></th>
+            <th th:text="#{car.regnumber}">Reg number</th>
+            <td><input type="text" th:field="*{car.registrationalNumber}"/></td>
         </tr>
         <tr>
             <th th:text="#{car.price.per.km}">Price per Km</th>
-            <th><input type="text" th:field="*{car.pricePerKm}"/></th>
+            <td><input type="text" th:field="*{car.pricePerKm}"/></td>
         </tr>
         <tr>
             <th></th>
-            <th><input type="submit" th:value="#{register}"/></th>
+            <td><input type="submit" th:value="#{register}"/></td>
         </tr>
     </table>
 </form>

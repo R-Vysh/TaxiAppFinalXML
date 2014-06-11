@@ -12,4 +12,10 @@ public interface OrderDAO extends GenericDAO<Order, Integer> {
     public List<Order> findByCustomer(Customer customer);
 
     public List<Order> findForTaxist(Taxist taxist);
+
+    public List<Order> findByTaxist(Taxist taxist);
+
+    public Double countIncome(Taxist taxist);
+
+    public Double countOutcome(Customer customer);
 }

@@ -39,6 +39,18 @@ public class OrderWebController {
         this.orderService = orderService;
     }
 
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    public void setTaxistService(TaxistService taxistService) {
+        this.taxistService = taxistService;
+    }
+
+    public void setSessionUserChecker(SessionUserChecker sessionUserChecker) {
+        this.sessionUserChecker = sessionUserChecker;
+    }
+
     @RequestMapping(value = "/make-order", method = RequestMethod.POST)
     public String makeOrder(@ModelAttribute(value = "order") Order order,
                             Model model, HttpSession session, RedirectAttributes redirectAttrs) {
@@ -56,8 +68,22 @@ public class OrderWebController {
         sessionUserChecker.checkUser(principal, session);
         Customer customer = (Customer) session.getAttribute("customer");
         List<Order> orders = orderService.findByCustomer(customer);
+        Double outcome = orderService.countOutcome(customer);
+        System.out.println("Outcome = " + outcome);
+        model.addAttribute("outcome", outcome);
         model.addAttribute("orders", orders);
         return "customerHistory";
+    }
+
+    @RequestMapping(value = "/history-taxist", method = RequestMethod.GET)
+    public String showHistoryTaxist(Principal principal, Model model, HttpSession session) {
+        sessionUserChecker.checkUser(principal, session);
+        Taxist taxist = (Taxist) session.getAttribute("taxist");
+        List<Order> orders = orderService.findByTaxist(taxist);
+        Double income = orderService.countIncome(taxist);
+        model.addAttribute("orders", orders);
+        model.addAttribute("income", income);
+        return "taxistHistory";
     }
 
     @RequestMapping(value = "/detailed-order", method = RequestMethod.GET)
@@ -139,5 +165,16 @@ public class OrderWebController {
             orderService.takeOrder(order, taxist);
         }
         return "redirect:/web/main";
+    }
+
+    @RequestMapping(value = "/set-blamed/{orderId}", method = RequestMethod.GET)
+    public String takeOrder(@PathVariable(value = "orderId") Integer orderId,
+                            Principal principal, HttpSession session) {
+        Order order = orderService.findById(orderId);
+        if (order != null) {
+            order.setBlamed(true);
+            orderService.updateOrder(order);
+        }
+        return "redirect:/web/order/history-taxist";
     }
 }

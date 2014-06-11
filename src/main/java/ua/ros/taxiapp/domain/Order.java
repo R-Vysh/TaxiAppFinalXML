@@ -11,8 +11,11 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "order.active", query = "from Order o where o.status = 'NOTTAKEN'"),
         @NamedQuery(name = "order.with.customer", query = "from Order o where o.customer = :customer"),
+        @NamedQuery(name = "order.with.taxist", query = "from Order o where o.taxist = :taxist"),
         @NamedQuery(name = "order.for.car", query = "from Order o where o.status = 'NOTTAKEN' " +
-                "and (:car in elements(o.appropriateCars) or o.appropriateCars is empty)")
+                "and (:car in elements(o.appropriateCars) or o.appropriateCars is empty)"),
+        @NamedQuery(name = "income.for.taxist", query = "select sum(o.price) from Order o where o.taxist = :taxist and o.status='DONE'"),
+        @NamedQuery(name = "outcome.for.customer", query = "select sum(o.price) from Order o where o.customer = :customer and o.status='DONE'")
 })
 
 public class Order implements Serializable {
@@ -66,8 +69,11 @@ public class Order implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "car_id")})
     private List<Car> appropriateCars;
+    @Column(name = "is_blamed")
+    private Boolean blamed;
 
     public Order() {
+        this.blamed = Boolean.FALSE;
     }
 
     public Order(Customer customer, String from, String to) {
@@ -162,5 +168,13 @@ public class Order implements Serializable {
 
     public void setAppropriateCars(List<Car> appropriateCars) {
         this.appropriateCars = appropriateCars;
+    }
+
+    public Boolean getBlamed() {
+        return blamed;
+    }
+
+    public void setBlamed(Boolean blamed) {
+        this.blamed = blamed;
     }
 }

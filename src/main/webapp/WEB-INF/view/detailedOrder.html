@@ -47,26 +47,18 @@
     <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
         <tbody>
         <tr>
-            <td>Reg Number</td>
-            <td>Brand</td>
-            <td>Model</td>
-            <td>Rating</td>
-            <td>Price</td>
-            <td>Comments</td>
-            <td>Order</td>
+            <th th:text="#{registrational.number}">Reg Number</th>
+            <th th:text="#{brand}">Brand</th>
+            <th th:text="#{model}">Model</th>
+            <th th:text="#{price.per.km}">Price</th>
         </tr>
         <tr th:each="taxi : ${freeTaxis}">
             <td th:text="${taxi.car.registrationalNumber}">N/A</td>
             <td th:text="${taxi.car.model.brand.brandsName}">N/A</td>
             <td th:text="${taxi.car.model.modelsName}">N/A</td>
-            <td th:text="${taxi.rating}">N/A</td>
-            <td th:text="${taxi.car.pricePerKm}">N/A</td>
-            <td th:text="${taxi.car.pricePerKm}">N/A</td>
             <td th:text="${taxi.car.pricePerKm}">N/A</td>
         </tr>
         </tbody>
     </table>
-
-
 </body>
 </html>

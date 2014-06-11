@@ -52,6 +52,7 @@ public class CarServiceImpl implements CarService {
         try {
             carDAO.save(car);
         } catch (DataAccessException ex) {
+            ex.printStackTrace();
             return false;
         }
         return true;
