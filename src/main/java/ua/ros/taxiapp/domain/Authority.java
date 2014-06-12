@@ -1,6 +1,7 @@
 package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -27,9 +28,11 @@ public class Authority implements Serializable {
     private Integer authorityId;
     @ManyToOne()
     @JoinColumn(name = "username", referencedColumnName = "username")
+    @NotNull
     private User user;
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
+    @NotNull
     private Rolename rolename;
 
     public User getUser() {

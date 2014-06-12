@@ -1,6 +1,7 @@
 package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -22,6 +23,7 @@ public class Customer implements Serializable {
     private Order currentOrder;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     public Customer() {

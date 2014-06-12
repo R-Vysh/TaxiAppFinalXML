@@ -1,6 +1,7 @@
 package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -18,9 +19,11 @@ public class Comment implements Serializable {
     private Integer commentId;
     @ManyToOne
     @JoinColumn(name = "taxist_id", nullable = false)
+    @NotNull
     private Taxist taxist;
     @ManyToOne
     @PrimaryKeyJoinColumn
+    @NotNull
     private Customer customer;
     @Column(name = "rating")
     private Integer rating;

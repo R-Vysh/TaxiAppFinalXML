@@ -1,6 +1,7 @@
 package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -11,8 +12,10 @@ public class Coordinates implements Serializable {
     @GeneratedValue
     private Integer coordinatesId;
     @Column(name = "longtitude", nullable = false)
+    @NotNull
     private Double longtitude;
     @Column(name = "latitude", nullable = false)
+    @NotNull
     private Double latitude;
 
     public Coordinates() {

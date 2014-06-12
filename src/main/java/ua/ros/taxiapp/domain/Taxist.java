@@ -1,6 +1,7 @@
 package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "taxists")
@@ -17,16 +18,20 @@ public class Taxist {
     private Integer taxistId;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id")
+    @NotNull
     private Car car;
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order currentOrder;
     @Column(name = "is_free")
+    @NotNull
     private Boolean free;
     @Column(name = "is_online")
+    @NotNull
     private Boolean online;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinates_id")

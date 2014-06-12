@@ -1,4 +1,4 @@
-package ua.ros.taxiapp.repository.hibernate;
+package ua.ros.taxiapp.repository;
 
 
 import org.junit.runner.RunWith;
@@ -10,9 +10,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/persistenceContextTest.xml"})
 public abstract class RepositoryTestTemplate {
-
     @Autowired
-    protected JdbcTemplate jdbcTemplate;
-
-
+    JdbcTemplate jdbcTemplate;
 }

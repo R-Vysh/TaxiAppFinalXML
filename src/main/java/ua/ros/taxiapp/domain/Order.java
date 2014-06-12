@@ -1,6 +1,7 @@
 package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -42,10 +43,13 @@ public class Order implements Serializable {
     private Taxist taxist;
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "customer_id", nullable = false)
+    @NotNull
     private Customer customer;
     @Column(name = "address_from")
+    @NotNull
     private String fromPlace;
     @Column(name = "address_to")
+    @NotNull
     private String toPlace;
     @Column(name = "created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
@@ -54,6 +58,7 @@ public class Order implements Serializable {
     private Double price;
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
+    @NotNull
     private OrderStatus status;
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "coordinates_from")
