@@ -3,22 +3,19 @@ package ua.ros.taxiapp.web.controller.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ua.ros.taxiapp.domain.*;
+import ua.ros.taxiapp.domain.Car;
+import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.services.CarService;
-import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.services.TaxistService;
-import ua.ros.taxiapp.web.controller.mobile.StatusMessage;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.TreeSet;
 
 @Controller
 @RequestMapping("/web/car")

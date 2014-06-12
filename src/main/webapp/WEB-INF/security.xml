@@ -24,7 +24,7 @@
         <intercept-url pattern="/web/order/on-place" access="hasRole('ROLE_TAXIST')" />
         <intercept-url pattern="/web/order/finish" access="hasRole('ROLE_TAXIST')" />
         <intercept-url pattern="/web/order/set-blamed/**" access="hasRole('ROLE_TAXIST')" />
-
+        <intercept-url pattern="/web/car/change-info" access="hasRole('ROLE_TAXIST')" />
         <intercept-url pattern="/web/**" access="hasAnyRole('ROLE_CUST','ROLE_TAXIST')" />
         <remember-me key="uniqueAndSecret" />
         <logout delete-cookies="JSESSIONID"
@@ -48,4 +48,5 @@
             secured-annotations="enabled" jsr250-annotations="enabled"
             pre-post-annotations="enabled">
     </global-method-security>
+
 </beans:beans>

@@ -5,13 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.Taxist;
-import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.services.OrderService;
 import ua.ros.taxiapp.services.TaxistService;
@@ -89,5 +87,16 @@ public class MainWebController {
             }
             return "mainCustomer";
         }
+    }
+
+    @RequestMapping("/error")
+    public String getErrorPage() {
+        return "error";
+    }
+
+    @RequestMapping("/error-authentification")
+    public String getErrorAuthPage(Model model) {
+        model.addAttribute("badCredentials", true);
+        return "error";
     }
 }
