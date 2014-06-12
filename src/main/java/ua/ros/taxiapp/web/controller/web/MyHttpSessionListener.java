@@ -9,12 +9,8 @@ import org.springframework.web.context.WebApplicationContext;
 import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.services.TaxistService;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import javax.servlet.http.HttpSessionBindingEvent;
 
 @Component
 public class MyHttpSessionListener implements HttpSessionListener, ApplicationContextAware {

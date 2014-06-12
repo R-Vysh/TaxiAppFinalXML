@@ -1,10 +1,10 @@
 package ua.ros.taxiapp.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "cars")
@@ -19,11 +19,14 @@ public class Car implements Serializable {
     @Column(name = "car_id")
     @GeneratedValue
     private Integer carId;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "model_id", nullable = false)
+    @Column(name = "model")
     @NotNull
-    private Model model;
+    private String model;
+    @Column(name = "brand")
+    @NotNull
+    private String brand;
     @Column(name = "year")
+    @NotNull
     @Max(2014)
     @Min(1930)
     private Integer year;
@@ -37,7 +40,7 @@ public class Car implements Serializable {
     public Car() {
     }
 
-    public Car(Model model, Integer year, String regNumber, Double price) {
+    public Car(String model, Integer year, String regNumber, Double price) {
         this.model = model;
         this.year = year;
         this.registrationalNumber = regNumber;
@@ -52,11 +55,11 @@ public class Car implements Serializable {
         carId = newId;
     }
 
-    public Model getModel() {
+    public String getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(String model) {
         this.model = model;
     }
 
@@ -82,5 +85,21 @@ public class Car implements Serializable {
 
     public void setPricePerKm(Double newPrice) {
         this.pricePerKm = newPrice;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void updateFromCar(Car car) {
+        this.model = car.model;
+        this.registrationalNumber = car.registrationalNumber;
+        this.brand = car.brand;
+        this.year = car.year;
+        this.pricePerKm = car.pricePerKm;
     }
 }

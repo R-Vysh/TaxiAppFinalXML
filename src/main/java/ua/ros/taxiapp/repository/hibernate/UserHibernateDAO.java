@@ -3,7 +3,6 @@ package ua.ros.taxiapp.repository.hibernate;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.UserDAO;
 

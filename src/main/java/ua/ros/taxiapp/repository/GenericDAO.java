@@ -1,9 +1,7 @@
 package ua.ros.taxiapp.repository;
 
-import java.io.*;
-import java.util.*;
-
-import org.hibernate.Query;
+import java.io.Serializable;
+import java.util.List;
 
 public interface GenericDAO<T, ID extends Serializable> {
 

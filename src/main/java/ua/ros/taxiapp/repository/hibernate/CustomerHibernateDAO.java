@@ -4,12 +4,8 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.domain.Customer;
-import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.CustomerDAO;
-
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 @Repository
 public class CustomerHibernateDAO extends GenericDAOHibernate<Customer, Integer> implements CustomerDAO {

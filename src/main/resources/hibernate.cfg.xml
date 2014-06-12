@@ -7,12 +7,9 @@
     <session-factory>
 
         <mapping class="ua.ros.taxiapp.domain.Authority" />
-        <mapping class="ua.ros.taxiapp.domain.Brand" />
         <mapping class="ua.ros.taxiapp.domain.Car" />
-        <mapping class="ua.ros.taxiapp.domain.Model" />
         <mapping class="ua.ros.taxiapp.domain.User" />
         <mapping class="ua.ros.taxiapp.domain.Customer" />
-        <mapping class="ua.ros.taxiapp.domain.Favourite" />
         <mapping class="ua.ros.taxiapp.domain.Taxist" />
         <mapping class="ua.ros.taxiapp.domain.Comment" />
         <mapping class="ua.ros.taxiapp.domain.Order" />

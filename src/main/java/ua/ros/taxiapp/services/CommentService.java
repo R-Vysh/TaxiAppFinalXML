@@ -1,6 +1,5 @@
 package ua.ros.taxiapp.services;
 
-import ua.ros.taxiapp.domain.Brand;
 import ua.ros.taxiapp.domain.Comment;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Taxist;

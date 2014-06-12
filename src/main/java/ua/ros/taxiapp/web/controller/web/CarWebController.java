@@ -45,13 +45,11 @@ public class CarWebController {
                                    RedirectAttributes redirectAttributes,
                                    Model model, HttpSession session) {
         try {
-            if (carService.updateCar(car)) {
-                Taxist taxist = (Taxist) session.getAttribute("taxist");
-                taxist.setCar(car);
-                if (taxistService.updateTaxist(taxist)) {
+            Car curCar = ((Taxist)session.getAttribute("taxist")).getCar();
+            curCar.updateFromCar(car);
+            if (carService.updateCar(curCar)) {
                     redirectAttributes.addAttribute("updatedCar", true);
                     return "redirect:/web/main";
-                }
             }
         } catch (ConstraintViolationException ex) {
             model.addAttribute("wrongData", true);

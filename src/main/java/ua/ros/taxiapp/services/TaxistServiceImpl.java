@@ -3,7 +3,10 @@ package ua.ros.taxiapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import ua.ros.taxiapp.domain.*;
+import ua.ros.taxiapp.domain.Authority;
+import ua.ros.taxiapp.domain.Coordinates;
+import ua.ros.taxiapp.domain.Taxist;
+import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.TaxistDAO;
 
 import java.util.HashSet;
@@ -14,9 +17,6 @@ public class TaxistServiceImpl implements TaxistService {
 
     @Autowired
     TaxistDAO taxistDAO;
-
-    @Autowired
-    ModelService modelService;
 
     public TaxistDAO getTaxistDAO() {
         return taxistDAO;
@@ -43,25 +43,16 @@ public class TaxistServiceImpl implements TaxistService {
 
     @Override
     public boolean createTaxist(Taxist taxist) {
-        Model existingModel = modelService.findByName(taxist.getCar().getModel().getModelsName());
-        if (existingModel != null &&
-                existingModel.getBrand().getBrandsName()
-                        .equals(taxist.getCar().getModel().getBrand().getBrandsName())) {
-            taxist.getCar().setModel(existingModel);
-        }
         taxist.getUser().setTaxist(true);
         taxist.setCoordinates(new Coordinates());
         taxist.setCurrentOrder(null);
-        if(!saveTaxist(taxist)) {
-            return false;
-        }
         Authority authority = new Authority();
         authority.setRolename(Authority.Rolename.ROLE_TAXIST);
         authority.setUser(taxist.getUser());
         HashSet<Authority> auth = new HashSet<>();
         auth.add(authority);
         taxist.getUser().setAuthorities(auth);
-        return updateTaxist(taxist);
+        return saveTaxist(taxist);
     }
 
     @Override

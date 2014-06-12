@@ -1,10 +1,8 @@
 package ua.ros.taxiapp.services;
 
-import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.Taxist;
 import ua.ros.taxiapp.domain.User;
 
-import java.io.Serializable;
 import java.util.List;
 
 public interface TaxistService {

@@ -69,7 +69,6 @@ public class OrderWebController {
         Customer customer = (Customer) session.getAttribute("customer");
         List<Order> orders = orderService.findByCustomer(customer);
         Double outcome = orderService.countOutcome(customer);
-        System.out.println("Outcome = " + outcome);
         model.addAttribute("outcome", outcome);
         model.addAttribute("orders", orders);
         return "customerHistory";
@@ -99,8 +98,8 @@ public class OrderWebController {
     public String makeDetailedOrder(@ModelAttribute(value = "order") Order order,
                                     @RequestParam(value = "model", required = false) String modelName,
                                     @RequestParam(value = "brand", required = false) String brandName,
-                                    @RequestParam(required = false, value = "pricePerKmHigh") String pricePerKmHigh,
-                                    @RequestParam(required = false, value = "pricePerKmLow") String pricePerKmLow,
+                                    @RequestParam(value = "pricePerKmHigh", required = false) String pricePerKmHigh,
+                                    @RequestParam(value = "pricePerKmLow", required = false) String pricePerKmLow,
                                     Model model, HttpSession session, RedirectAttributes redirectAttrs) {
         Customer customer = (Customer) session.getAttribute("customer");
         Double priceHigh=null;

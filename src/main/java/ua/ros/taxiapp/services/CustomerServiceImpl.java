@@ -1,16 +1,15 @@
 package ua.ros.taxiapp.services;
 
-import java.util.HashSet;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import ua.ros.taxiapp.domain.Authority;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.CustomerDAO;
+
+import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -32,16 +31,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean createCustomer(Customer customer) {
         customer.getUser().setTaxist(false);
-        if(!saveCustomer(customer)) {
-            return false;
-        }
         Authority authority = new Authority();
         authority.setRolename(Authority.Rolename.ROLE_CUST);
         authority.setUser(customer.getUser());
         HashSet<Authority> auth = new HashSet<>();
         auth.add(authority);
         customer.getUser().setAuthorities(auth);
-        return updateCustomer(customer);
+        return saveCustomer(customer);
     }
 
     @Override
@@ -54,13 +50,11 @@ public class CustomerServiceImpl implements CustomerService {
         return true;
     }
 
-    @Secured(value = "ROLE_USER")
     @Override
     public Customer findById(Integer id) {
         return customerDAO.findByID(Customer.class, id);
     }
 
-    @Secured(value = "ROLE_USER")
     @Override
     public List<Customer> getAllCustomers() {
         return customerDAO.findAll(Customer.class);

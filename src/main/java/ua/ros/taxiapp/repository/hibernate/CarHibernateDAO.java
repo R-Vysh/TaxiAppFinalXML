@@ -2,7 +2,6 @@ package ua.ros.taxiapp.repository.hibernate;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,12 +37,10 @@ public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implement
     public List<Car> criteriaSearch(String brand, String model, Double pricePerKmLow, Double pricePerKmHigh) {
         Criteria criteria = this.getSessionFactory().getCurrentSession().createCriteria(Car.class);
         if (model != null && !model.isEmpty()) {
-            criteria.createAlias("model", "model");
-            criteria.add(Restrictions.like("model.modelsName", model));
+            criteria.add(Restrictions.like("model", model));
         }
         if (brand != null && !brand.isEmpty()) {
-            criteria.createAlias("model.brand", "brand");
-            criteria.add(Restrictions.like("brand.brandsName", brand));
+            criteria.add(Restrictions.like("brand", brand));
         }
         if (pricePerKmLow != null) {
             criteria.add(Restrictions.ge("pricePerKm", pricePerKmLow));

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ua.ros.taxiapp.domain.User;
 import ua.ros.taxiapp.repository.UserDAO;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Service

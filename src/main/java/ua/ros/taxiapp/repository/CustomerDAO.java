@@ -1,7 +1,6 @@
 package ua.ros.taxiapp.repository;
 
 import ua.ros.taxiapp.domain.Customer;
-import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.User;
 
 public interface CustomerDAO extends GenericDAO<Customer, Integer> {

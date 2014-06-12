@@ -2,9 +2,6 @@ package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
 
 @Entity
 @Table(name = "customers")
@@ -23,19 +20,11 @@ public class Customer implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", nullable = true)
     private Order currentOrder;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinTable(name = "favourite_customer_maps",
-            joinColumns = {
-                    @JoinColumn(name = "customer_id")},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "favourite_id")})
-    private Set<Favourite> favourites;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Customer() {
-        this.favourites = new HashSet<>();
         this.currentOrder = null;
     }
 
@@ -53,14 +42,6 @@ public class Customer implements Serializable {
 
     public void setCurrentOrder(Order order) {
         this.currentOrder = order;
-    }
-
-    public Set<Favourite> getFavourites() {
-        return favourites;
-    }
-
-    public void setFavourites(Set<Favourite> favs) {
-        this.favourites = favs;
     }
 
     public User getUser() {

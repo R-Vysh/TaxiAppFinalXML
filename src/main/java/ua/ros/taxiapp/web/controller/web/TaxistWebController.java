@@ -8,17 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ua.ros.taxiapp.domain.Authority;
-import ua.ros.taxiapp.domain.Coordinates;
-import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Taxist;
-import ua.ros.taxiapp.services.CustomerService;
-import ua.ros.taxiapp.services.ModelService;
 import ua.ros.taxiapp.services.TaxistService;
 
 import javax.validation.ConstraintViolationException;
-import java.util.HashSet;
-import java.util.List;
 
 @Controller
 @RequestMapping("/web/taxist")
@@ -28,23 +21,14 @@ public class TaxistWebController {
     @Autowired
     TaxistService taxistService;
 
-    @Autowired
-    ModelService modelService;
-
     public void setTaxistService(TaxistService taxistService) {
         this.taxistService = taxistService;
-    }
-
-    public void setModelService(ModelService modelService) {
-        this.modelService = modelService;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage(Model model) {
         Taxist taxist = new Taxist();
-        List<ua.ros.taxiapp.domain.Model> models = modelService.getAllModels();
         model.addAttribute("taxist", taxist);
-        model.addAttribute("allModels", models);
         return "registerTaxist";
     }
 
@@ -57,7 +41,6 @@ public class TaxistWebController {
             return "registerCustomer";
         }
         try {
-
             if (taxistService.createTaxist(taxist)) {
                 redirectAttributes.addAttribute("registrationSuccessful", true);
                 return "redirect:/web/login";

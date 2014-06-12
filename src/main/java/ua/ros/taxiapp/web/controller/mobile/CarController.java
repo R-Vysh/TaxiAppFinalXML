@@ -2,10 +2,11 @@ package ua.ros.taxiapp.web.controller.mobile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import ua.ros.taxiapp.domain.Brand;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ua.ros.taxiapp.domain.Car;
-import ua.ros.taxiapp.services.BrandService;
 import ua.ros.taxiapp.services.CarService;
 
 import java.util.List;
