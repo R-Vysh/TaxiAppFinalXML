@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.domain.Car;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
@@ -52,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
             return false;
         }
         if (customerService.updateCustomer(customer)) {
-            logger.info("User " + customer.getUser().getUsername() + " made an order ");
+            logger.info("User " + customer.getUser().getUsername() + " made an order. Id: " + order.getOrderId());
             return true;
         }
         return false;
@@ -110,10 +111,13 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(Order.OrderStatus.CANCELED);
         Taxist taxist = order.getTaxist();
         Customer customer = order.getCustomer();
-        taxist.setCurrentOrder(null);
-        taxist.setFree(true);
+        if (taxist != null) {
+            taxist.setCurrentOrder(null);
+            taxist.setFree(true);
+            taxistService.updateTaxist(taxist);
+        }
         customer.setCurrentOrder(null);
-        return taxistService.updateTaxist(taxist) && updateOrder(order) && customerService.updateCustomer(customer);
+        return updateOrder(order) && customerService.updateCustomer(customer);
     }
 
     @Override

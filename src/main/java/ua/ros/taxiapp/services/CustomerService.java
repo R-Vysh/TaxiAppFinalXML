@@ -23,7 +23,5 @@ public interface CustomerService {
 
     public Customer findByUser(User user);
 
-    public boolean cancelOrder(Customer customer);
-
     public Customer findByUsernameAndPassword(String username, String password);
 }

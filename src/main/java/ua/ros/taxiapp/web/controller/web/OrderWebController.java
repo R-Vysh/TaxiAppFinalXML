@@ -125,7 +125,6 @@ public class OrderWebController {
         Order order = customer.getCurrentOrder();
         if (order != null) {
             orderService.cancelOrder(order);
-            customerService.cancelOrder(customer);
         }
         return "redirect:/web/main";
     }

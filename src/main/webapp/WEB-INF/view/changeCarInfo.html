@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{change.car.info}"></title>
+    <link href="../../resources/css/background.css"
+          th:href="@{/css/background.css}" rel="stylesheet"/>
 </head>
 <body>
 <p th:if="${updateUnsuccessful}" th:text="#{update.car.unsuccessful}">Oops. Something went wrong.</p>

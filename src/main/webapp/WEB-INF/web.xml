@@ -12,6 +12,11 @@
     </error-page>
 
     <error-page>
+        <error-code>500</error-code>
+        <location>/web/error</location>
+    </error-page>
+
+    <error-page>
         <error-code>403</error-code>
         <location>/web/error-authentification</location>
     </error-page>

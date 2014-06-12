@@ -21,8 +21,6 @@ public class Taxist {
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order currentOrder;
-    @Column(name = "rating")
-    private Double rating;
     @Column(name = "is_free")
     private Boolean free;
     @Column(name = "is_online")
@@ -37,7 +35,6 @@ public class Taxist {
     public Taxist() {
         this.free = true;
         this.online = false;
-        this.rating = 0.0;
     }
 
     public Taxist(Car car, User user) {
@@ -75,14 +72,6 @@ public class Taxist {
 
     public void setCurrentOrder(Order order) {
         this.currentOrder = order;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
     }
 
     public void setFree(Boolean free) {

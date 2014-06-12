@@ -86,12 +86,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean cancelOrder(Customer customer) {
-        customer.setCurrentOrder(null);
-        return updateCustomer(customer);
-    }
-
-    @Override
     public Customer findByUsernameAndPassword(String username, String password) {
         return customerDAO.findByUsernameAndPassword(username, password);
     }

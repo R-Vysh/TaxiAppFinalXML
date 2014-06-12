@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Make detailed order</title>
+    <link href="../../resources/css/background.css"
+          th:href="@{/css/background.css}" rel="stylesheet"/>
 </head>
 <body>
 <p th:text="#{logged.in.as} + ' ' + ${#httpSession.getAttribute('customer').user.username}"/>
@@ -54,8 +56,8 @@
         </tr>
         <tr th:each="taxi : ${freeTaxis}">
             <td th:text="${taxi.car.registrationalNumber}">N/A</td>
-            <td th:text="${taxi.car.model.brand.brandsName}">N/A</td>
-            <td th:text="${taxi.car.model.modelsName}">N/A</td>
+            <td th:text="${taxi.car.brand}">N/A</td>
+            <td th:text="${taxi.car.model}">N/A</td>
             <td th:text="${taxi.car.pricePerKm}">N/A</td>
         </tr>
         </tbody>
