@@ -30,6 +30,10 @@ public class Customer implements Serializable {
         this.currentOrder = null;
     }
 
+    public Customer(User user) {
+        this.user = user;
+    }
+
     public Integer getCustomerId() {
         return customerId;
     }
@@ -54,4 +58,18 @@ public class Customer implements Serializable {
         this.user = user;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+
+        Customer customer = (Customer) o;
+
+        if (currentOrder != null ? !currentOrder.equals(customer.currentOrder) : customer.currentOrder != null)
+            return false;
+        if (customerId != null ? !customerId.equals(customer.customerId) : customer.customerId != null) return false;
+        if (!user.equals(customer.user)) return false;
+
+        return true;
+    }
 }

@@ -181,4 +181,30 @@ public class Order implements Serializable {
     public void setBlamed(Boolean blamed) {
         this.blamed = blamed;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+
+        Order order = (Order) o;
+
+        if (appropriateCars != null ? !appropriateCars.equals(order.appropriateCars) : order.appropriateCars != null)
+            return false;
+        if (!blamed.equals(order.blamed)) return false;
+        if (!customer.equals(order.customer)) return false;
+        if (dateCreated != null ? !dateCreated.equals(order.dateCreated) : order.dateCreated != null) return false;
+        if (fromCoordinates != null ? !fromCoordinates.equals(order.fromCoordinates) : order.fromCoordinates != null)
+            return false;
+        if (!fromPlace.equals(order.fromPlace)) return false;
+        if (orderId != null ? !orderId.equals(order.orderId) : order.orderId != null) return false;
+        if (price != null ? !price.equals(order.price) : order.price != null) return false;
+        if (status != order.status) return false;
+        if (taxist != null ? !taxist.equals(order.taxist) : order.taxist != null) return false;
+        if (toCoordinates != null ? !toCoordinates.equals(order.toCoordinates) : order.toCoordinates != null)
+            return false;
+        if (!toPlace.equals(order.toPlace)) return false;
+
+        return true;
+    }
 }

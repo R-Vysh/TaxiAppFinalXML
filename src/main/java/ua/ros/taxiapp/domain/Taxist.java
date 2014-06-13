@@ -102,4 +102,23 @@ public class Taxist {
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Taxist)) return false;
+
+        Taxist taxist = (Taxist) o;
+
+        if (!car.equals(taxist.car)) return false;
+        if (coordinates != null ? !coordinates.equals(taxist.coordinates) : taxist.coordinates != null) return false;
+        if (currentOrder != null ? !currentOrder.equals(taxist.currentOrder) : taxist.currentOrder != null)
+            return false;
+        if (free != null ? !free.equals(taxist.free) : taxist.free != null) return false;
+        if (online != null ? !online.equals(taxist.online) : taxist.online != null) return false;
+        if (taxistId != null ? !taxistId.equals(taxist.taxistId) : taxist.taxistId != null) return false;
+        if (!user.equals(taxist.user)) return false;
+
+        return true;
+    }
 }

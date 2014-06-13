@@ -79,4 +79,20 @@ public class Comment implements Serializable {
     public void setText(String newText) {
         this.text = newText;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Comment)) return false;
+
+        Comment comment = (Comment) o;
+
+        if (commentId != null ? !commentId.equals(comment.commentId) : comment.commentId != null) return false;
+        if (!customer.equals(comment.customer)) return false;
+        if (rating != null ? !rating.equals(comment.rating) : comment.rating != null) return false;
+        if (!taxist.equals(comment.taxist)) return false;
+        if (text != null ? !text.equals(comment.text) : comment.text != null) return false;
+
+        return true;
+    }
 }

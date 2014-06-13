@@ -46,4 +46,19 @@ public class Coordinates implements Serializable {
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coordinates)) return false;
+
+        Coordinates that = (Coordinates) o;
+
+        if (coordinatesId != null ? !coordinatesId.equals(that.coordinatesId) : that.coordinatesId != null)
+            return false;
+        if (!latitude.equals(that.latitude)) return false;
+        if (!longtitude.equals(that.longtitude)) return false;
+
+        return true;
+    }
 }

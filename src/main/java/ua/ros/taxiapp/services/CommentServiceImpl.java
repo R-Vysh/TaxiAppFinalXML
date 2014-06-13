@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+
     @Autowired
     CommentDAO commentDAO;
 

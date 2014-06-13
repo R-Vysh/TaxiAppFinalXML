@@ -1,7 +1,7 @@
 package ua.ros.taxiapp.repository;
 
-import org.hibernate.exception.DataException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.DataException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -164,26 +164,4 @@ public class CarDAOTest extends RepositoryTestTemplate {
         List<Car> actualResult = carDAO.findAll(Car.class);
         Assert.assertEquals(3, actualResult.size());
     }
-
-//    @Test
-//    @Transactional
-//    public void testDeleteCar() {
-//        Car car = new Car();
-//        car.setBrand("Renault");
-//        car.setModel("Logan");
-//        car.setPricePerKm(3.3);
-//        car.setRegistrationalNumber("AA1223AA");
-//        car.setYear(2008);
-//        carDAO.save(car);
-//        Car car2 = new Car();
-//        car2.setBrand("Renault");
-//        car2.setModel("Logan");
-//        car2.setPricePerKm(3.3);
-//        car2.setRegistrationalNumber("AA1223AX");
-//        car2.setYear(2008);
-//        carDAO.save(car2);
-//        carDAO.delete(car);
-//        int size = jdbcTemplate.queryForObject("select count(*) from cars", Integer.class);
-//        Assert.assertEquals(1, size);
-//    }
 }

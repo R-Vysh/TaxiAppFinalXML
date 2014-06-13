@@ -40,8 +40,10 @@ public class Car implements Serializable {
     public Car() {
     }
 
-    public Car(String model, Integer year, String regNumber, Double price) {
+    public Car(Integer carId, String model, String brand, Integer year, String regNumber, Double price) {
+        this.carId = carId;
         this.model = model;
+        this.brand = brand;
         this.year = year;
         this.registrationalNumber = regNumber;
         this.pricePerKm = price;
@@ -101,5 +103,22 @@ public class Car implements Serializable {
         this.brand = car.brand;
         this.year = car.year;
         this.pricePerKm = car.pricePerKm;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car)) return false;
+
+        Car car = (Car) o;
+
+        if (!brand.equals(car.brand)) return false;
+        if (carId != null ? !carId.equals(car.carId) : car.carId != null) return false;
+        if (!model.equals(car.model)) return false;
+        if (!pricePerKm.equals(car.pricePerKm)) return false;
+        if (!registrationalNumber.equals(car.registrationalNumber)) return false;
+        if (!year.equals(car.year)) return false;
+
+        return true;
     }
 }

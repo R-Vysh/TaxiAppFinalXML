@@ -58,4 +58,19 @@ public class Authority implements Serializable {
     public void setRolename(Rolename rolename) {
         this.rolename = rolename;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Authority)) return false;
+
+        Authority authority = (Authority) o;
+
+        if (authorityId != null ? !authorityId.equals(authority.authorityId) : authority.authorityId != null)
+            return false;
+        if (rolename != authority.rolename) return false;
+        if (!user.equals(authority.user)) return false;
+
+        return true;
+    }
 }

@@ -1,7 +1,6 @@
 package ua.ros.taxiapp.domain;
 
 import javax.persistence.*;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -47,6 +46,16 @@ public class User implements Serializable {
     public User(String mobile, String pass) {
         this.mobile = mobile;
         this.password = pass;
+    }
+
+    public User(Integer userId, String password, String mobile, Boolean taxist, Date createdTime, String username, Set<Authority> authorities) {
+        this.userId = userId;
+        this.password = password;
+        this.mobile = mobile;
+        this.taxist = taxist;
+        this.createdTime = createdTime;
+        this.username = username;
+        this.authorities = authorities;
     }
 
     public String getUsername() {
@@ -103,5 +112,23 @@ public class User implements Serializable {
 
     public void setTaxist(Boolean taxist) {
         this.taxist = taxist;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (authorities != null ? !authorities.equals(user.authorities) : user.authorities != null) return false;
+        if (createdTime != null ? !createdTime.equals(user.createdTime) : user.createdTime != null) return false;
+        if (!mobile.equals(user.mobile)) return false;
+        if (!password.equals(user.password)) return false;
+        if (taxist != null ? !taxist.equals(user.taxist) : user.taxist != null) return false;
+        if (userId != null ? !userId.equals(user.userId) : user.userId != null) return false;
+        if (!username.equals(user.username)) return false;
+
+        return true;
     }
 }

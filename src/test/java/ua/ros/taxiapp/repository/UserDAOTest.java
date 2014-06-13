@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ros.taxiapp.domain.User;
 
+import javax.validation.ValidationException;
 import java.util.List;
 
 public class UserDAOTest extends RepositoryTestTemplate {
@@ -41,7 +42,7 @@ public class UserDAOTest extends RepositoryTestTemplate {
         Assert.assertEquals(1, size);
     }
 
-    @Test(expected=javax.validation.ConstraintViolationException.class)
+    @Test(expected=ValidationException.class)
     @Transactional
     public void testCreateNullField() {
         User user = new User();
