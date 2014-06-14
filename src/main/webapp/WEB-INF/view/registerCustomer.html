@@ -7,7 +7,7 @@
 </head>
 <body >
 <p th:if="${registrationUnsuccessful}" th:text="#{registration.unsuccessful}">Oops. Something went wrong.</p>
-<p th:if="${wrongData}" th:text="#{incorrect.data}">Oops. Wrong data.</p>
+<p th:if="${wrongDataMessage}" th:text="${wrongDataMessage}">Oops. Wrong data.</p>
 
 <h3 th:text="#{register.customer}">Register customer</h3>
 
@@ -16,6 +16,7 @@
         <tr>
             <th th:text="#{username}">Username</th>
             <td><input type="text" th:field="*{user.username}"/></td>
+            <td th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}">Incorrect username</td>
         </tr>
         <tr>
             <th th:text="#{password}">Password</th>

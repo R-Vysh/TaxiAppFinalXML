@@ -24,11 +24,24 @@
         </tr>
         <tr>
             <td th:text="#{car.brand}">Car brand:</td>
-            <td><input type="text" th:name="brand"/></td>
+            <td>
+                <select th:name="brand">
+                    <option th:each="brand : ${allBrands}"
+                            th:value="${brand}"
+                            th:text="${brand}">Brand
+                    </option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td th:text="#{car.model}">Car model:</td>
-            <td><input type="text" th:name="model"/></td>
+            <td><select th:name="model">
+                <option th:each="model : ${allModels}"
+                        th:value="${model}"
+                        th:text="${model}">Model
+                </option>
+            </select>
+            </td>
         </tr>
         <tr>
             <td th:text="#{price.from}">Price from:</td>
@@ -46,21 +59,24 @@
     </table>
 </form>
 <p th:text="#{available.cars}">Available cars</p>
-    <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
-        <tbody>
-        <tr>
-            <th th:text="#{registrational.number}">Reg Number</th>
-            <th th:text="#{brand}">Brand</th>
-            <th th:text="#{model}">Model</th>
-            <th th:text="#{price.per.km}">Price</th>
-        </tr>
-        <tr th:each="taxi : ${freeTaxis}">
-            <td th:text="${taxi.car.registrationalNumber}">N/A</td>
-            <td th:text="${taxi.car.brand}">N/A</td>
-            <td th:text="${taxi.car.model}">N/A</td>
-            <td th:text="${taxi.car.pricePerKm}">N/A</td>
-        </tr>
-        </tbody>
-    </table>
+<table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+    <tbody>
+    <tr>
+        <th th:text="#{registrational.number}">Reg Number</th>
+        <th th:text="#{brand}">Brand</th>
+        <th th:text="#{model}">Model</th>
+        <th th:text="#{price.per.km}">Price</th>
+    </tr>
+    <tr th:each="taxi : ${freeTaxis}">
+        <td th:text="${taxi.car.registrationalNumber}">N/A</td>
+        <td th:text="${taxi.car.brand}">N/A</td>
+        <td th:text="${taxi.car.model}">N/A</td>
+        <td th:text="${taxi.car.pricePerKm}">N/A</td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/web/main-customer}"
+   href="//web/main-customer" th:text="#{go.to.main.menu}">Go to main menu</a>
+
 </body>
 </html>

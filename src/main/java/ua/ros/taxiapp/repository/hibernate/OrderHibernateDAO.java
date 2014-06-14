@@ -65,4 +65,24 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
         Double outcome = (Double) query.uniqueResult();
         return outcome;
     }
+
+    @Override
+    @Transactional
+    public List<Order> findByCustomer(Customer customer, Integer page) {
+        int pageSize = 10;
+        Query countQuery = this.getSessionFactory().getCurrentSession().getNamedQuery("count.orders.with.customer");
+        countQuery.setParameter("customer", customer);
+        Long countResults = (Long) countQuery.uniqueResult();
+        System.out.println(countResults);
+        int lastPageNumber = (int) ((countResults / pageSize) + 1);
+        if (page > lastPageNumber) {
+            return null;
+        }
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("order.with.customer");
+        query.setParameter("customer", customer);
+        query.setFirstResult((page-1) * pageSize);
+        query.setMaxResults(pageSize);
+        List<Order> orders = query.list();
+        return orders;
+    }
 }

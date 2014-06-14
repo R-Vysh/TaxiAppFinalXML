@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/web")
 public class MainWebController {
@@ -60,32 +59,56 @@ public class MainWebController {
         this.sessionUserChecker = sessionUserChecker;
     }
 
-    @RequestMapping("/main")
+    @RequestMapping("/main-customer")
+    public String mainMenuCustomer(Principal principal, HttpSession session,
+                                   @RequestParam(value = "orderSuccessful", required = false) final Boolean orderSuccessful,
+                                   @RequestParam(value = "orderCancelled", required = false) final Boolean orderCancelled,
+
+                                   Model model) {
+        sessionUserChecker.checkUser(principal, session);
+        Customer customer = (Customer) session.getAttribute("customer");
+        model.addAttribute("currentOrder", customer.getCurrentOrder());
+        model.addAttribute("order", new Order());
+        if (orderSuccessful != null) {
+            if (orderSuccessful) {
+                model.addAttribute("orderSuccessful", true);
+            } else {
+                model.addAttribute("orderUnsuccessful", true);
+            }
+        }
+        if (orderCancelled != null) {
+            if (orderCancelled) {
+                model.addAttribute("orderCancelled", true);
+            } else {
+                model.addAttribute("orderNotCancelled", true);
+            }
+        }
+        return "mainCustomer";
+    }
+
+    @RequestMapping("/main-taxist")
     public String mainMenu(Principal principal, HttpSession session,
-                           @RequestParam(value = "orderSuccessful", required = false) final Boolean orderSuccessful,
                            @RequestParam(value = "updatedCar", required = false) final Boolean carUpdated,
                            Model model) {
         sessionUserChecker.checkUser(principal, session);
-        if (session.getAttribute("taxist") != null) {
-            Taxist taxist = (Taxist) session.getAttribute("taxist");
-            List<Order> orders = orderService.findOrdersForTaxist(taxist);
-            model.addAttribute("availableOrders", orders);
-            if (carUpdated != null) {
-                model.addAttribute("carUpdated", true);
-            }
-            return "mainTaxist";
+        Taxist taxist = (Taxist) session.getAttribute("taxist");
+        model.addAttribute("currentOrder", taxist.getCurrentOrder());
+        List<Order> orders = orderService.findOrdersForTaxist(taxist);
+        model.addAttribute("availableOrders", orders);
+        if (carUpdated != null) {
+            model.addAttribute("carUpdated", true);
+        }
+        return "mainTaxist";
+    }
+
+    @RequestMapping("/main")
+    public String mainMenuCustomer(Principal principal, HttpSession session,
+                                   Model model) {
+        sessionUserChecker.checkUser(principal, session);
+        if (session.getAttribute("customer") != null) {
+            return "redirect:/web/main-customer";
         } else {
-            Customer customer = (Customer) session.getAttribute("customer");
-            model.addAttribute("currentOrder", customer.getCurrentOrder());
-            model.addAttribute("order", new Order());
-            if (orderSuccessful != null) {
-                if (orderSuccessful) {
-                    model.addAttribute("orderSuccessful", true);
-                } else {
-                    model.addAttribute("orderUnsuccessful", true);
-                }
-            }
-            return "mainCustomer";
+            return "redirect:/web/main-taxist";
         }
     }
 

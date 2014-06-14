@@ -13,6 +13,10 @@
 
 <p th:if="${orderUnsuccessful}" th:text="#{order.unsuccessful}">Could not create order.</p>
 
+<p th:if="${orderCancelled}" th:text="#{order.cancelled}">Order cancelled.</p>
+
+<p th:if="${orderNotCancelled}" th:text="#{order.not.cancelled}">Could not cancel order.</p>
+
 <table align="left" border="0" cellpadding="1" cellspacing="1" style="width: 100%">
     <tbody>
     <tr>
@@ -41,13 +45,13 @@
                                  ? ${currentOrder.taxist.user.mobile})"></td>
                 </tr>
                 <tr>
-                    <td><a href="//web/order/cancel-order"
-                           th:href="@{/web/order/cancel-order}" th:text="#{cancel.order}">Cancel order</a></td>
+                    <td><a th:if="${currentOrder != null}" href="//web/order/cancel-order"
+                           th:href="@{${'/web/order/cancel-order/' + currentOrder.orderId}}" th:text="#{cancel.order}">Cancel order</a></td>
                 </tr>
                 <tr>
 
                     <td><a href="customerHistory.html"
-                           th:href="@{/web/order/history}" th:text="#{view.history}">View history</a>
+                           th:href="@{/web/order/history?page=1}" th:text="#{view.history}">View history</a>
                     </td>
                 </tr>
                 <tr>

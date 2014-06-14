@@ -11,7 +11,9 @@ import java.io.Serializable;
 @NamedQueries({
         @NamedQuery(name = "car.with.number", query = "from Car c where c.registrationalNumber = :regNumber"),
         @NamedQuery(name = "car.with.price", query = "from Car c where c.pricePerKm = :price"),
-        @NamedQuery(name = "car.with.price.between", query = "from Car c where c.pricePerKm between :lowerPrice and :higherPrice")
+        @NamedQuery(name = "car.with.price.between", query = "from Car c where c.pricePerKm between :lowerPrice and :higherPrice"),
+        @NamedQuery(name = "all.brands", query = "select distinct brand from Car c order by brand asc "),
+        @NamedQuery(name = "all.models", query = "select distinct model from Car c order by model asc"),
 })
 public class Car implements Serializable {
 

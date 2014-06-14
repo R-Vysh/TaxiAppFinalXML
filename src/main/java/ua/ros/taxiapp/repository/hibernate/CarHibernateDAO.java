@@ -50,4 +50,20 @@ public class CarHibernateDAO extends GenericDAOHibernate<Car, Integer> implement
         }
         return criteria.list();
     }
+
+    @Override
+    @Transactional
+    public List<String> findAllModels() {
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("all.models");
+        List<String> models = (List<String>) query.list();
+        return models;
+    }
+
+    @Override
+    @Transactional
+    public List<String> findAllBrands() {
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("all.brands");
+        List<String> brands = (List<String>) query.list();
+        return brands;
+    }
 }

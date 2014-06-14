@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.ros.taxiapp.domain.Customer;
 import ua.ros.taxiapp.domain.Order;
 import ua.ros.taxiapp.domain.Taxist;
+import ua.ros.taxiapp.services.CarService;
 import ua.ros.taxiapp.services.CustomerService;
 import ua.ros.taxiapp.services.OrderService;
 import ua.ros.taxiapp.services.TaxistService;
@@ -31,6 +32,9 @@ public class OrderWebController {
 
     @Autowired
     TaxistService taxistService;
+
+    @Autowired
+    CarService carService;
 
     @Autowired
     SessionUserChecker sessionUserChecker;
@@ -55,19 +59,24 @@ public class OrderWebController {
     public String makeOrder(@ModelAttribute(value = "order") Order order,
                             Model model, HttpSession session, RedirectAttributes redirectAttrs) {
         Customer customer = (Customer) session.getAttribute("customer");
+        if(order.getToPlace().equals("") || order.getFromPlace().equals("")) {
+            redirectAttrs.addAttribute("orderSuccessful", false);
+            return "redirect:/web/main-customer";
+        }
         if (orderService.createOrder(order, customer)) {
             redirectAttrs.addAttribute("orderSuccessful", true);
-            return "redirect:/web/main";
+            return "redirect:/web/main-customer";
         }
         redirectAttrs.addAttribute("orderSuccessful", false);
-        return "redirect:/web/main";
+        return "redirect:/web/main-customer";
     }
 
     @RequestMapping(value = "/history", method = RequestMethod.GET)
-    public String showHistory(Principal principal, Model model, HttpSession session) {
+    public String showHistory(@RequestParam(value = "page") Integer page,
+                              Principal principal, Model model, HttpSession session) {
         sessionUserChecker.checkUser(principal, session);
         Customer customer = (Customer) session.getAttribute("customer");
-        List<Order> orders = orderService.findByCustomer(customer);
+        List<Order> orders = orderService.findByCustomer(customer, page);
         Double outcome = orderService.countOutcome(customer);
         model.addAttribute("outcome", outcome);
         model.addAttribute("orders", orders);
@@ -90,7 +99,13 @@ public class OrderWebController {
         sessionUserChecker.checkUser(principal, session);
         model.addAttribute("order", new Order());
         List<Taxist> taxis = taxistService.getAllFreeTaxists();
+        List<String> models = carService.allModels();
+        List<String> brands = carService.allBrands();
+        models.add(0,null);
+        brands.add(0,null);
         model.addAttribute("freeTaxis", taxis);
+        model.addAttribute("allModels", models);
+        model.addAttribute("allBrands", brands);
         return "detailedOrder";
     }
 
@@ -102,6 +117,10 @@ public class OrderWebController {
                                     @RequestParam(value = "pricePerKmLow", required = false) String pricePerKmLow,
                                     Model model, HttpSession session, RedirectAttributes redirectAttrs) {
         Customer customer = (Customer) session.getAttribute("customer");
+        if(order.getToPlace().equals("") || order.getFromPlace().equals("")) {
+            redirectAttrs.addAttribute("orderSuccessful", false);
+            return "redirect:/web/main-customer";
+        }
         Double priceHigh=null;
         Double priceLow=null;
         if(pricePerKmHigh!=null && !pricePerKmHigh.isEmpty()) {
@@ -112,21 +131,29 @@ public class OrderWebController {
         }
         if (orderService.createDetailedOrder(order, customer, modelName, brandName, priceHigh, priceLow)) {
             redirectAttrs.addAttribute("orderSuccessful", true);
-            return "redirect:/web/main";
+            return "redirect:/web/main-customer";
         }
         redirectAttrs.addAttribute("orderSuccessful", false);
-        return "redirect:/web/main";
+        return "redirect:/web/main-customer";
     }
 
-    @RequestMapping(value = "/cancel-order", method = RequestMethod.GET)
-    public String cancelOrder(Principal principal, HttpSession session) {
+    @RequestMapping(value = "/cancel-order/{id}", method = RequestMethod.GET)
+    public String cancelOrder(@PathVariable(value = "id") Integer id, Principal principal,
+                              RedirectAttributes redirectAttributes, HttpSession session) {
         sessionUserChecker.checkUser(principal, session);
+        System.out.println("ID = " + id);
         Customer customer = (Customer) session.getAttribute("customer");
-        Order order = customer.getCurrentOrder();
+        Order order = orderService.findById(id);
         if (order != null) {
-            orderService.cancelOrder(order);
+            if (order.getCustomer().equals(customer)) {
+                if(orderService.cancelOrder(order)) {
+                    redirectAttributes.addAttribute("orderCancelled", true);
+                    return "redirect:/web/main-customer";
+                }
+            }
         }
-        return "redirect:/web/main";
+        redirectAttributes.addAttribute("orderCancelled", false);
+        return "redirect:/web/main-customer";
     }
 
     @RequestMapping(value = "/on-place", method = RequestMethod.GET)

@@ -39,4 +39,6 @@ public interface OrderService {
     public Double countIncome(Taxist taxist);
 
     public Double countOutcome(Customer customer);
+
+    public List<Order> findByCustomer(Customer customer, Integer page);
 }

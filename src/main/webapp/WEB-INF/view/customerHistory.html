@@ -19,6 +19,7 @@
         <th th:text = "#{registrational.number}">Reg number</th>
         <th th:text = "#{mobile}">Mobile</th>
         <th th:text = "#{status}">Status</th>
+        <th th:text = "#{cancel.order}">Cancel order</th>
     </tr>
 
     <tr th:each="order : ${orders}">
@@ -29,10 +30,19 @@
         <td th:text="${order.taxist} ? ${order.taxist.car.registrationalNumber}">N/A</td>
         <td th:text="${order.taxist} ? ${order.taxist.user.mobile}">N/A</td>
         <td th:text="#{${'order.status.' + order.status}}">N/A</td>
+        <td><a th:if="${order.status.value != 'DONE' and order.status.value != 'CANCELED'}" th:href="@{${'/web/order/cancel-order/' + order.orderId}}"
+               href="//web/order/cancel-order" th:text="#{cancel.order}">Cancel order</a></td>
+    </tr>
+    <tr>
+        <td>
+            <a href = "//web/order/history" th:href = "@{${'/web/order/history?page=' + param.page + 1}}">Next page</a>
+        </td>
     </tr>
     </tbody>
 </table>
-<p th:text = "#{total.outcome}"></p>
+<p th:if="${outcome != null}" th:text = "#{total.outcome}"></p>
 <p th:text = "${outcome}"></p>
+<a th:href="@{/web/main-customer}"
+       href="//web/main-customer" th:text="#{go.to.main.menu}">Go to main menu</a>
 </body>
 </html>

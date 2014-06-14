@@ -65,8 +65,6 @@ public class Customer implements Serializable {
 
         Customer customer = (Customer) o;
 
-        if (currentOrder != null ? !currentOrder.equals(customer.currentOrder) : customer.currentOrder != null)
-            return false;
         if (customerId != null ? !customerId.equals(customer.customerId) : customer.customerId != null) return false;
         if (!user.equals(customer.user)) return false;
 

@@ -11,7 +11,6 @@
 
 <h3 th:text="#{update.car.info}">Update car info</h3>
 
-
 <form action="#" th:action="@{/web/car/change-info}" th:object="${car}" method="post">
     <table>
         <tr>
@@ -35,7 +34,10 @@
             <td><input type="text" th:field="*{pricePerKm}"/></td>
         </tr>
         <tr>
-            <th></th>
+            <td>
+                <a th:href="@{/web/main-taxist}"
+                   href="//web/main-taxist" th:text="#{go.to.main.menu}">Go to main menu</a>
+            </td>
             <td><input type="submit" th:value="#{change.info}"/></td>
         </tr>
     </table>

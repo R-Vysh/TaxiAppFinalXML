@@ -11,6 +11,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "order.active", query = "from Order o where o.status = 'NOTTAKEN'"),
         @NamedQuery(name = "order.with.customer", query = "from Order o where o.customer = :customer"),
+        @NamedQuery(name = "count.orders.with.customer", query = "select count(*) from Order o where o.customer = :customer"),
         @NamedQuery(name = "order.with.taxist", query = "from Order o where o.taxist = :taxist"),
         @NamedQuery(name = "order.for.car", query = "from Order o where o.status = 'NOTTAKEN' " +
                 "and (:car in elements(o.appropriateCars) or o.appropriateCars is empty)"),

@@ -115,7 +115,9 @@ public class OrderServiceImpl implements OrderService {
             taxist.setFree(true);
             taxistService.updateTaxist(taxist);
         }
-        customer.setCurrentOrder(null);
+        if (customer.getCurrentOrder() != null && customer.getCurrentOrder().equals(order)) {
+            customer.setCurrentOrder(null);
+        }
         return updateOrder(order) && customerService.updateCustomer(customer);
     }
 
@@ -166,5 +168,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Double countOutcome(Customer customer) {
         return orderDAO.countOutcome(customer);
+    }
+
+    @Override
+    public List<Order> findByCustomer(Customer customer, Integer page) {
+        return orderDAO.findByCustomer(customer, page);
     }
 }

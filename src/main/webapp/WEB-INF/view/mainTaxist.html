@@ -19,33 +19,33 @@
     </tr>
     <tr>
         <td>From</td>
-        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.fromPlace}">
+        <td th:text="${currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.fromPlace}">
             N\A
         </td>
     </tr>
     <tr>
         <td>To</td>
-        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.toPlace}">
+        <td th:text="${currentOrder} ? ${#httpSession.getAttribute('taxist').currentOrder.toPlace}">
             N\A
         </td>
     </tr>
     <tr>
         <td>Status</td>
-        <td th:text="${#httpSession.getAttribute('taxist').currentOrder} ? #{${'order.status.' +  #httpSession.getAttribute('taxist').currentOrder.status}}">
+        <td th:text="${currentOrder} ? #{${'order.status.' +  #httpSession.getAttribute('taxist').currentOrder.status}}">
             N\A
         </td>
     </tr>
     <tr>
         <td>Customer phone</td>
-        <td th:text="${#httpSession.getAttribute('taxist').currentOrder}
-                                 ? (${#httpSession.getAttribute('taxist').currentOrder.customer}
-                                 ? ${#httpSession.getAttribute('taxist').currentOrder.customer.user.mobile})"></td>
+        <td th:text="${currentOrder}
+                                 ? (${currentOrder.customer}
+                                 ? ${currentOrder.customer.user.mobile})"></td>
     </tr>
     <tr>
-        <td><a href="/web/order/on-place"
+        <td><a th:if="${currentOrder != null}" href="/web/order/on-place"
                th:href="@{/web/order/on-place}" th:text="#{on.place}">On place</a>
         </td>
-        <td><a href="/web/order/finish"
+        <td><a th:if="${currentOrder != null}" href="/web/order/finish"
                th:href="@{/web/order/finish}" th:text="#{finished}">Finished</a>
         </td>
 

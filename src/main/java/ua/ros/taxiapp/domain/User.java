@@ -1,5 +1,7 @@
 package ua.ros.taxiapp.domain;
 
+import ua.ros.taxiapp.validators.CheckMobile;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,7 +27,7 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
     @NotNull
-    @Size(min=13, max=13)
+    @CheckMobile
     @Column(name = "mobile")
     private String mobile;
     @Column(name = "is_taxist")
@@ -121,8 +123,6 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (authorities != null ? !authorities.equals(user.authorities) : user.authorities != null) return false;
-        if (createdTime != null ? !createdTime.equals(user.createdTime) : user.createdTime != null) return false;
         if (!mobile.equals(user.mobile)) return false;
         if (!password.equals(user.password)) return false;
         if (taxist != null ? !taxist.equals(user.taxist) : user.taxist != null) return false;

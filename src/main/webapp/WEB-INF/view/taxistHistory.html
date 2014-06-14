@@ -35,7 +35,10 @@
     </tr>
     </tbody>
 </table>
-<p th:text = "#{total.income}"></p>
+<p th:if="${income != null}" th:text = "#{total.income}"></p>
 <p th:text = "${income}"></p>
+<a th:href="@{/web/main-taxist}"
+   href="//web/main-taxist" th:text="#{go.to.main.menu}">Go to main menu</a>
+
 </body>
 </html>
