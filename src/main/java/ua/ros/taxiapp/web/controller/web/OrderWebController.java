@@ -71,24 +71,55 @@ public class OrderWebController {
         return "redirect:/web/main-customer";
     }
 
+    @RequestMapping(value = "/history/nextpage", method = RequestMethod.GET)
+    public String showNextPage(Principal principal, Model model, HttpSession session) {
+        Integer currentPage = (Integer) session.getAttribute("currentPage");
+        currentPage++;
+        return "redirect:/web/order/history?page=" + currentPage;
+    }
+
+    @RequestMapping(value = "/history/prevpage", method = RequestMethod.GET)
+    public String showPrevPage(Principal principal, Model model, HttpSession session) {
+        Integer currentPage = (Integer) session.getAttribute("currentPage");
+        if(currentPage > 1)currentPage--;
+        return "redirect:/web/order/history?page=" + currentPage;
+    }
+
+    @RequestMapping(value = "/history-taxist/nextpage", method = RequestMethod.GET)
+    public String showNextPageTaxist(Principal principal, Model model, HttpSession session) {
+        Integer currentPage = (Integer) session.getAttribute("currentPage");
+        currentPage++;
+        return "redirect:/web/order/history-taxist?page=" + currentPage;
+    }
+
+    @RequestMapping(value = "/history-taxist/prevpage", method = RequestMethod.GET)
+    public String showPrevPageTaxist(Principal principal, Model model, HttpSession session) {
+        Integer currentPage = (Integer) session.getAttribute("currentPage");
+        if(currentPage > 1)currentPage--;
+        return "redirect:/web/order/history-taxist?page=" + currentPage;
+    }
+
     @RequestMapping(value = "/history", method = RequestMethod.GET)
     public String showHistory(@RequestParam(value = "page") Integer page,
                               Principal principal, Model model, HttpSession session) {
         sessionUserChecker.checkUser(principal, session);
         Customer customer = (Customer) session.getAttribute("customer");
-        List<Order> orders = orderService.findByCustomer(customer, page);
+        List<Order> orders = orderService.findByCustomer(customer,page);
         Double outcome = orderService.countOutcome(customer);
+        session.setAttribute("currentPage", page);
         model.addAttribute("outcome", outcome);
         model.addAttribute("orders", orders);
         return "customerHistory";
     }
 
     @RequestMapping(value = "/history-taxist", method = RequestMethod.GET)
-    public String showHistoryTaxist(Principal principal, Model model, HttpSession session) {
+    public String showHistoryTaxist(@RequestParam(value = "page") Integer page,
+                                    Principal principal, Model model, HttpSession session) {
         sessionUserChecker.checkUser(principal, session);
         Taxist taxist = (Taxist) session.getAttribute("taxist");
-        List<Order> orders = orderService.findByTaxist(taxist);
+        List<Order> orders = orderService.findByTaxist(taxist, page);
         Double income = orderService.countIncome(taxist);
+        session.setAttribute("currentPage", page);
         model.addAttribute("orders", orders);
         model.addAttribute("income", income);
         return "taxistHistory";

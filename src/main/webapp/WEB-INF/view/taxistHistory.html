@@ -33,6 +33,14 @@
             <td><input type="submit" th:value="#{blame.customer}"/></td>
         </form>
     </tr>
+    <td>
+        <a th:href="@{/web/order/history-taxist/prevpage}"
+           href="//web/order/history-taxist/prevpage" th:text="#{prev.page}">Prev page</a>
+    </td>
+    <td>
+        <a th:href="@{/web/order/history-taxist/nextpage}"
+           href="//web/order/history-taxist/nextpage" th:text="#{next.page}">Next page</a>
+    </td>
     </tbody>
 </table>
 <p th:if="${income != null}" th:text = "#{total.income}"></p>

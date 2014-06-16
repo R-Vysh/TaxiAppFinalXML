@@ -73,13 +73,31 @@ public class OrderHibernateDAO extends GenericDAOHibernate<Order, Integer> imple
         Query countQuery = this.getSessionFactory().getCurrentSession().getNamedQuery("count.orders.with.customer");
         countQuery.setParameter("customer", customer);
         Long countResults = (Long) countQuery.uniqueResult();
-        System.out.println(countResults);
         int lastPageNumber = (int) ((countResults / pageSize) + 1);
         if (page > lastPageNumber) {
             return null;
         }
         Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("order.with.customer");
         query.setParameter("customer", customer);
+        query.setFirstResult((page-1) * pageSize);
+        query.setMaxResults(pageSize);
+        List<Order> orders = query.list();
+        return orders;
+    }
+
+    @Override
+    @Transactional
+    public List<Order> findByTaxist(Taxist taxist, Integer page) {
+        int pageSize = 10;
+        Query countQuery = this.getSessionFactory().getCurrentSession().getNamedQuery("count.orders.with.taxist");
+        countQuery.setParameter("taxist", taxist);
+        Long countResults = (Long) countQuery.uniqueResult();
+        int lastPageNumber = (int) ((countResults / pageSize) + 1);
+        if (page > lastPageNumber) {
+            return null;
+        }
+        Query query = this.getSessionFactory().getCurrentSession().getNamedQuery("order.with.taxist");
+        query.setParameter("taxist", taxist);
         query.setFirstResult((page-1) * pageSize);
         query.setMaxResults(pageSize);
         List<Order> orders = query.list();

@@ -174,4 +174,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findByCustomer(Customer customer, Integer page) {
         return orderDAO.findByCustomer(customer, page);
     }
+
+    @Override
+    public List<Order> findByTaxist(Taxist taxist, Integer page) {
+        return orderDAO.findByTaxist(taxist, page);
+    }
 }

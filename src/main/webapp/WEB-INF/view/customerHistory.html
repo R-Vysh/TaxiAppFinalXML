@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8"/>
     <title>View history</title>
@@ -10,9 +12,10 @@
 <p th:text="#{order.history}">Order history</p>
 
 <table border="1" cellpadding="1" cellspacing="1" style="width: 100%; height: 100%;">
-    <tbody>
+    <caption th:text="#{order.history}">Order history</caption>
+    <thead>
     <tr>
-        <th th:text = "#{date.created}">Date</th>
+        <th th:value = "#{date.created}">Date</th>
         <th th:text = "#{from.place}">From</th>
         <th th:text = "#{to.place}">To</th>
         <th th:text = "#{total.price}">Price</th>
@@ -21,7 +24,8 @@
         <th th:text = "#{status}">Status</th>
         <th th:text = "#{cancel.order}">Cancel order</th>
     </tr>
-
+    </thead>
+    <tbody>
     <tr th:each="order : ${orders}">
         <td th:text="${order.dateCreated}">N/A</td>
         <td th:text="${order.fromPlace}">N/A</td>
@@ -35,11 +39,17 @@
     </tr>
     <tr>
         <td>
-            <a href = "//web/order/history" th:href = "@{${'/web/order/history?page=' + param.page + 1}}">Next page</a>
+            <a th:href="@{/web/order/history/prevpage}"
+               href="//web/order/history/prevpage" th:text="#{prev.page}">Prev page</a>
+        </td>
+        <td>
+            <a th:href="@{/web/order/history/nextpage}"
+               href="//web/order/history/nextpage" th:text="#{next.page}">Next page</a>
         </td>
     </tr>
     </tbody>
 </table>
+
 <p th:if="${outcome != null}" th:text = "#{total.outcome}"></p>
 <p th:text = "${outcome}"></p>
 <a th:href="@{/web/main-customer}"

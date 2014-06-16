@@ -49,18 +49,17 @@
     </bean>
 
     <!--  SPRING ANNOTATION PROCESSING                                    -->
-    <!--<mvc:annotation-driven conversion-service="conversionService" />-->
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
     <!--  CONVERSION SERVICE                                              -->
     <!--  Standard Spring formatting-enabled implementation               -->
-    <!--<bean id="conversionService"-->
-    <!--class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
-    <!--<property name="formatters">-->
-    <!--<set>-->
-    <!--<bean class="thymeleafexamples.stsm.web.conversion.VarietyFormatter" />-->
-    <!--<bean class="thymeleafexamples.stsm.web.conversion.DateFormatter" />-->
-    <!--</set>-->
-    <!--</property>-->
-    <!--</bean>-->
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="ua.ros.taxiapp.formatters.DateTimeFormatter"/>
+            </set>
+        </property>
+    </bean>
 
 </beans>
